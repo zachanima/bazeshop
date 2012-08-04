@@ -17,4 +17,16 @@ class ShopTest < ActiveSupport::TestCase
     shop.name = ''
     assert !shop.save
   end
+
+  test 'should not save shop without link' do
+    shop = FactoryGirl.build(:shop)
+    shop.link = nil
+    assert !shop.save
+  end
+
+  test 'should not save shop with empty link' do
+    shop = FactoryGirl.build(:shop)
+    shop.link = ''
+    assert !shop.save
+  end
 end
