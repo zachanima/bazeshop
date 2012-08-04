@@ -5,4 +5,16 @@ class ShopTest < ActiveSupport::TestCase
     shop = FactoryGirl.build(:shop)
     assert shop.save
   end
+
+  test 'should not save shop without name' do
+    shop = FactoryGirl.build(:shop)
+    shop.name = nil
+    assert !shop.save
+  end
+
+  test 'should not save shop with empty name' do
+    shop = FactoryGirl.build(:shop)
+    shop.name = ''
+    assert !shop.save
+  end
 end
