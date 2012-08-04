@@ -37,8 +37,7 @@ class ShopTest < ActiveSupport::TestCase
 
   test 'should not save with nonunique link' do
     @shop.save
-    shop = FactoryGirl.build(:shop)
-    shop.link = @shop.link
+    shop = FactoryGirl.build(:shop, link: @shop.link)
     assert !shop.save, 'Saved with nonunique link'
   end
 
@@ -48,13 +47,13 @@ class ShopTest < ActiveSupport::TestCase
     assert_equal 'fo-o-ba-r', @shop.link
   end
 
-  test 'should not save shop without locale' do
+  test 'should not save without locale' do
     @shop.locale = nil
-    assert !@shop.save, 'Saved shop without locale'
+    assert !@shop.save, 'Saved without locale'
   end
   
-  test 'should not save shop with invalid locale' do
+  test 'should not save with invalid locale' do
     @shop.locale = 'xx'
-    assert !@shop.save, 'Saved shop with invalid locale'
+    assert !@shop.save, 'Saved with invalid locale'
   end
 end
