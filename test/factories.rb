@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :shop do
     name 'foo'
-    link 'bar'
+    sequence(:link) { |n| "bar#{n}" }
   end
 end
