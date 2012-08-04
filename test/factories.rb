@@ -9,4 +9,9 @@ FactoryGirl.define do
     name 'foo'
     shop
   end
+
+  factory :product do
+    name 'foo'
+    category
+  end
 end
