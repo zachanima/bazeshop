@@ -3,4 +3,7 @@ class Shop < ActiveRecord::Base
 
   validates :name, presence: true
   validates :link, presence: true, uniqueness: true
+  validates :locale, presence: true, inclusion: %w[en]
+
+  before_save lambda { |shop| shop.link = shop.link.parameterize }
 end
