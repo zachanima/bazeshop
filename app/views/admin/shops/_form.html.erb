@@ -1,0 +1,17 @@
+<%= form_for ['admin', @shop] do |f| %>
+  <ol>
+    <li>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </li>
+    <li>
+      <%= f.label :link %>
+      <%= f.text_field :link %>
+    </li>
+    <li>
+      <%= f.label :locale %>
+      <%= f.select :locale, options_for_select(Shop::Locales.invert) %>
+    </li>
+  </ol>
+  <%= f.submit %>
+<% end %>

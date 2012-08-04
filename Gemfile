@@ -20,8 +20,12 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :test do
+group :test, :development do
   gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'capybara'
 end
 
 gem 'jquery-rails'

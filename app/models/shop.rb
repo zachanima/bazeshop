@@ -1,4 +1,5 @@
 class Shop < ActiveRecord::Base
+  Locales = { en: 'English' }
   has_many :categories
 
   attr_accessible :name, :link, :locale
