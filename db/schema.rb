@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120804150827) do
+ActiveRecord::Schema.define(:version => 20120804212931) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -35,10 +35,21 @@ ActiveRecord::Schema.define(:version => 20120804150827) do
 
   create_table "shops", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "link"
     t.string   "locale"
+    t.string   "login_text"
+    t.string   "password_text"
+    t.text     "text"
+    t.string   "currency"
+    t.string   "border_style"
+    t.string   "link_style"
+    t.string   "custom_style"
+    t.text     "receipt_text"
+    t.string   "correspondent"
+    t.float    "shipping_price"
+    t.float    "free_shipping_over"
   end
 
 end
