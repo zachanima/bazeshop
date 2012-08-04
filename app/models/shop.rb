@@ -1,7 +1,7 @@
 class Shop < ActiveRecord::Base
   has_many :categories
 
-  attr_accessible :name
+  attr_accessible :name, :link, :locale
 
   validates :name, presence: true
   validates :link, presence: true, uniqueness: true

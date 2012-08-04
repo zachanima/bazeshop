@@ -5,54 +5,41 @@ class ShopTest < ActiveSupport::TestCase
     @shop = FactoryGirl.build(:shop)
   end
 
-  test 'should save on valid input' do
+  test 'saving on valid input' do
     assert @shop.save, 'Did not save on valid input'
   end
 
-  test 'should save multiple on valid input' do
+  test 'saving multiple on valid input' do
     @shop.save
     shop = FactoryGirl.build(:shop)
     assert shop.save, 'Did not save multiple on valid input'
   end
 
-  test 'should not save without name' do
-    @shop.name = nil
-    assert !@shop.save, 'Saved without name'
+  test 'invalid without name' do
+    assert_presence_of @shop, :name
   end
 
-  test 'should not save with empty name' do
-    @shop.name = ''
-    assert !@shop.save, 'Saved with empty name'
+  test 'invalid without link' do
+    assert_presence_of @shop, :link
   end
 
-  test 'should not save without link' do
-    @shop.link = nil
-    assert !@shop.save, 'Saved without link'
-  end
-
-  test 'should not save with empty link' do
-    @shop.link = ''
-    assert !@shop.save, 'Saved with empty link'
-  end
-
-  test 'should not save with nonunique link' do
+  test 'invalid with nonunique link' do
     @shop.save
     shop = FactoryGirl.build(:shop, link: @shop.link)
     assert !shop.save, 'Saved with nonunique link'
   end
 
-  test 'should parameterize link' do
+  test 'parameterize link' do
     @shop.link = 'Fo/o-ba#r'
     @shop.save
     assert_equal 'fo-o-ba-r', @shop.link
   end
 
-  test 'should not save without locale' do
-    @shop.locale = nil
-    assert !@shop.save, 'Saved without locale'
+  test 'invalid without locale' do
+    assert_presence_of @shop, :locale
   end
-  
-  test 'should not save with invalid locale' do
+
+  test 'invalid with wrong locale' do
     @shop.locale = 'xx'
     assert !@shop.save, 'Saved with invalid locale'
   end

@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
   has_many :categories, foreign_key: :parent_id, class_name: 'Category'
   has_many :products
 
-  attr_accessible :name
+  attr_accessible :name, :shop_id
 
   validates :name, presence: true
   validates :shop, presence: true
