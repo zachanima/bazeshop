@@ -31,7 +31,29 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test 'should not save with nonexistent shop' do
-    @category.shop_id = 256
-    assert !@category.save, 'Saved without shop'
+    @category.shop_id = 0
+    assert !@category.save, 'Saved with nonexistent shop'
+  end
+
+  test 'should save without parent' do
+    @category.parent = nil
+    assert @category.save, 'Did not save without parent'
+  end
+
+  test 'should not save with nonexistent parent' do
+    @category.parent_id = 0
+    assert !@category.save, 'Saved with nonexistent parent'
+  end
+
+  test 'should save with parent' do
+    @category.save
+    category = FactoryGirl.build(:category, parent: @category)
+    assert category.save, 'Did not save with parent'
+  end
+
+  test 'should not save with self as parent' do
+    @category.save
+    @category.parent_id = @category.id
+    assert !@category.save, 'Saved with self as parent'
   end
 end
