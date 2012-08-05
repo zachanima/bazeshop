@@ -8,6 +8,14 @@
 </head>
 <body>
 
+<%= content_tag :div, id: 'notice' do %>
+  <%= flash[:notice] %>
+<% end if flash[:notice] %>
+
+<%= content_tag :div, id: 'error' do %>
+  <%= flash[:error] %>
+<% end if flash[:error] %>
+
 <%= yield %>
 
 </body>
