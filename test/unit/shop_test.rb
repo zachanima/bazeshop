@@ -15,6 +15,12 @@ class ShopTest < ActiveSupport::TestCase
     assert shop.save, 'Did not save multiple on valid input'
   end
 
+  test 'saving on full valid input' do
+    @shop.save
+    shop = FactoryGirl.build(:shop_full)
+    assert shop.save, 'Did not save on full valid input'
+  end
+
   test 'invalid without name' do
     assert_presence_of @shop, :name
   end
@@ -42,5 +48,13 @@ class ShopTest < ActiveSupport::TestCase
   test 'invalid with wrong locale' do
     @shop.locale = 'xx'
     assert !@shop.save, 'Saved with invalid locale'
+  end
+
+  test 'invalid with nonnumerical shipping price' do
+    assert_numericality_of @shop, :shipping_price
+  end
+
+  test 'invalid with nonnumerical free shipping over' do
+    assert_numericality_of @shop, :free_shipping_over
   end
 end

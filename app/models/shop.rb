@@ -7,6 +7,8 @@ class Shop < ActiveRecord::Base
   validates :name, presence: true
   validates :link, presence: true, uniqueness: true
   validates :locale, presence: true, inclusion: %w[en]
+  validates :shipping_price, numericality: true, allow_nil: true
+  validates :free_shipping_over, numericality: true, allow_nil: true
 
   before_save lambda { |shop| shop.link = shop.link.parameterize }
 end
