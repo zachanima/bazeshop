@@ -72,4 +72,13 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     click_button 'Create Category'
     assert has_selector? 'div#error'
   end
+
+  test 'cancelling redirects to referer' do
+    create_with_valid_input
+    visit admin_root_path
+    click_link 'Categories'
+    click_link 'New category'
+    click_link 'Cancel'
+    assert_equal admin_shop_categories_path(@shop), current_path
+  end
 end

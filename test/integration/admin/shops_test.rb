@@ -169,4 +169,12 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     click_button 'Create Shop'
     assert has_no_selector?('fieldset.advanced')
   end
+
+  test 'cancelling redirects to referer' do
+    create_with_valid_input
+    visit admin_root_path
+    click_link 'Edit shop'
+    click_link 'Cancel'
+    assert_equal admin_root_path, current_path
+  end
 end
