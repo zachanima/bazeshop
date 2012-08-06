@@ -12,6 +12,8 @@ class Shop < ActiveRecord::Base
 
   before_save lambda { |shop| shop.link = shop.link.parameterize }
 
+  default_scope order(:name)
+
   def closed?
     self.is_closed
   end

@@ -77,3 +77,38 @@ nav
 div#content
   margin-left: 192px
   padding: 16px
+
+  form
+    ol
+      list-style: none
+      padding-left: 0
+      margin-top: 0
+
+      li
+        label:first-child
+          text-align: right
+
+          display: inline-block
+          padding-right: 8px
+          width: 192px
+        
+
+        input[type=text], textarea
+          width: 384px
+
+        textarea
+          vertical-align: text-top
+
+          height: 2.75em
+
+          &:focus
+            height: 12em
+
+        input[type=checkbox]
+          margin-left: 204px
+
+        input[type=number]
+          width: 96px
+
+    input[type=submit]
+      margin-left: 204px
