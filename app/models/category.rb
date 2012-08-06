@@ -11,6 +11,12 @@ class Category < ActiveRecord::Base
   validate :existence_of_parent
   validate :absence_of_self_referential_parent
 
+  def path
+    path = [self.name]
+    path << self.parent.path if self.parent
+    path.reverse.flatten * ' > '
+  end
+
 private
   def existence_of_parent
     errors.add('parent') unless self.parent_id.blank? or Category.exists?(self.parent_id)

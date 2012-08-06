@@ -39,10 +39,15 @@ class CategoryTest < ActiveSupport::TestCase
     assert !@category.save, 'Saved with nonexistent parent'
   end
 
-
   test 'invalid with self as parent' do
     @category.save
     @category.parent_id = @category.id
     assert !@category.save, 'Saved with self as parent'
+  end
+
+  test 'correctness of path' do
+    @category.save
+    category = FactoryGirl.build(:category, parent: @category)
+    assert_equal "#{@category.name} > #{category.name}", category.path
   end
 end
