@@ -1,5 +1,5 @@
 jQuery ->
   $('nav li:not(.active) ul').hide()
-  $('nav > ul > li').click ->
+  $('nav > ul > li > a').click ->
     $('nav li ul').slideUp()
-    $(@).children('ul').slideDown()
+    $(@).parents('li').children('ul').slideDown()

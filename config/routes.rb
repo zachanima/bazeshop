@@ -1,7 +1,9 @@
 Bazeshop::Application.routes.draw do
   namespace :admin do
     root to: 'shops#new'
-    resources :shops
+    resources :shops do
+      resources :categories
+    end
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

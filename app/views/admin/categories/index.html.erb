@@ -1,0 +1,18 @@
+<%= link_to 'New category', new_admin_shop_category_path(@shop) %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Parent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= category.parent.name if category.parent %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
