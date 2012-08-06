@@ -153,4 +153,20 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
       page.driver.delete admin_shop_path(shop)
     end
   end
+
+  test 'adding advanced to fieldset' do
+    create_with_valid_input
+    assert has_selector?('fieldset.advanced')
+  end
+
+  test 'not adding advanced to fieldset' do
+    visit admin_root_path
+    click_link 'New shop'
+    fill_in 'Name', with: 'foo'
+    fill_in 'Link', with: 'bar'
+    select 'English', from: 'Locale'
+    fill_in 'Correspondent', with: 'foo@example.com'
+    click_button 'Create Shop'
+    assert has_no_selector?('fieldset.advanced')
+  end
 end

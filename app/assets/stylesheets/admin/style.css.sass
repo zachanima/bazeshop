@@ -78,17 +78,29 @@ div#content
   margin-left: 192px
   padding: 16px
 
+  a
+    color: #f80
+    font-weight: bold
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline
+
   form
     fieldset
       border:
         color: #808080
         width: 0 0 1px 0
       
-      margin-bottom: 16px
+      margin-bottom: 8px
       padding-bottom: 16px
 
       &:last-child
         border-width: 0
+
+      &.advanced
+        ol
+          margin-top: 16px
 
       ol
         list-style: none
@@ -98,6 +110,7 @@ div#content
         li
           label:first-child
             text-align: right
+            vertical-align: middle
 
             display: inline-block
             padding-right: 8px
@@ -111,12 +124,13 @@ div#content
             width: 384px
 
           textarea
-            vertical-align: text-top
+            font-size: 11pt
+            vertical-align: middle
 
-            height: 2.75em
+            height: 2.5em
 
             &:focus
-              height: 12em
+              height: 10em
 
           input[type=checkbox]
             margin-left: 204px
@@ -135,6 +149,9 @@ div#content
 
           input#shop_name
             font-weight: bold
+
+      a[href='#advanced']
+        display: block
 
       input[type=submit]
         margin-left: 204px

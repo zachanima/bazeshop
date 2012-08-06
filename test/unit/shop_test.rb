@@ -62,4 +62,38 @@ class ShopTest < ActiveSupport::TestCase
     @shop.is_closed = true
     assert_equal true, @shop.closed?
   end
+
+  test 'advanced with custom style' do
+    @shop.custom_style = 'body { background-color: red }'
+    assert_equal true, @shop.advanced?
+  end
+
+  test 'advanced with receipt text' do
+    @shop.receipt_text = 'lorem ipsum dolor sit amet'
+    assert_equal true, @shop.advanced?
+  end
+
+  test 'advanced with correspondent' do
+    @shop.correspondent = 'foo@example.com'
+    assert_equal true, @shop.advanced?
+  end
+
+  test 'advanced with shipping price' do
+    @shop.shipping_price = 123.45
+    assert_equal true, @shop.advanced?
+  end
+
+  test 'advanced with free shipping over' do
+    @shop.free_shipping_over = 543.21
+    assert_equal true, @shop.advanced?
+  end
+
+  test 'advanced when closed' do
+    @shop.is_closed = true
+    assert_equal true, @shop.advanced?
+  end
+
+  test 'not advanced without advanced field' do
+    assert_equal false, @shop.advanced?
+  end
 end
