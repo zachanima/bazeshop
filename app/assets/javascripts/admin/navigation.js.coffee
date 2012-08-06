@@ -10,3 +10,9 @@ jQuery ->
   $('form fieldset.advanced a[href=#advanced]').siblings('ol').hide()
   $('form fieldset.advanced a[href=#advanced]').click ->
     $(@).siblings('ol').slideToggle()
+
+  # Hide notice after 10 seconds
+  $('div#notice').hide()
+  $('div#notice').slideDown()
+  $('div#notice').delay(5000)
+  $('div#notice').slideUp()
