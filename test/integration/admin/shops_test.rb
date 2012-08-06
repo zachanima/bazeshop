@@ -34,10 +34,22 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
 
   test 'creating with valid input' do
     create_with_valid_input
+    assert has_no_selector?('div.field_with_errors')
+  end
+
+  test 'redirect after creating with valid input' do
+    create_with_valid_input
     assert_equal edit_admin_shop_path(Shop.last), current_path
   end
 
   test 'creating with invalid input' do
+    visit admin_root_path
+    click_link 'New shop'
+    click_button 'Create Shop'
+    assert has_selector?('div.field_with_errors')
+  end
+
+  test 'redirect after creating with invalid input' do
     visit admin_root_path
     click_link 'New shop'
     click_button 'Create Shop'
