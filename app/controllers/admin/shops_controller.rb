@@ -1,4 +1,4 @@
-class Admin::ShopsController < AdminController
+class Admin::ShopsController < Admin::ApplicationController
   def new
     @shop = Shop.new
   end

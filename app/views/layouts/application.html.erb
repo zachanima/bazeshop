@@ -8,6 +8,20 @@
 </head>
 <body>
 
+<nav>
+  <ul>
+    <li><%= link_to 'New shop', new_admin_shop_path %></li>
+    <% Shop.all.each do |shop| %>
+      <li>
+        <%= shop.name %>
+        <ul>
+          <li><%= link_to 'Edit shop', edit_admin_shop_path(shop) %></li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</nav>
+
 <%= content_tag :div, id: 'notice' do %>
   <%= flash[:notice] %>
 <% end if flash[:notice] %>

@@ -1,25 +1,52 @@
 require 'test_helper'
 
 class Admin::ShopsTest < ActionDispatch::IntegrationTest
-  test 'creating with valid input' do
-    visit new_admin_shop_path
+  def create_with_valid_input
+    visit admin_root_path
+    click_link 'New shop'
     fill_in 'Name', with: 'foo'
     fill_in 'Link', with: 'bar'
     select 'English', from: 'Locale'
     click_button 'Create Shop'
+  end
+
+  def update_with_valid_input
+    @shop = FactoryGirl.create(:shop)
+    visit admin_root_path
+    click_link 'Edit shop'
+    fill_in 'Name', with: 'foobar'
+    click_button 'Update Shop'
+  end
+
+  test 'creates in navigation menu' do
+    create_with_valid_input
+    within 'nav' do
+      assert has_content? 'foo'
+    end
+  end
+
+  test 'has edit link in navigation menu' do
+    create_with_valid_input
+    within 'nav' do
+      assert has_content? 'Edit shop'
+    end
+  end
+
+  test 'creating with valid input' do
+    create_with_valid_input
     assert_equal edit_admin_shop_path(Shop.last), current_path
   end
 
   test 'creating with invalid input' do
-    visit new_admin_shop_path
-    fill_in 'Link', with: 'bar'
-    select 'English', from: 'Locale'
+    visit admin_root_path
+    click_link 'New shop'
     click_button 'Create Shop'
     assert_equal admin_shops_path, current_path
   end
 
   test 'creating with all fields' do
-    visit new_admin_shop_path
+    visit admin_root_path
+    click_link 'New shop'
     fill_in 'Name', with: 'foo'
     fill_in 'Link', with: 'bar'
     select 'English', from: 'Locale'
@@ -39,55 +66,41 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
   end
 
   test 'flash notice when creating with valid input' do
-    visit new_admin_shop_path
-    fill_in 'Name', with: 'foo'
-    fill_in 'Link', with: 'bar'
-    select 'English', from: 'Locale'
-    click_button 'Create Shop'
+    create_with_valid_input
     assert has_selector? 'div#notice'
   end
 
   test 'flash error when creating with invalid input' do
-    visit new_admin_shop_path
-    fill_in 'Link', with: 'bar'
-    select 'English', from: 'Locale'
+    visit admin_root_path
+    click_link 'New shop'
     click_button 'Create Shop'
     assert has_selector? 'div#error'
   end
 
   test 'updating with valid input' do
-    shop = FactoryGirl.create(:shop)
-    visit edit_admin_shop_path(shop)
-    fill_in 'Name', with: 'foo'
-    fill_in 'Link', with: 'bar'
-    click_button 'Update Shop'
-    assert_equal edit_admin_shop_path(shop), current_path
+    update_with_valid_input
+    assert_equal edit_admin_shop_path(@shop), current_path
   end
 
   test 'updating with invalid input' do
     shop = FactoryGirl.create(:shop)
-    visit edit_admin_shop_path(shop)
-    fill_in 'Name', with: 'foo'
-    fill_in 'Link', with: ''
+    visit admin_root_path
+    click_link 'Edit shop'
+    fill_in 'Name', with: ''
     click_button 'Update Shop'
     assert_equal admin_shop_path(shop), current_path
   end
 
   test 'flash notice when updating with valid input' do
-    shop = FactoryGirl.create(:shop)
-    visit edit_admin_shop_path(shop)
-    fill_in 'Name', with: 'foo'
-    fill_in 'Link', with: 'bar'
-    click_button 'Update Shop'
+    update_with_valid_input
     assert has_selector? 'div#notice'
   end
 
   test 'flash error when updating with invalid input' do
     shop = FactoryGirl.create(:shop)
-    visit edit_admin_shop_path(shop)
-    fill_in 'Name', with: 'foo'
-    fill_in 'Link', with: ''
-    select 'English', from: 'Locale'
+    visit admin_root_path
+    click_link 'Edit shop'
+    fill_in 'Name', with: ''
     click_button 'Update Shop'
     assert has_selector? 'div#error'
   end
