@@ -79,51 +79,62 @@ div#content
   padding: 16px
 
   form
-    ol
-      list-style: none
-      padding-left: 0
-      margin-top: 0
+    fieldset
+      border:
+        color: #808080
+        width: 0 0 1px 0
+      
+      margin-bottom: 16px
+      padding-bottom: 16px
 
-      li
-        label:first-child
-          text-align: right
+      &:last-child
+        border-width: 0
 
-          display: inline-block
-          padding-right: 8px
-          width: 192px
+      ol
+        list-style: none
+        padding-left: 0
+        margin: 0
 
-          &.required:after
-            color: #f00
-            content: ' *'
+        li
+          label:first-child
+            text-align: right
 
-        input[type=text], textarea
-          width: 384px
+            display: inline-block
+            padding-right: 8px
+            width: 192px
 
-        textarea
-          vertical-align: text-top
+            &.required:after
+              color: #f00
+              content: ' *'
 
-          height: 2.75em
+          input[type=text], textarea
+            width: 384px
 
-          &:focus
-            height: 12em
+          textarea
+            vertical-align: text-top
 
-        input[type=checkbox]
-          margin-left: 204px
+            height: 2.75em
 
-        input[type=number]
-          width: 96px
+            &:focus
+              height: 12em
 
-        div.field_with_errors
-          display: inline
+          input[type=checkbox]
+            margin-left: 204px
 
-          label
-            color: #f00
+          input[type=number]
+            width: 96px
 
-          input
-            box-shadow: 0 0 2px #f00
+          div.field_with_errors
+            display: inline
 
-        input#shop_name
-          font-weight: bold
+            label
+              color: #f00
 
-    input[type=submit]
-      margin-left: 204px
+            input
+              box-shadow: 0 0 2px #f00
+
+          input#shop_name
+            font-weight: bold
+
+      input[type=submit]
+        margin-left: 204px

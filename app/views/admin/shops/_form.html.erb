@@ -1,65 +1,74 @@
 <%= form_for ['admin', @shop] do |f| %>
-  <ol>
-    <li>
-      <%= f.label :name, class: 'required' %>
-      <%= f.text_field :name %>
-    </li>
-    <li>
-      <%= f.label :link, class: 'required' %>
-      <%= f.text_field :link %>
-    </li>
-    <li>
-      <%= f.label :locale %>
-      <%= f.select :locale, options_for_select(Shop::Locales.invert) %>
-    </li>
-    <li>
-      <%= f.label :login_text %>
-      <%= f.text_field :login_text %>
-    </li>
-    <li>
-      <%= f.label :password_text %>
-      <%= f.text_field :password_text %>
-    </li>
-    <li>
-      <%= f.label :text %>
-      <%= f.text_area :text %>
-    </li>
-    <li>
-      <%= f.label :currency %>
-      <%= f.text_field :currency %>
-    </li>
-    <li>
-      <%= f.label :border_style %>
-      <%= f.text_field :border_style %>
-    </li>
-    <li>
-      <%= f.label :link_style %>
-      <%= f.text_field :link_style %>
-    </li>
-    <li>
-      <%= f.label :custom_style %>
-      <%= f.text_area :custom_style %>
-    </li>
-    <li>
-      <%= f.label :receipt_text %>
-      <%= f.text_area :receipt_text %>
-    </li>
-    <li>
-      <%= f.label :correspondent %>
-      <%= f.text_field :correspondent %>
-    </li>
-    <li>
-      <%= f.label :shipping_price %>
-      <%= f.number_field :shipping_price %>
-    </li>
-    <li>
-      <%= f.label :free_shipping_over %>
-      <%= f.number_field :free_shipping_over %>
-    </li>
-    <li>
-      <%= f.check_box :is_closed %>
-      <%= f.label :is_closed, 'Closed' %>
-    </li>
-  </ol>
-  <%= f.submit %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label :name, class: 'required' %>
+        <%= f.text_field :name %>
+      </li>
+      <li>
+        <%= f.label :link, class: 'required' %>
+        <%= f.text_field :link %>
+      </li>
+      <li>
+        <%= f.label :locale %>
+        <%= f.select :locale, options_for_select(Shop::Locales.invert) %>
+      </li>
+      <li>
+        <%= f.label :login_text %>
+        <%= f.text_field :login_text %>
+      </li>
+      <li>
+        <%= f.label :password_text %>
+        <%= f.text_field :password_text %>
+      </li>
+      <li>
+        <%= f.label :text %>
+        <%= f.text_area :text %>
+      </li>
+      <li>
+        <%= f.label :currency %>
+        <%= f.text_field :currency %>
+      </li>
+      <li>
+        <%= f.label :border_style %>
+        <%= f.text_field :border_style %>
+      </li>
+      <li>
+        <%= f.label :link_style %>
+        <%= f.text_field :link_style %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="advanced">
+    <ol>
+      <li>
+        <%= f.label :custom_style %>
+        <%= f.text_area :custom_style %>
+      </li>
+      <li>
+        <%= f.label :receipt_text %>
+        <%= f.text_area :receipt_text %>
+      </li>
+      <li>
+        <%= f.label :correspondent %>
+        <%= f.text_field :correspondent %>
+      </li>
+      <li>
+        <%= f.label :shipping_price %>
+        <%= f.number_field :shipping_price %>
+      </li>
+      <li>
+        <%= f.label :free_shipping_over %>
+        <%= f.number_field :free_shipping_over %>
+      </li>
+      <li>
+        <%= f.check_box :is_closed %>
+        <%= f.label :is_closed, 'Closed' %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset>
+    <%= f.submit %>
+    <%= link_to 'Cancel', request.referer %>
+  </fieldset>
 <% end %>

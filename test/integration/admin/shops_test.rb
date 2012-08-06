@@ -90,6 +90,13 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     assert has_selector? 'div#error'
   end
 
+  test 'cancelling creating' do
+    visit admin_root_path
+    click_link 'New shop'
+    click_link 'Cancel'
+    assert_equal admin_root_path, current_path
+  end
+
   test 'updating with valid input' do
     update_with_valid_input
     assert_equal edit_admin_shop_path(@shop), current_path
@@ -116,6 +123,14 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     fill_in 'Name', with: ''
     click_button 'Update Shop'
     assert has_selector? 'div#error'
+  end
+
+  test 'cancelling updating' do
+    shop = FactoryGirl.create(:shop)
+    visit admin_root_path
+    click_link 'Edit shop'
+    click_link 'Cancel'
+    assert_equal admin_root_path, current_path
   end
 
   test 'destroying with no associations' do
