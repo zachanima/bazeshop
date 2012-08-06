@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120805143813) do
+ActiveRecord::Schema.define(:version => 20120806012107) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20120805143813) do
     t.string   "correspondent"
     t.decimal  "shipping_price",     :precision => 8, :scale => 2
     t.decimal  "free_shipping_over", :precision => 8, :scale => 2
+    t.boolean  "is_closed"
   end
 
 end

@@ -56,6 +56,10 @@
       <%= f.label :free_shipping_over %>
       <%= f.number_field :free_shipping_over %>
     </li>
+    <li>
+      <%= f.check_box :is_closed %>
+      <%= f.label :is_closed, 'Closed' %>
+    </li>
   </ol>
   <%= f.submit %>
 <% end %>

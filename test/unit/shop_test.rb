@@ -57,4 +57,9 @@ class ShopTest < ActiveSupport::TestCase
   test 'invalid with nonnumerical free shipping over' do
     assert_numericality_of @shop, :free_shipping_over
   end
+
+  test 'closing shop' do
+    @shop.is_closed = true
+    assert_equal true, @shop.closed?
+  end
 end

@@ -30,7 +30,9 @@
   <%= flash[:error] %>
 <% end if flash[:error] %>
 
-<%= yield %>
+<div id="content">
+  <%= yield %>
+</div>
 
 </body>
 </html>

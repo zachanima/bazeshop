@@ -16,6 +16,7 @@ FactoryGirl.define do
       correspondent 'foo@example.com'
       shipping_price 123.45
       free_shipping_over 543.21
+      is_closed true
     end
   end
 end
