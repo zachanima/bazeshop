@@ -10,14 +10,18 @@
 
 <nav>
   <ul>
-    <li><%= link_to 'New shop', new_admin_shop_path %></li>
+    <%= content_tag :li, class: current_page?(new_admin_shop_path) ? 'active' : nil do %>
+      <%= link_to 'New shop', new_admin_shop_path %>
+    <% end %>
     <% Shop.all.each do |shop| %>
-      <li>
-        <%= shop.name %>
+      <%= content_tag :li, class: current_shop?(shop) ? 'active' : nil do %>
+        <%= link_to shop.name, "##{shop.link}" %>
         <ul>
-          <li><%= link_to 'Edit shop', edit_admin_shop_path(shop) %></li>
+          <%= content_tag :li, class: current_page?(edit_admin_shop_path(shop)) ? 'active' : nil do %>
+            <%= link_to 'Edit shop', edit_admin_shop_path(shop) %>
+          <% end %>
         </ul>
-      </li>
+      <% end %>
     <% end %>
   </ul>
 </nav>

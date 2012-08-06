@@ -1,7 +1,79 @@
-nav
-  float: left
+*
+  outline: none
 
+
+
+body
+  font: 12pt tahoma, verdana, sans-serif
+
+  margin: 0
+
+
+
+nav
+  background-color: #eee
+
+  float: left
+  margin-top: 0
+
+  width: 192px
+
+  > ul
+    list-style: none
+
+    margin-top: 0
+    padding-left: 0
+    width: 100%
+
+    > li
+      border-bottom: 1px solid #e4e4e4
+      border-top: 1px solid #fff
+
+      &.active
+        > a
+          background-color: #808080
+          color: #fff
+
+          &:hover
+            background-color: #808080
+
+      > a
+        color: #f80
+
+        display: block
+        padding: 8px 16px 8px 32px
+
+        &:hover
+          background-color: #e4e4e4
+
+      ul
+        background-color: #fff
+
+        list-style: none
+        padding: 4px 0 4px 0
+
+        li
+          &.active
+            a
+              color: #333
+              font-weight: bold
+          a
+            color: #f80
+            font-size: 10pt
+
+            display: block
+            padding: 4px 16px
+
+            &:hover
+              background-color: #fff0e0
+              color: #333
+
+  a
+    text-decoration: none
+          
+        
 
 
 div#content
-  margin-left: 256px
+  margin-left: 192px
+  padding: 16px
