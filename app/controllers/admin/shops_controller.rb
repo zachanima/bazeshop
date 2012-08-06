@@ -26,4 +26,16 @@ class Admin::ShopsController < Admin::ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    shop = Shop.find(params[:id])
+
+    if shop.can_destroy?
+      shop.destroy
+      redirect_to admin_root_path, notice: 'Deleted shop.'
+    else
+      flash[:error] = 'Error while deleting shop.'
+      redirect_to request.referer || admin_root_path
+    end
+  end
 end

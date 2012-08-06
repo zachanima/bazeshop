@@ -18,6 +18,7 @@ class Admin::CategoriesController < Admin::ApplicationController
       render :new
     end
   end
+
 private
   def find_shop
     @shop = Shop.find params[:shop_id]

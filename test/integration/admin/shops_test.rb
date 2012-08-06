@@ -117,4 +117,25 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     click_button 'Update Shop'
     assert has_selector? 'div#error'
   end
+
+  test 'destroying with no associations' do
+    create_with_valid_input
+    shop = Shop.last
+    assert_difference 'Shop.count', -1 do
+      page.driver.delete admin_shop_path(shop)
+    end
+  end
+
+  test 'destroying with category association' do
+    create_with_valid_input
+    shop = Shop.last
+    click_link 'Categories'
+    click_link 'New category'
+    fill_in 'Name', with: 'foo'
+    select '', from: 'Parent'
+    click_button 'Create Category'
+    assert_no_difference 'Shop.count' do
+      page.driver.delete admin_shop_path(shop)
+    end
+  end
 end

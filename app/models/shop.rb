@@ -1,6 +1,6 @@
 class Shop < ActiveRecord::Base
   Locales = { en: 'English' }
-  has_many :categories
+  has_many :categories, dependent: :restrict
 
   attr_accessible :name, :link, :locale, :login_text, :password_text, :text, :currency, :border_style, :link_style, :receipt_text, :correspondent, :shipping_price, :free_shipping_over, :custom_style, :is_closed
 
