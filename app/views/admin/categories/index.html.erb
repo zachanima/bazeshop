@@ -9,10 +9,7 @@
   </thead>
   <tbody>
     <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= category.parent.name if category.parent %></td>
-      </tr>
+      <%= render category %>
     <% end %>
   </tbody>
 </table>

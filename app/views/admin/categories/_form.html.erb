@@ -1,7 +1,7 @@
 <%= form_for ['admin', @shop, @category] do |f| %>
   <ol>
     <li>
-      <%= f.label :name %>
+      <%= f.label :name, class: 'required' %>
       <%= f.text_field :name %>
     </li>
     <li>
