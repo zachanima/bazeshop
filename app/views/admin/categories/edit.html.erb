@@ -1,1 +1,7 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li><%= link_to 'Categories', admin_shop_categories_path(@shop) %></li>
+  <li>Edit category</li>
+</ul>
+
 <%= render 'form' %>

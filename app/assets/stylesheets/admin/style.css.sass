@@ -109,6 +109,19 @@ div#content
   margin-left: 192px
   padding: 16px
 
+  ul#breadcrumbs
+    margin: 0 0 16px 0
+    padding-left: 0
+
+    li
+      display: inline
+
+      &:not(:last-child):after
+        content: ' > '
+
+      &:last-child
+        font-weight: bold
+
   a
     color: #f80
     text-decoration: none
@@ -197,7 +210,7 @@ div#content
             input
               box-shadow: 0 0 2px #f00
 
-          input#shop_name
+          input#shop_name, input#category_name
             font-weight: bold
 
       a[href='#advanced']
