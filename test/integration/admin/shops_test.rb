@@ -73,7 +73,7 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     fill_in 'Correspondent', with: 'foo@example.com'
     fill_in 'Shipping price', with: 123.45
     fill_in 'Free shipping over', with: 543.21
-    find(:css, "#shop_is_closed[value='1']").set true
+    check 'Closed' 
     click_button 'Create Shop'
     assert_equal edit_admin_shop_path(Shop.last), current_path
   end

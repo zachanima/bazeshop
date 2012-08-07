@@ -16,6 +16,7 @@ class Admin::CategoriesController < Admin::ApplicationController
     if @category.save
       redirect_to admin_shop_categories_path(@shop), notice: 'Created category.'
     else
+      @categories = @shop.categories.top
       flash[:error] = 'Error while creating category.'
       render :new
     end
