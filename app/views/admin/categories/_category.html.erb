@@ -4,5 +4,5 @@
     <% category.categories.each do |subcategory| %>
       <%= render subcategory %>
     <% end %>
-  <% end if category.categories %>
+  <% end unless category.categories.empty? %>
 <% end %>
