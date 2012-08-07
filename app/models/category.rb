@@ -21,6 +21,12 @@ class Category < ActiveRecord::Base
     path.reverse.flatten * ' > '
   end
 
+  def self.nested exclude = nil
+    all.collect do |category|
+      [category, category.categories.nested(exclude)] unless category == exclude
+    end.flatten.compact
+  end
+
 private
   def existence_of_parent
     errors.add('parent') unless self.parent_id.blank? or Category.exists?(self.parent_id)

@@ -7,7 +7,7 @@
       </li>
       <li>
         <%= f.label :parent_id, 'Parent' %>
-        <%= f.collection_select :parent_id, nested(@categories), :id, :path, include_blank: true %>
+        <%= f.collection_select :parent_id, @categories.nested(@category), :id, :path, include_blank: true %>
       </li>
     </ol>
   </fieldset>

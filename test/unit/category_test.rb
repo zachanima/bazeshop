@@ -50,4 +50,16 @@ class CategoryTest < ActiveSupport::TestCase
     category = FactoryGirl.build(:category, parent: @category)
     assert_equal "#{@category.name} > #{category.name}", category.path
   end
+
+  test 'correctness of nested scope' do
+    @category.save
+    category = FactoryGirl.create(:category, parent: @category)
+    assert @category.categories.nested.include?(category)
+  end
+
+  test 'correctness of nested scope with exclusion category' do
+    @category.save
+    category = FactoryGirl.create(:category, parent: @category)
+    assert !@category.categories.nested(category).include?(category)
+  end
 end
