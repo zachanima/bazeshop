@@ -3,16 +3,12 @@
   <li>Categories</li>
 </ul>
 
-<%= link_to 'New category', new_admin_shop_category_path(@shop) %>
+<div>
+  <%= link_to 'New category', new_admin_shop_category_path(@shop) %>
+</div>
 
-<table>
-  <tbody>
-    <% @categories.nested.each do |category| %>
-      <tr>
-        <td>
-          <%= link_to category.path, edit_admin_shop_category_path(@shop, category) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ol class="categories" data-update-url="<%= sort_admin_shop_categories_path(@shop) %>">
+  <% @categories.each do |category| %>
+    <%= render category %>
+  <% end %>
+</ol>

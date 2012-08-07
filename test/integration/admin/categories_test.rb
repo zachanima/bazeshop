@@ -15,7 +15,7 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     @category = FactoryGirl.create(:category, shop: @shop)
     visit admin_root_path
     click_link 'Categories'
-    within 'div#content table' do
+    within 'div#content ol.categories' do
       click_link 'foo'
     end
     fill_in 'Name', with: 'foobar'
@@ -26,7 +26,7 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     FactoryGirl.create(:category)
     visit admin_root_path
     click_link 'Categories'
-    within 'div#content table' do
+    within 'div#content ol.categories' do
       assert has_content? 'foo'
     end
   end
@@ -102,7 +102,7 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     category = FactoryGirl.create :category
     visit admin_root_path
     click_link 'Categories'
-    within 'div#content table' do
+    within 'div#content ol.categories' do
       click_link 'foo'
     end
     fill_in 'Name', with: ''
@@ -119,7 +119,7 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     category = FactoryGirl.create :category
     visit admin_root_path
     click_link 'Categories'
-    within 'div#content table' do
+    within 'div#content ol.categories' do
       click_link 'foo'
     end
     fill_in 'Name', with: ''
@@ -131,7 +131,7 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     shop = FactoryGirl.create(:category).shop
     visit admin_root_path
     click_link 'Categories'
-    within 'div#content table' do
+    within 'div#content ol.categories' do
       click_link 'foo'
     end
     click_link 'Cancel'

@@ -1,0 +1,8 @@
+<%= content_tag_for :li, category do %>
+  <%= link_to category.name, edit_admin_shop_category_path(@shop, category) %>
+  <%= content_tag :ol, class: 'categories', data: { 'update-url' => sort_admin_shop_categories_path(@shop) } do %>
+    <% category.categories.each do |subcategory| %>
+      <%= render subcategory %>
+    <% end %>
+  <% end if category.categories %>
+<% end %>

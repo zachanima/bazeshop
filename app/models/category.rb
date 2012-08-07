@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
   validate :existence_of_parent
   validate :absence_of_self_referential_parent
 
-  default_scope order(:name)
+  default_scope order(:position)
   scope :top, where(parent_id: nil)
 
   # Breadcrumbs for ancestral categories.
