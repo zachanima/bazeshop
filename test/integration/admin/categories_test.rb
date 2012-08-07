@@ -7,7 +7,6 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     click_link 'Categories'
     click_link 'New category'
     fill_in 'Name', with: 'foo'
-    select '', from: 'Parent'
     click_button 'Create Category'
   end
 

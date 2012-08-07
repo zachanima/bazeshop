@@ -20,11 +20,13 @@
           <%= content_tag :li, class: current_page?(edit_admin_shop_path(shop)) ? 'active' : nil do %>
             <%= link_to 'Edit shop', edit_admin_shop_path(shop) %>
           <% end %>
+
           <%= content_tag :li, class: current_page?(admin_shop_categories_path(shop)) ? 'active' : nil do %>
             <%= link_to admin_shop_categories_path(shop) do %>
               Categories <span><%= shop.categories.count %></span>
             <% end %>
           <% end %>
+
           <%= content_tag :li do %>
             <%= link_to admin_shop_path(shop), data: { confirm: 'Can only delete shop without associations. Are you sure?' }, method: :delete do %>
               Delete shop

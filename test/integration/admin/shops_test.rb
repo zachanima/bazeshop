@@ -147,7 +147,6 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     click_link 'Categories'
     click_link 'New category'
     fill_in 'Name', with: 'foo'
-    select '', from: 'Parent'
     click_button 'Create Category'
     assert_no_difference 'Shop.count' do
       page.driver.delete admin_shop_path(shop)

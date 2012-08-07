@@ -58,6 +58,20 @@ class ShopTest < ActiveSupport::TestCase
     assert_numericality_of @shop, :free_shipping_over
   end
 
+  test 'destroying no associations' do
+    @shop.save
+    assert_difference 'Shop.count', -1 do false
+      @shop.destroy
+    end
+  end
+
+  test 'destroying with category association' do
+    @shop.save
+    category = @shop.categories.build
+    category.save
+    assert_equal false, @shop.can_destroy?
+  end
+
   test 'closing shop' do
     @shop.is_closed = true
     assert_equal true, @shop.closed?
