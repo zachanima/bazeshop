@@ -6,11 +6,13 @@
 <%= link_to 'New category', new_admin_shop_category_path(@shop) %>
 
 <table>
-  <% @categories.nested.each do |category| %>
-    <tr>
-      <td>
-        <%= link_to category.path, edit_admin_shop_category_path(@shop, category) %>
-      </td>
-    </tr>
-  <% end %>
+  <tbody>
+    <% @categories.nested.each do |category| %>
+      <tr>
+        <td>
+          <%= link_to category.path, edit_admin_shop_category_path(@shop, category) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
