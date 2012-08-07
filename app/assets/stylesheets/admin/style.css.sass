@@ -163,8 +163,12 @@ div#content
             &:focus
               height: 10em
 
-          input[type=checkbox]
+          input[type=radio]:not(:first-child)
+            margin-left: 16px
+
+          input[type=checkbox], input[type=radio]:first-child
             margin-left: 204px
+
 
           input[type=number]
             width: 96px

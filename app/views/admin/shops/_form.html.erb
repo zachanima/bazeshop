@@ -10,8 +10,10 @@
         <%= f.text_field :link %>
       </li>
       <li>
-        <%= f.label :locale %>
-        <%= f.select :locale, options_for_select(Shop::Locales.invert) %>
+        <% Shop::Locales.each_pair do |key, value| %>
+          <%= f.radio_button :locale, key %>
+          <%= f.label "locale_#{key}", value %>
+        <% end %>
       </li>
       <li>
         <%= f.label :login_text %>

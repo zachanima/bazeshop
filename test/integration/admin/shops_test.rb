@@ -6,7 +6,7 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     click_link 'New shop'
     fill_in 'Name', with: 'foo'
     fill_in 'Link', with: 'bar'
-    select 'English', from: 'Locale'
+    choose 'English'
     click_button 'Create Shop'
   end
 
@@ -61,7 +61,7 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     click_link 'New shop'
     fill_in 'Name', with: 'foo'
     fill_in 'Link', with: 'bar'
-    select 'English', from: 'Locale'
+    choose 'English'
     fill_in 'Login text', with: 'baz'
     fill_in 'Password text', with: 'foobar'
     fill_in 'Text', with: 'lorem ipsum dolor sit amet'
@@ -164,7 +164,7 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     click_link 'New shop'
     fill_in 'Name', with: 'foo'
     fill_in 'Link', with: 'bar'
-    select 'English', from: 'Locale'
+    choose 'English'
     fill_in 'Correspondent', with: 'foo@example.com'
     click_button 'Create Shop'
     assert has_no_selector?('fieldset.advanced')
