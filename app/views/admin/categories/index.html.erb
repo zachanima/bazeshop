@@ -7,8 +7,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @categories.each do |category| %>
-      <%= render category %>
+    <% nested(@categories).each do |category| %>
+      <tr>
+        <td>
+          <%= link_to category.path, edit_admin_shop_category_path(@shop, category) %>
+        </td>
+      </tr>
     <% end %>
   </tbody>
 </table>

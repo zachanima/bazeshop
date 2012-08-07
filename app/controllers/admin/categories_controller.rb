@@ -2,11 +2,12 @@ class Admin::CategoriesController < Admin::ApplicationController
   before_filter :find_shop
 
   def index
-    @categories = @shop.categories.where(parent_id: nil)
+    @categories = @shop.categories.top
   end
 
   def new
     # Not using @shop.categories.build, to avoid empty entry in parent dropdown.
+    @categories = @shop.categories.top
     @category = Category.new
   end
 

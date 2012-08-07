@@ -1,6 +1,0 @@
-<tr>
-  <td><%= link_to category.path, edit_admin_shop_category_path(@shop, category) %></td>
-</tr>
-<% category.categories.each do |subcategory| %>
-  <%= render subcategory %>
-<% end %>

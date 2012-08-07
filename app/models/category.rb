@@ -11,6 +11,9 @@ class Category < ActiveRecord::Base
   validate :existence_of_parent
   validate :absence_of_self_referential_parent
 
+  default_scope order(:name)
+  scope :top, where(parent_id: nil)
+
   def path
     path = [self.name]
     path << self.parent.path if self.parent

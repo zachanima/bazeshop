@@ -11,7 +11,7 @@ jQuery ->
   $('form fieldset.advanced a[href=#advanced]').click ->
     $(@).siblings('ol').slideToggle()
 
-  # Hide notice after 10 seconds
+  # Hide notice after 5 seconds
   $('div#notice').hide()
   $('div#notice').slideDown()
   $('div#notice').delay(5000)
