@@ -126,7 +126,7 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
   end
 
   test 'cancelling updating' do
-    shop = FactoryGirl.create(:shop)
+    FactoryGirl.create(:shop)
     visit admin_root_path
     click_link 'Edit shop'
     click_link 'Cancel'

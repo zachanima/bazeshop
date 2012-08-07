@@ -22,6 +22,22 @@ class Admin::CategoriesController < Admin::ApplicationController
     end
   end
 
+  def edit
+    @categories = @shop.categories.top
+    @category = @shop.categories.find params[:id]
+  end
+
+  def update
+    @category = @shop.categories.find params[:id]
+    if @category.update_attributes params[:category]
+      redirect_to admin_shop_categories_path(@shop), notice: 'Updated category.'
+    else
+      @categories = @shop.categories.top
+      flash[:error] = 'Error while updating category.'
+      render :edit
+    end
+  end
+
 private
   def find_shop
     @shop = Shop.find params[:shop_id]
