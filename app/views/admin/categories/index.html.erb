@@ -1,18 +1,11 @@
 <%= link_to 'New category', new_admin_shop_category_path(@shop) %>
 
 <table>
-  <thead>
+  <% nested(@categories).each do |category| %>
     <tr>
-      <th>Category</th>
+      <td>
+        <%= link_to category.path, edit_admin_shop_category_path(@shop, category) %>
+      </td>
     </tr>
-  </thead>
-  <tbody>
-    <% nested(@categories).each do |category| %>
-      <tr>
-        <td>
-          <%= link_to category.path, edit_admin_shop_category_path(@shop, category) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
+  <% end %>
 </table>

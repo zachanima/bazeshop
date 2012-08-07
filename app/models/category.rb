@@ -14,6 +14,7 @@ class Category < ActiveRecord::Base
   default_scope order(:name)
   scope :top, where(parent_id: nil)
 
+  # Breadcrumbs for ancestral categories.
   def path
     path = [self.name]
     path << self.parent.path if self.parent

@@ -111,11 +111,26 @@ div#content
 
   a
     color: #f80
-    font-weight: bold
     text-decoration: none
 
     &:hover
       text-decoration: underline
+
+  table
+    border: 1px solid #e4e4e4
+    border-collapse: collapse
+
+    margin-top: 16px
+
+    tr
+      &:nth-child(2n)
+        background-color: #eee
+
+      td
+        a
+          display: block
+          padding: 2px 4px
+
 
   form
     fieldset

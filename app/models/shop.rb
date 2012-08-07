@@ -18,6 +18,7 @@ class Shop < ActiveRecord::Base
     self.is_closed
   end
 
+  # Determines whether to display advanced settings in form.
   def advanced?
     not (self.custom_style.blank? and self.receipt_text.blank? and self.correspondent.blank? and self.shipping_price.blank? and self.free_shipping_over.blank? and self.is_closed.blank?)
   end
