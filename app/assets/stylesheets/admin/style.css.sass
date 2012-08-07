@@ -172,6 +172,9 @@ div#content
         margin: 0
 
         li
+          &:not(:last-child)
+            margin-bottom: 8px
+
           label:first-child
             text-align: right
             vertical-align: middle
@@ -196,10 +199,10 @@ div#content
             &:focus
               height: 10em
 
-          input[type=radio]:not(:first-child)
-            margin-left: 16px
-
-          input[type=checkbox], input[type=radio]:first-child
+          input[type=radio]
+            margin-left: 0
+            
+          input[type=checkbox]
             margin-left: 204px
 
 

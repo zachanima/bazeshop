@@ -10,6 +10,7 @@
         <%= f.text_field :link %>
       </li>
       <li>
+        <%= f.label :locale, class: 'required' %>
         <% Shop::Locales.each_pair do |key, value| %>
           <%= f.radio_button :locale, key %>
           <%= f.label "locale_#{key}", value %>
