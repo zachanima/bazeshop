@@ -1,0 +1,23 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li>Products</li>
+</ul>
+
+<div>
+  <%= link_to 'New product', new_admin_shop_product_path(@shop) %>
+</div>
+
+<table id="products">
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td>
+          <%= link_to product.name, edit_admin_shop_product_path(@shop, product) %>
+        </td>
+        <td>
+          <%= product.category.path %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+<table>

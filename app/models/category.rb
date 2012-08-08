@@ -16,6 +16,12 @@ class Category < ActiveRecord::Base
 
   before_destroy :assign_parent_to_categories
 
+  def path
+    path = [self.name]
+    path << self.parent.path if self.parent
+    path.reverse * ' > '
+  end
+
   def indented_name_for_select
     "#{self.indent}#{self.name}".html_safe
   end

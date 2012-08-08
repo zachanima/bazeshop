@@ -7,6 +7,7 @@ Bazeshop::Application.routes.draw do
           post 'sort'
         end
       end
+      resources :products
     end
   end
   # The priority is based upon order of creation:
