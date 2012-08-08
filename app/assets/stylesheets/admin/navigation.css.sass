@@ -1,0 +1,80 @@
+nav
+  background-color: #e4e4e4
+  box-shadow: 0 0 4px #000
+
+  float: left
+  margin-top: 0
+
+  width: 192px
+
+  > ul
+    background-color: #eee
+    list-style: none
+
+    margin-top: 0
+    padding-left: 0
+    width: 100%
+
+    > li
+      border-bottom: 1px solid #ccc
+      border-top: 1px solid #fff
+
+      &.active
+        > a
+          background-color: #808080
+          color: #fff
+
+          &:hover
+            background-color: #808080
+
+      > a
+        color: #f80
+
+        display: block
+        padding: 8px 16px 8px 32px
+
+        &:hover
+          background-color: #e4e4e4
+
+      ul
+        background-color: #fff
+
+        list-style: none
+        padding: 4px 0 4px 0
+
+        li
+          &.active
+            a
+              color: #333
+              font-weight: bold
+          a
+            color: #f80
+            font-size: 9pt
+
+            display: block
+            padding: 4px 16px
+
+            &:hover
+              background-color: #fff0e0
+              color: #333
+
+            span
+              background-color: #808080
+              color: #fff
+              border-radius: 16px
+              font-size: 8pt
+              font-weight: normal
+
+              float: right
+              padding: 1px 4px 0 4px
+              margin-left: 4px
+
+  > ul:first-child
+    margin-bottom: 4px
+
+  > ul:not(:first-child)
+    border-top: 1px solid #ccc
+    margin-bottom: 0
+
+  a
+    text-decoration: none
