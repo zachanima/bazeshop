@@ -47,7 +47,7 @@ class ShopTest < ActiveSupport::TestCase
   end
 
   test 'destroys with no associations' do
-    assert_difference 'Shop.count', -1 do false
+    assert_difference 'Shop.count', -1 do
       @shop.destroy
     end
   end

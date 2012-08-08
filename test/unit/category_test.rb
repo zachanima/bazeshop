@@ -59,4 +59,17 @@ class CategoryTest < ActiveSupport::TestCase
     category = FactoryGirl.create(:category, parent: @category)
     assert !@category.categories.nested(category).include?(category)
   end
+
+  test 'destroys' do
+    assert_difference 'Category.count', -1 do
+      @category.destroy
+    end
+  end
+
+  test 'assigns categories parent before destroying' do
+    category = FactoryGirl.create(:category, parent: @category)
+    @category.destroy
+    category.reload
+    assert_equal nil, category.parent
+  end
 end
