@@ -38,6 +38,17 @@ class Admin::CategoriesController < Admin::ApplicationController
     end
   end
 
+  def destroy
+    @category = @shop.categories.find params[:id]
+    if @category.can_destroy?
+      @category.destroy
+      flash[:notice] = 'Deleted category.'
+    else
+      flash[:error] = 'Error while deleting category.'
+    end
+    redirect_to admin_shop_categories_path(@shop)
+  end
+
   def sort
     params[:category].each_with_index do |id, index|
       Category.update_all({position: index+1}, {id: id})

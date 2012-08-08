@@ -14,6 +14,8 @@ class Category < ActiveRecord::Base
   default_scope order(:position)
   scope :top, where(parent_id: nil)
 
+  before_destroy :assign_parent_to_categories
+
   # Breadcrumbs for ancestral categories.
   def path
     path = [self.name]
@@ -34,5 +36,12 @@ private
 
   def absence_of_self_referential_parent
     errors.add('parent') if self.id and self.parent_id == self.id
+  end
+
+  def assign_parent_to_categories
+    self.categories.each do |category|
+      category.parent = self.parent
+      category.save
+    end
   end
 end

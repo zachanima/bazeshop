@@ -119,4 +119,11 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     click_link 'Cancel'
     assert_equal admin_shop_categories_path(shop), current_path
   end
+
+  test 'destroys' do
+    category = FactoryGirl.create(:category)
+    assert_difference 'Category.count', -1 do
+      page.driver.delete admin_shop_category_path(category.shop, category)
+    end
+  end
 end
