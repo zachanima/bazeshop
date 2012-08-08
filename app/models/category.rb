@@ -16,11 +16,12 @@ class Category < ActiveRecord::Base
 
   before_destroy :assign_parent_to_categories
 
-  # Breadcrumbs for ancestral categories.
-  def path
-    path = [self.name]
-    path << self.parent.path if self.parent
-    path.reverse.flatten * ' > '
+  def indented_name_for_select
+    "#{self.indent}#{self.name}".html_safe
+  end
+
+  def indent
+    self.parent ? "&nbsp;&nbsp;&nbsp;&nbsp;#{self.parent.indent}" : ''
   end
 
   def self.nested exclude = nil

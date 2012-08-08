@@ -45,9 +45,9 @@ class CategoryTest < ActiveSupport::TestCase
     assert !@category.save, 'Saved with self as parent'
   end
 
-  test 'returns correct path' do
+  test 'returns correct indented name for select' do
     category = FactoryGirl.build(:category, parent: @category)
-    assert_equal "#{@category.name} > #{category.name}", category.path
+    assert_equal "&nbsp;&nbsp;&nbsp;&nbsp;#{category.name}", category.indented_name_for_select
   end
 
   test 'returns correct nested scope' do

@@ -7,7 +7,7 @@
       </li>
       <%= content_tag :li do %>
         <%= f.label :parent_id, 'Parent' %>
-        <%= f.collection_select :parent_id, @categories.nested(@category), :id, :path, include_blank: true %>
+        <%= f.collection_select :parent_id, @categories.nested(@category), :id, :indented_name_for_select, include_blank: true %>
       <% end unless @categories.nested(@category).empty? %>
     </ol>
   </fieldset>
