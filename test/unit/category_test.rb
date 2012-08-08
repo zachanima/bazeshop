@@ -1,63 +1,66 @@
 require 'test_helper'
 
 class CategoryTest < ActiveSupport::TestCase
+  should belong_to(:shop)
+  should belong_to(:parent)
+  should have_many(:categories)
+  should have_many(:products)
+
+  should allow_mass_assignment_of(:name)
+  should allow_mass_assignment_of(:shop_id)
+  should allow_mass_assignment_of(:parent_id)
+  should validate_presence_of(:name)
+  should validate_presence_of(:shop)
+
   def setup
     @category = FactoryGirl.build(:category)
   end
 
-  test 'saving on valid input' do
-    assert @category.save, 'Did not save on valid input'
+  test 'saves on valid input' do
+    assert @category.save
   end
 
-  test 'saving multiple on valid input' do
+  test 'saves multiple on valid input' do
     @category.save
     category = FactoryGirl.build(:category)
-    assert category.save, 'Did not save multiple on valid input'
+    assert category.save
   end
 
-  test 'invalid without name' do
-    assert_presence_of @category, :name
-  end
-
-  test 'invalid without shop' do
-    assert_presence_of @category, :shop_id
-  end
-
-  test 'valid with parent' do
+  test 'saves with parent' do
     @category.save
     category = FactoryGirl.build(:category, parent: @category)
     assert category.save, 'Did not save with parent'
   end
 
-  test 'valid without parent' do
+  test 'saves without parent' do
     @category.parent = nil
     assert @category.save, 'Did not save without parent'
   end
 
-  test 'invalid with nonexistent parent' do
+  test 'does not save with nonexistent parent' do
     @category.parent_id = 0
     assert !@category.save, 'Saved with nonexistent parent'
   end
 
-  test 'invalid with self as parent' do
+  test 'does not save with self as parent' do
     @category.save
     @category.parent_id = @category.id
     assert !@category.save, 'Saved with self as parent'
   end
 
-  test 'correctness of path' do
+  test 'returns correct path' do
     @category.save
     category = FactoryGirl.build(:category, parent: @category)
     assert_equal "#{@category.name} > #{category.name}", category.path
   end
 
-  test 'correctness of nested scope' do
+  test 'returns correct nested scope' do
     @category.save
     category = FactoryGirl.create(:category, parent: @category)
     assert @category.categories.nested.include?(category)
   end
 
-  test 'correctness of nested scope with exclusion category' do
+  test 'returns correct nested scope with exclusion category' do
     @category.save
     category = FactoryGirl.create(:category, parent: @category)
     assert !@category.categories.nested(category).include?(category)

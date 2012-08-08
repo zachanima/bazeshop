@@ -26,6 +26,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'shoulda'
   gem 'capybara'
 end
 
