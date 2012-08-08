@@ -2,7 +2,7 @@ class Category < ActiveRecord::Base
   belongs_to :shop
   belongs_to :parent, class_name: 'Category'
   has_many :categories, foreign_key: :parent_id
-  has_many :products
+  has_many :products, dependent: :restrict
 
   attr_accessible :name, :shop_id, :parent_id
 

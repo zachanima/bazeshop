@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ShopTest < ActiveSupport::TestCase
   should have_many(:categories)
+  should have_many(:products)
 
   should allow_mass_assignment_of(:name)
   should allow_mass_assignment_of(:link)

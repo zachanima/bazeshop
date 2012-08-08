@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
   belongs_to :category
+  has_one :shop, through: :category
 
   attr_accessible :name, :category_id
 

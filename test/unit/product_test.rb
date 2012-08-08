@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
   should belong_to(:category)
+  should have_one(:shop)
 
   should allow_mass_assignment_of(:name)
   should allow_mass_assignment_of(:category_id)
@@ -15,10 +16,5 @@ class ProductTest < ActiveSupport::TestCase
 
   test 'saves on valid input' do
     assert @product.save, 'Did not save on valid input'
-  end
-
-  test 'saves multiple on valid input' do
-    product = FactoryGirl.build(:product)
-    assert product.save, 'Did not save multiple on valid input'
   end
 end
