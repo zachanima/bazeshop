@@ -1,0 +1,54 @@
+<%= form_for ['admin', @shop, @product] do |f| %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label :name, class: 'required' %>
+        <%= f.text_field :name %>
+      </li>
+      <li>
+        <%= f.label :number %>
+        <%= f.text_field :number %>
+      </li>
+      <li>
+        <%= f.label :supplier_number %>
+        <%= f.text_field :supplier_number %>
+      </li>
+      <li>
+        <%= f.label :brand %>
+        <%= f.text_field :brand %>
+      </li>
+      <li>
+        <%= f.label :text %>
+        <%= f.text_field :text %>
+      </li>
+      <li>
+        <%= f.label :category_id, 'Category' %>
+        <%= f.collection_select :category_id, @categories, :id, :indented_name_for_select %>
+      <li>
+      <li>
+        <%= f.label :gross_price %>
+        <%= f.number_field :gross_price %>
+      </li>
+      <li>
+        <%= f.label :net_price %>
+        <%= f.number_field :net_price %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="advanced">
+    <ol>
+      <li>
+        <%= f.label :environment_fee %>
+        <%= f.number_field :environment_fee %>
+      </li>
+      <li>
+        <%= f.label :parcel_size %>
+        <%= f.number_field :parcel_size %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset>
+    <%= f.submit %>
+    <%= link_to 'Cancel', request.referer %>
+  </fieldset>
+<% end %>

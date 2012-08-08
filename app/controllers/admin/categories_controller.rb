@@ -7,8 +7,8 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   def new
     # Not using @shop.categories.build, to avoid empty entry in parent dropdown.
-    @categories = @shop.categories.top
     @category = Category.new
+    @categories = @shop.categories.top.nested @category
   end
 
   def create
@@ -16,15 +16,15 @@ class Admin::CategoriesController < Admin::ApplicationController
     if @category.save
       redirect_to admin_shop_categories_path(@shop), notice: 'Created category.'
     else
-      @categories = @shop.categories.top
+      @categories = @shop.categories.top.nested @category
       flash[:error] = 'Error while creating category.'
       render :new
     end
   end
 
   def edit
-    @categories = @shop.categories.top
     @category = @shop.categories.find params[:id]
+    @categories = @shop.categories.top.nested @category
   end
 
   def update
@@ -32,7 +32,7 @@ class Admin::CategoriesController < Admin::ApplicationController
     if @category.update_attributes params[:category]
       redirect_to admin_shop_categories_path(@shop), notice: 'Updated category.'
     else
-      @categories = @shop.categories.top
+      @categories = @shop.categories.top.nested @category
       flash[:error] = 'Error while updating category.'
       render :edit
     end
