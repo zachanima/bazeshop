@@ -20,11 +20,6 @@ class CategoryTest < ActiveSupport::TestCase
     assert @category.save
   end
 
-  test 'saves multiple on valid input' do
-    category = FactoryGirl.build(:category)
-    assert category.save
-  end
-
   test 'saves with parent' do
     category = FactoryGirl.build(:category, parent: @category)
     assert category.save, 'Did not save with parent'
@@ -60,10 +55,16 @@ class CategoryTest < ActiveSupport::TestCase
     assert !@category.categories.nested(category).include?(category)
   end
 
-  test 'destroys' do
+  test 'destroys with no associations' do
     assert_difference 'Category.count', -1 do
       @category.destroy
     end
+  end
+
+  test 'does not destroy with product association' do
+    product = @category.products.build
+    product.save
+    assert_equal false, @category.can_destroy?
   end
 
   test 'assigns categories parent before destroying' do

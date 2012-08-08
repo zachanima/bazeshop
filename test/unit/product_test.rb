@@ -17,4 +17,10 @@ class ProductTest < ActiveSupport::TestCase
   test 'saves on valid input' do
     assert @product.save, 'Did not save on valid input'
   end
+
+  test 'destroys' do
+    assert_difference 'Product.count', -1 do
+      @product.destroy
+    end
+  end
 end
