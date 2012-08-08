@@ -11,7 +11,7 @@ body
 
 
 nav
-  background-color: #eee
+  background-color: #e4e4e4
   box-shadow: 0 0 4px #000
 
   float: left
@@ -20,6 +20,7 @@ nav
   width: 192px
 
   > ul
+    background-color: #eee
     list-style: none
 
     margin-top: 0
@@ -27,7 +28,7 @@ nav
     width: 100%
 
     > li
-      border-bottom: 1px solid #e4e4e4
+      border-bottom: 1px solid #ccc
       border-top: 1px solid #fff
 
       &.active
@@ -80,6 +81,13 @@ nav
               padding: 1px 4px 0 4px
               margin-left: 4px
 
+  ul:first-child
+    margin-bottom: 4px
+
+  ul:not(:first-child)
+    border-top: 1px solid #ccc
+    margin-bottom: 0
+
   a
     text-decoration: none
 
@@ -108,7 +116,7 @@ div#error
 
 div#content
   margin-left: 192px
-  padding: 16px
+  padding: 16px 32px
 
   ul#breadcrumbs
     margin: 0 0 16px 0
@@ -228,13 +236,13 @@ div#content
         margin-right: 16px
   
   > ol.categories
-    border: 1px solid #808080
+    border: 1px solid #ccc
+    border-radius: 4px
 
     display: inline-block
     padding: 4px 0
 
   ol.categories
-    background-color: #fff
     list-style: none
 
     li
@@ -261,6 +269,9 @@ div#content
             color: #333
 
     ol
-      border-left: 1px solid #808080
+      border-left: 1px solid #ccc
+      border-bottom: 1px solid #ccc
+      border-radius: 0 0 0 4px
       margin-left: 24px
+      margin-bottom: -1px
       padding-left: 0
