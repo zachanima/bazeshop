@@ -46,15 +46,13 @@ class ShopTest < ActiveSupport::TestCase
     assert_equal 'fo-o-ba-r', @shop.link
   end
 
-  test 'destroys no associations' do
-    @shop.save
+  test 'destroys with no associations' do
     assert_difference 'Shop.count', -1 do false
       @shop.destroy
     end
   end
 
   test 'does not destroy with category association' do
-    @shop.save
     category = @shop.categories.build
     category.save
     assert_equal false, @shop.can_destroy?

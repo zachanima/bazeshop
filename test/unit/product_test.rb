@@ -10,7 +10,7 @@ class ProductTest < ActiveSupport::TestCase
   should validate_presence_of(:category)
 
   def setup
-    @product = FactoryGirl.build(:product)
+    @product = FactoryGirl.create(:product)
   end
 
   test 'saves on valid input' do
@@ -18,7 +18,6 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'saves multiple on valid input' do
-    @product.save
     product = FactoryGirl.build(:product)
     assert product.save, 'Did not save multiple on valid input'
   end

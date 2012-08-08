@@ -2,80 +2,67 @@ require 'test_helper'
 
 class Admin::CategoriesTest < ActionDispatch::IntegrationTest
   def create_with_valid_input
-    @shop = FactoryGirl.create(:shop)
-    visit admin_root_path
-    click_link 'Categories'
-    click_link 'New category'
+    @shop = FactoryGirl.create :shop
+    visit new_admin_shop_category_path(@shop)
     fill_in 'Name', with: 'foo'
     click_button 'Create Category'
   end
 
   def update_with_valid_input
-    @shop = FactoryGirl.create(:shop)
+    @shop = FactoryGirl.create :shop
     @category = FactoryGirl.create(:category, shop: @shop)
-    visit admin_root_path
-    click_link 'Categories'
-    within 'div#content ol.categories' do
-      click_link 'foo'
-    end
+    visit edit_admin_shop_category_path(@shop, @category)
     fill_in 'Name', with: 'foobar'
     click_button 'Update Category'
   end
     
-  test 'listing categories' do
-    FactoryGirl.create(:category)
-    visit admin_root_path
-    click_link 'Categories'
+  test 'exists in list of categories' do
+    shop = FactoryGirl.create(:category).shop
+    visit admin_shop_categories_path(shop)
     within 'div#content ol.categories' do
       assert has_content? 'foo'
     end
   end
 
-  test 'creating with valid input' do
+  test 'has no errors when creating with valid input' do
     create_with_valid_input
     assert has_no_selector?('div.field_with_errors')
   end
 
-  test 'redirect after creating with valid input' do
+  test 'redirects after creating with valid input' do
     create_with_valid_input
     assert_equal admin_shop_categories_path(@shop), current_path
   end
 
-  test 'creating with invalid input' do
-    shop = FactoryGirl.create(:shop)
-    visit admin_root_path
-    click_link 'Categories'
-    click_link 'New category'
+  test 'has errors when creating with invalid input' do
+    shop = FactoryGirl.create :shop
+    visit new_admin_shop_category_path(shop)
     click_button 'Create Category'
     assert has_selector?('div.field_with_errors')
   end
 
-  test 'redirect after creating with invalid input' do
+  test 'redirects after creating with invalid input' do
     shop = FactoryGirl.create :shop
-    visit admin_root_path
-    click_link 'Categories'
-    click_link 'New category'
+    visit new_admin_shop_category_path(shop)
     click_button 'Create Category'
     assert_equal admin_shop_categories_path(shop), current_path
   end
 
-  test 'creating with valid parent' do
+  test 'creates with valid parent' do
     shop = FactoryGirl.create(:category).shop
-    visit admin_root_path
-    click_link 'Categories'
-    click_link 'New category'
+    visit new_admin_shop_category_path(shop)
     fill_in 'Name', with: 'bar'
     select 'foo', from: 'Parent'
     click_button 'Create Category'
     assert_equal admin_shop_categories_path(shop), current_path
   end
 
-  test 'flash notice when creating with valid input' do
+  test 'flashes notice when creating with valid input' do
     create_with_valid_input
     assert has_selector? 'div#notice'
   end
 
-  test 'flash error when creating with invalid input' do
+  test 'flashes error when creating with invalid input' do
     shop = FactoryGirl.create :shop
     visit admin_root_path
     click_link 'Categories'
@@ -84,7 +71,7 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     assert has_selector? 'div#error'
   end
 
-  test 'cancelling creating' do
+  test 'redirects to referer when cancelling creating' do
     create_with_valid_input
     visit admin_root_path
     click_link 'Categories'
@@ -93,12 +80,12 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     assert_equal admin_shop_categories_path(@shop), current_path
   end
 
-  test 'updating with valid input' do
+  test 'updates with valid input' do
     update_with_valid_input
     assert_equal admin_shop_categories_path(@shop), current_path
   end
 
-  test 'updating with invalid input' do
+  test 'updates with invalid input' do
     category = FactoryGirl.create :category
     visit admin_root_path
     click_link 'Categories'
@@ -110,27 +97,22 @@ class Admin::CategoriesTest < ActionDispatch::IntegrationTest
     assert_equal admin_shop_category_path(category.shop, category), current_path
   end
 
-  test 'flash notice when updating with valid input' do
+  test 'flashes notice when updating with valid input' do
     update_with_valid_input
     assert has_selector? 'div#notice'
   end
 
-  test 'flash error when updating with invalid input' do
-    category = FactoryGirl.create :category
-    visit admin_root_path
-    click_link 'Categories'
-    within 'div#content ol.categories' do
-      click_link 'foo'
-    end
+  test 'flashes error when updating with invalid input' do
+    category = FactoryGirl.create(:category)
+    visit edit_admin_shop_category_path(category.shop, category)
     fill_in 'Name', with: ''
     click_button 'Update Category'
     assert has_selector? 'div#error'
   end
 
-  test 'cancelling updating' do
+  test 'redirects to referer when cancelling updating' do
     shop = FactoryGirl.create(:category).shop
-    visit admin_root_path
-    click_link 'Categories'
+    visit admin_shop_categories_path(shop)
     within 'div#content ol.categories' do
       click_link 'foo'
     end

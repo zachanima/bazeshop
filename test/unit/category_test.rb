@@ -13,7 +13,7 @@ class CategoryTest < ActiveSupport::TestCase
   should validate_presence_of(:shop)
 
   def setup
-    @category = FactoryGirl.build(:category)
+    @category = FactoryGirl.create(:category)
   end
 
   test 'saves on valid input' do
@@ -21,13 +21,11 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test 'saves multiple on valid input' do
-    @category.save
     category = FactoryGirl.build(:category)
     assert category.save
   end
 
   test 'saves with parent' do
-    @category.save
     category = FactoryGirl.build(:category, parent: @category)
     assert category.save, 'Did not save with parent'
   end
@@ -43,25 +41,21 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test 'does not save with self as parent' do
-    @category.save
     @category.parent_id = @category.id
     assert !@category.save, 'Saved with self as parent'
   end
 
   test 'returns correct path' do
-    @category.save
     category = FactoryGirl.build(:category, parent: @category)
     assert_equal "#{@category.name} > #{category.name}", category.path
   end
 
   test 'returns correct nested scope' do
-    @category.save
     category = FactoryGirl.create(:category, parent: @category)
     assert @category.categories.nested.include?(category)
   end
 
   test 'returns correct nested scope with exclusion category' do
-    @category.save
     category = FactoryGirl.create(:category, parent: @category)
     assert !@category.categories.nested(category).include?(category)
   end

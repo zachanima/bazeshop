@@ -2,8 +2,7 @@ require 'test_helper'
 
 class Admin::ShopsTest < ActionDispatch::IntegrationTest
   def create_with_valid_input
-    visit admin_root_path
-    click_link 'New shop'
+    visit new_admin_shop_path
     fill_in 'Name', with: 'foo'
     fill_in 'Link', with: 'bar'
     select 'English', from: 'Locale'
@@ -12,53 +11,51 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
 
   def update_with_valid_input
     @shop = FactoryGirl.create(:shop)
-    visit admin_root_path
-    click_link 'Edit shop'
+    visit edit_admin_shop_path(@shop)
     fill_in 'Name', with: 'foobar'
     click_button 'Update Shop'
   end
 
-  test 'creates in navigation menu' do
-    create_with_valid_input
+  test 'has item in navigation menu' do
+    FactoryGirl.create(:shop)
+    visit admin_root_path
     within 'nav' do
       assert has_content? 'foo'
     end
   end
 
   test 'has edit link in navigation menu' do
-    create_with_valid_input
+    FactoryGirl.create(:shop)
+    visit admin_root_path
     within 'nav' do
       assert has_content? 'Edit shop'
     end
   end
 
-  test 'creating with valid input' do
+  test 'has no errors when creating with valid input' do
     create_with_valid_input
     assert has_no_selector?('div.field_with_errors')
   end
 
-  test 'redirect after creating with valid input' do
+  test 'redirects after creating with valid input' do
     create_with_valid_input
     assert_equal edit_admin_shop_path(Shop.last), current_path
   end
 
-  test 'creating with invalid input' do
-    visit admin_root_path
-    click_link 'New shop'
+  test 'has errors when creating with invalid input' do
+    visit new_admin_shop_path
     click_button 'Create Shop'
     assert has_selector?('div.field_with_errors')
   end
 
-  test 'redirect after creating with invalid input' do
-    visit admin_root_path
-    click_link 'New shop'
+  test 'redirects after creating with invalid input' do
+    visit new_admin_shop_path
     click_button 'Create Shop'
     assert_equal admin_shops_path, current_path
   end
 
-  test 'creating with all fields' do
-    visit admin_root_path
-    click_link 'New shop'
+  test 'creates with all fields filled' do
+    visit new_admin_shop_path
     fill_in 'Name', with: 'foo'
     fill_in 'Link', with: 'bar'
     select 'English', from: 'Locale'
@@ -78,54 +75,52 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     assert_equal edit_admin_shop_path(Shop.last), current_path
   end
 
-  test 'flash notice when creating with valid input' do
+  test 'flashes notice when creating with valid input' do
     create_with_valid_input
     assert has_selector? 'div#notice'
   end
 
-  test 'flash error when creating with invalid input' do
+  test 'flashes error when creating with invalid input' do
     visit admin_root_path
     click_link 'New shop'
     click_button 'Create Shop'
     assert has_selector? 'div#error'
   end
 
-  test 'cancelling creating' do
+  test 'redirects to referer when cancelling creating' do
     visit admin_root_path
     click_link 'New shop'
     click_link 'Cancel'
     assert_equal admin_root_path, current_path
   end
 
-  test 'updating with valid input' do
+  test 'updates with valid input' do
     update_with_valid_input
     assert_equal edit_admin_shop_path(@shop), current_path
   end
 
-  test 'updating with invalid input' do
+  test 'updates with invalid input' do
     shop = FactoryGirl.create(:shop)
-    visit admin_root_path
-    click_link 'Edit shop'
+    visit edit_admin_shop_path(shop)
     fill_in 'Name', with: ''
     click_button 'Update Shop'
     assert_equal admin_shop_path(shop), current_path
   end
 
-  test 'flash notice when updating with valid input' do
+  test 'flashes notice when updating with valid input' do
     update_with_valid_input
     assert has_selector? 'div#notice'
   end
 
-  test 'flash error when updating with invalid input' do
+  test 'flashes error when updating with invalid input' do
     shop = FactoryGirl.create(:shop)
-    visit admin_root_path
-    click_link 'Edit shop'
+    visit edit_admin_shop_path(shop)
     fill_in 'Name', with: ''
     click_button 'Update Shop'
     assert has_selector? 'div#error'
   end
 
-  test 'cancelling updating' do
+  test 'redirects to referer when cancelling updating' do
     FactoryGirl.create(:shop)
     visit admin_root_path
     click_link 'Edit shop'
@@ -133,7 +128,7 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     assert_equal admin_root_path, current_path
   end
 
-  test 'destroying with no associations' do
+  test 'destroys with no associations' do
     create_with_valid_input
     shop = Shop.last
     assert_difference 'Shop.count', -1 do
@@ -141,7 +136,7 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'destroying with category association' do
+  test 'does not destroy with category association' do
     create_with_valid_input
     shop = Shop.last
     click_link 'Categories'
@@ -153,27 +148,18 @@ class Admin::ShopsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'adding advanced to fieldset' do
+  test 'adds advanced class to fieldset when no advanced fields are set' do
     create_with_valid_input
     assert has_selector?('fieldset.advanced')
   end
 
-  test 'not adding advanced to fieldset' do
-    visit admin_root_path
-    click_link 'New shop'
+  test 'does not add advanced to fieldset when advanced field is set' do
+    visit new_admin_shop_path
     fill_in 'Name', with: 'foo'
     fill_in 'Link', with: 'bar'
     select 'English', from: 'Locale'
     fill_in 'Correspondent', with: 'foo@example.com'
     click_button 'Create Shop'
     assert has_no_selector?('fieldset.advanced')
-  end
-
-  test 'cancelling redirects to referer' do
-    create_with_valid_input
-    visit admin_root_path
-    click_link 'Edit shop'
-    click_link 'Cancel'
-    assert_equal admin_root_path, current_path
   end
 end
