@@ -3,7 +3,12 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   def index
     @categories = @shop.categories.top
+  end
+
+  def new
+    # Not using @shop.categories.build, to avoid empty entry in parent dropdown.
     @category = Category.new
+    @categories = @shop.categories.top.nested @category
   end
 
   def create
