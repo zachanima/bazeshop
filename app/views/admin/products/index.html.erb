@@ -13,17 +13,30 @@
       <tr>
         <td>
           <%= link_to product.name, edit_admin_shop_product_path(@shop, product) %><br>
-          <%= product.brand %><br>
-          <%= product.number %><%= " (#{product.supplier_number})" unless product.supplier_number.blank? %>
+
+          <%= content_tag :span, product.brand, class: 'brand' unless product.brand.empty? %><br>
+
+          <%= content_tag :span, class: 'number' do %>
+            <%= product.number %>
+          <% end unless product.number.blank? %>
+
+          <%= content_tag :span, class: 'supplier_number' do %>
+            <%= '/' unless product.number.blank? %>
+            <%= product.supplier_number %>
+          <% end unless product.supplier_number.blank? %>
         </td>
         <td>
           <%= product.category.path %></br>
+
           <br>
-          <% unless product.net_price.blank? %>
+
+          <%= content_tag :span, class: 'net_price' do %>
             <%= number_to_smart_currency product.net_price %>
-          <% end %>
-          <%= '/' unless product.net_price.blank? or product.gross_price.blank? %>
-          <%= content_tag :strong do %>
+            <%= '/' unless product.gross_price.blank? %>
+          <% end unless product.net_price.blank? %>
+
+
+          <%= content_tag :span, class: 'gross_price' do %>
             <%= number_to_smart_currency product.gross_price, @shop.currency %>
           <% end unless product.gross_price.blank? %>
         </td>
