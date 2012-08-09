@@ -19,9 +19,13 @@
         <td>
           <%= product.category.path %></br>
           <br>
-          <%= "#{product.net_price} kr." unless product.net_price.blank? %>
+          <% unless product.net_price.blank? %>
+            <%= number_to_smart_currency product.net_price %>
+          <% end %>
           <%= '/' unless product.net_price.blank? or product.gross_price.blank? %>
-          <strong><%= "#{product.gross_price} #{@shop.currency || 'kr.'}" unless product.gross_price.blank? %></strong>
+          <%= content_tag :strong do %>
+            <%= number_to_smart_currency product.gross_price, @shop.currency %>
+          <% end unless product.gross_price.blank? %>
         </td>
       </tr>
     <% end %>
