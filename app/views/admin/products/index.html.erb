@@ -12,10 +12,16 @@
     <% @products.each do |product| %>
       <tr>
         <td>
-          <%= link_to product.name, edit_admin_shop_product_path(@shop, product) %>
+          <%= link_to product.name, edit_admin_shop_product_path(@shop, product) %><br>
+          <%= product.brand %><br>
+          <%= product.number %><%= " (#{product.supplier_number})" unless product.supplier_number.blank? %>
         </td>
         <td>
-          <%= product.category.path %>
+          <%= product.category.path %></br>
+          <br>
+          <%= "#{product.net_price} kr." unless product.net_price.blank? %>
+          <%= '/' unless product.net_price.blank? or product.gross_price.blank? %>
+          <strong><%= "#{product.gross_price} #{@shop.currency || 'kr.'}" unless product.gross_price.blank? %></strong>
         </td>
       </tr>
     <% end %>

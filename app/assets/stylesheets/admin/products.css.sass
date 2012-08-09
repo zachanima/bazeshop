@@ -5,5 +5,19 @@ table#products
   margin-top: 16px
   padding: 4px 8px
 
-  td:not(:last-child)
-    padding-right: 32px
+  tr
+    td
+      padding: 8px
+
+      a
+        font-weight: bold
+
+    td:not(:last-child)
+      padding-right: 32px
+
+    td:last-child
+      text-align: right
+
+  tr:not(:last-child)
+    td
+      border-bottom: 1px solid #ccc
