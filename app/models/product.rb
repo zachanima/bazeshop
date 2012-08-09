@@ -12,4 +12,8 @@ class Product < ActiveRecord::Base
   validates :parcel_size, numericality: { only_integer: true }, allow_nil: true
 
   default_scope order(:name)
+
+  def advanced?
+    not (self.environment_fee.blank? and self.parcel_size.blank?)
+  end
 end

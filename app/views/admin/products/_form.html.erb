@@ -35,7 +35,7 @@
       </li>
     </ol>
   </fieldset>
-  <fieldset class="advanced">
+  <%= content_tag :fieldset, class: @product.advanced? ? nil : 'advanced' do %>
     <ol>
       <li>
         <%= f.label :environment_fee %>
@@ -46,7 +46,7 @@
         <%= f.number_field :parcel_size %>
       </li>
     </ol>
-  </fieldset>
+  <% end %>
   <fieldset>
     <%= f.submit %>
     <%= link_to 'Cancel', request.referer %>
