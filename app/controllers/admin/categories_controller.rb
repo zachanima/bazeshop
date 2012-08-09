@@ -1,5 +1,5 @@
 class Admin::CategoriesController < Admin::ApplicationController
-  before_filter :find_shop
+  before_filter :find_shop, except: [:sort]
 
   def index
     @categories = @shop.categories.top
@@ -50,8 +50,12 @@ class Admin::CategoriesController < Admin::ApplicationController
   end
 
   def sort
-    params[:category].each_with_index do |id, index|
-      Category.update_all({position: index+1}, {id: id})
+    params[:category].each_with_index do |(id, parent_id), index|
+      category = Category.find id
+      category.position = index + 1
+      category.parent_id = parent_id
+      category.save
+      # Category.update_all({position: index+1}, {id: id}, {parent_id: parent_id})
     end
     render nothing: true
   end

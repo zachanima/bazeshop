@@ -1,5 +1,8 @@
 jQuery ->
-  $('ol.categories').sortable
-    axis: 'y'
+  $('ol#categories').nestedSortable
+    handle: 'a'
+    items: 'li'
+    toleranceElement: '> a'
+    rootID: ''
     update: ->
       $.post $(@).data('update-url'), $(@).sortable('serialize')

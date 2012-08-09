@@ -7,7 +7,7 @@
   <%= link_to 'New category', new_admin_shop_category_path(@shop) %>
 </div>
 
-<%= content_tag :ol, class: 'categories', data: { 'update-url' => sort_admin_shop_categories_path(@shop) } do %>
+<%= content_tag :ol, id: 'categories', data: { 'update-url' => sort_admin_shop_categories_path(@shop) } do %>
   <% @categories.each do |category| %>
     <%= render category %>
   <% end %>
