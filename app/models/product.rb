@@ -10,4 +10,6 @@ class Product < ActiveRecord::Base
   validates :net_price, numericality: true, allow_nil: true
   validates :environment_fee, numericality: true, allow_nil: true
   validates :parcel_size, numericality: { only_integer: true }, allow_nil: true
+
+  default_scope order(:name)
 end
