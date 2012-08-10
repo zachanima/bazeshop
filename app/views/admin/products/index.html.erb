@@ -7,7 +7,7 @@
   <%= link_to 'New product', new_admin_shop_product_path(@shop) %>
 </div>
 
-<table id="products">
+<%= content_tag :table, id: 'products' do %>
   <tbody>
     <% @products.each do |product| %>
       <tr>
@@ -43,4 +43,4 @@
       </tr>
     <% end %>
   </tbody>
-<table>
+<% end unless @products.empty? %>
