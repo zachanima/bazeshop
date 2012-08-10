@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120809212658) do
+ActiveRecord::Schema.define(:version => 20120810164417) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20120809212658) do
     t.decimal  "net_price",       :precision => 8, :scale => 2
     t.decimal  "environment_fee", :precision => 8, :scale => 2
     t.integer  "parcel_size"
+    t.integer  "position"
   end
 
   add_index "products", ["category_id"], :name => "index_products_on_category_id"

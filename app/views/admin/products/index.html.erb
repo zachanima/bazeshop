@@ -8,9 +8,9 @@
 </div>
 
 <%= content_tag :table, id: 'products' do %>
-  <tbody>
+  <tbody data-update-url=<%= sort_admin_shop_products_path(@shop) %>>
     <% @products.each do |product| %>
-      <tr>
+      <%= content_tag_for :tr, product do %>
         <td>
           <%= link_to product.name, edit_admin_shop_product_path(@shop, product) %><br>
 
@@ -40,7 +40,7 @@
             <%= number_to_smart_currency product.gross_price, @shop.currency %>
           <% end unless product.gross_price.blank? %>
         </td>
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 <% end unless @products.empty? %>
