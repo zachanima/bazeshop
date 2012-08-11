@@ -11,7 +11,6 @@ jQuery ->
 
   new_image = ->
     id = $(@).data('id') + 1
-    alert(id)
     $(@)
       .clone()
       .val('')
