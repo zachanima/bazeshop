@@ -7,6 +7,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def new
     @product = Product.new
+    @product.images.build
     @categories = @shop.categories.top.nested
   end
 
@@ -23,6 +24,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def edit
     @product = Product.find params[:id]
+    @product.images.build
     @categories = @shop.categories.top.nested
   end
 

@@ -21,6 +21,16 @@
         <%= f.label :text %>
         <%= f.text_field :text %>
       </li>
+      <li id="images">
+        <%= f.label :images %>
+        <%= f.fields_for :images do |ff| %>
+          <%= ff.file_field :image, class: 'first', data: { id: @product.images.count } unless ff.object.id %>
+        <% end %>
+      </li>
+      <li>
+        <% @product.images.each do |image| %>
+          <%= image_tag image.image_url(:tiny) if image.image_url %>
+        <% end %>
       <li>
         <%= f.label :category_id, 'Category' %>
         <%= f.collection_select :category_id, @categories, :id, :indented_name_for_select %>
