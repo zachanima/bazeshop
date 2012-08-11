@@ -4,6 +4,11 @@ jQuery ->
     update: ->
       $.post $(@).data('update-url'), $(@).sortable('serialize')
 
+  $('form.edit_product ol#images').sortable
+    axis: 'x'
+    update: ->
+      $.post $(@).data('update-url'), $(@).sortable('serialize')
+
   new_image = ->
     id = $(@).data('id') + 1
     alert(id)
@@ -14,7 +19,7 @@ jQuery ->
       .data('id', id)
       .removeAttr('class')
       .change(new_image)
-      .appendTo('li#images')
+      .appendTo('li#image_fields')
     $(@).off()
 
   $('form.edit_product input[type=file], form.new_product input[type=file]').change(new_image)

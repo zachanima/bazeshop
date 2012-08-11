@@ -21,16 +21,20 @@
         <%= f.label :text %>
         <%= f.text_field :text %>
       </li>
-      <li id="images">
+      <li id="image_fields">
         <%= f.label :images %>
         <%= f.fields_for :images do |ff| %>
           <%= ff.file_field :image, class: 'first', data: { id: @product.images.count } unless ff.object.id %>
         <% end %>
       </li>
       <li>
-        <% @product.images.each do |image| %>
-          <%= image_tag image.image_url(:tiny) if image.image_url %>
-        <% end %>
+        <ol id="images" data-update-url="<%= sort_admin_images_path %>">
+          <% @product.images.each do |image| %>
+            <%= content_tag_for :li, image do %>
+              <%= image_tag image.image_url(:tiny) if image.image_url %>
+            <% end %>
+          <% end %>
+        </ol>
       <li>
         <%= f.label :category_id, 'Category' %>
         <%= f.collection_select :category_id, @categories, :id, :indented_name_for_select %>

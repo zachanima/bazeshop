@@ -3,5 +3,7 @@ class Image < ActiveRecord::Base
 
   attr_accessible :image
 
+  default_scope order(:position)
+
   mount_uploader :image, ImageUploader
 end
