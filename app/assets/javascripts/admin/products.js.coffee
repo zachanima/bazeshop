@@ -5,7 +5,7 @@ jQuery ->
       $.post $(@).data('update-url'), $(@).sortable('serialize')
 
   $('form.edit_product ol#images').sortable
-    axis: 'x'
+    axis: 'y'
     update: ->
       $.post $(@).data('update-url'), $(@).sortable('serialize')
 
@@ -20,5 +20,4 @@ jQuery ->
       .change(new_image)
       .appendTo('li#image_fields')
     $(@).off()
-
   $('form.edit_product input[type=file], form.new_product input[type=file]').change(new_image)

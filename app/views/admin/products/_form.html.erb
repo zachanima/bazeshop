@@ -19,22 +19,27 @@
       </li>
       <li>
         <%= f.label :text %>
-        <%= f.text_field :text %>
+        <%= f.text_area :text %>
       </li>
+
       <li id="image_fields">
         <%= f.label :images %>
         <%= f.fields_for :images do |ff| %>
           <%= ff.file_field :image, class: 'first', data: { id: @product.images.count } unless ff.object.id %>
         <% end %>
       </li>
-      <li>
-        <ol id="images" data-update-url="<%= sort_admin_images_path %>">
+
+      <%= content_tag :li do %>
+        <ol id="images" data-update-url="<%= sort_admin_shop_product_images_path(@shop, @product) %>">
           <% @product.images.each do |image| %>
             <%= content_tag_for :li, image do %>
               <%= image_tag image.image_url(:tiny) if image.image_url %>
+              <%= link_to 'X', admin_shop_product_image_path(@shop, @product, image), class: 'delete', data: { confirm: 'Are you sure?' }, method: :delete if image.id %>
             <% end %>
           <% end %>
         </ol>
+      <% end unless @product.new_record? %>
+
       <li>
         <%= f.label :category_id, 'Category' %>
         <%= f.collection_select :category_id, @categories, :id, :indented_name_for_select %>
