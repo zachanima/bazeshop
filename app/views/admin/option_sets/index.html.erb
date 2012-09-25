@@ -1,0 +1,16 @@
+<ul id="breadcrumbs">
+  <li>Option sets</li>
+</ul>
+
+<div id="actions">
+  <%= link_to 'New option set', new_admin_option_set_path %>
+</div>
+
+<ol>
+  <% @option_sets.each do |option_set| %>
+    <li>
+      <%= link_to option_set.name, edit_admin_option_set_path(option_set) %>
+      <%= '(optional)' if option_set.optional %>
+    </li>
+  <% end %>
+</ol>

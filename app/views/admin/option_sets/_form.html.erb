@@ -1,0 +1,18 @@
+<%= form_for ['admin', @option_set] do |f| %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label :name, class: 'required' %>
+        <%= f.text_field :name %>
+      </li>
+      <li>
+        <%= f.check_box :optional %>
+        <%= f.label :optional %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset>
+    <%= f.submit %>
+    <%= link_to 'Cancel', request.referer %>
+  </fieldset>
+<% end %>

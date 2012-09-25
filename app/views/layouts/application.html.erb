@@ -10,6 +10,9 @@
 
 <nav>
   <ul>
+    <%= content_tag :li, class: current_page?(admin_option_sets_path) ? 'active' : nil do %>
+      <%= link_to 'Option sets', admin_option_sets_path %>
+    <% end %>
     <%= content_tag :li, class: current_page?(new_admin_shop_path) ? 'active' : nil do %>
       <%= link_to 'New shop', new_admin_shop_path %>
     <% end %>
