@@ -19,6 +19,7 @@ class Admin::OptionSetsController < Admin::ApplicationController
 
   def edit
     @option_set = OptionSet.find params[:id]
+    @option_set.option_groups.build
   end
 
   def update

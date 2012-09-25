@@ -17,12 +17,9 @@
   </fieldset>
   <fieldset>
     <ol>
-      <%= f.fields_for 'option_groups' do |ff| %>
-        <li>
-          <%= ff.label :name, 'Option group name', class: 'required' %>
-          <%= ff.text_field :name %>
-        </li>
-      <% end %>
+      <%= f.fields_for
+      <li>
+      </li>
     </ol>
   </fieldset>
   <fieldset>
