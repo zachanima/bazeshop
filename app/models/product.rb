@@ -2,6 +2,8 @@ class Product < ActiveRecord::Base
   belongs_to :category
   has_one :shop, through: :category
   has_many :images, dependent: :destroy
+  has_many :variants
+  has_many :options, through: :variants
 
   attr_accessible :name, :number, :supplier_number, :brand, :text, :gross_price, :net_price, :environment_fee, :parcel_size, :category_id, :images_attributes
 
@@ -12,7 +14,7 @@ class Product < ActiveRecord::Base
   validates :environment_fee, numericality: true, allow_nil: true
   validates :parcel_size, numericality: { only_integer: true }, allow_nil: true
 
-  accepts_nested_attributes_for :images
+  accepts_nested_attributes_for :images, :variants
 
   default_scope order(:position)
 
