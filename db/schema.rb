@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925221716) do
+ActiveRecord::Schema.define(:version => 20120925225544) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(:version => 20120925221716) do
     t.datetime "updated_at", :null => false
     t.string   "text"
   end
+
+  create_table "options", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.integer  "option_group_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "options", ["option_group_id"], :name => "index_options_on_option_group_id"
 
   create_table "products", :force => true do |t|
     t.string   "name"

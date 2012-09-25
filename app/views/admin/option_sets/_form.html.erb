@@ -19,8 +19,16 @@
     <ol>
       <%= f.fields_for 'option_groups' do |ff| %>
         <li>
-          <%= ff.label :name, 'Option group name', class: 'required' %>
+          <%= ff.label :name, 'Option group', class: 'required' %>
           <%= ff.text_field :name %>
+          <%= ff.fields_for 'options' do |fff| %>
+            <ol>
+              <li>
+                <%= fff.label :name, 'Option', class: 'required' %>
+                <%= fff.text_field :name %>
+              </li>
+            </ol>
+          <% end %>
         </li>
       <% end %>
     </ol>
