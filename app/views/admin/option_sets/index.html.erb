@@ -6,11 +6,21 @@
   <%= link_to 'New option set', new_admin_option_set_path %>
 </div>
 
-<ol>
-  <% @option_sets.each do |option_set| %>
-    <li>
-      <%= link_to option_set.name, edit_admin_option_set_path(option_set) %>
-      <%= '(optional)' if option_set.optional %>
-    </li>
-  <% end %>
-</ol>
+<%= content_tag :table, id: 'option_sets' do %>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Text</th>
+      <th>Optional</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @option_sets.each do |option_set| %>
+      <tr>
+        <td><%= link_to option_set.name, edit_admin_option_set_path(option_set) %></td>
+        <td><%= option_set.text %></td>
+        <td><%= 'Optional' if option_set.optional %></td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end unless @option_sets.empty? %>
