@@ -8,4 +8,10 @@ class OptionSet < ActiveRecord::Base
   default_scope order(:position)
 
   accepts_nested_attributes_for :option_groups
+
+  def options
+    self.option_groups.collect do |option_group|
+      option_group.options
+    end.flatten
+  end
 end
