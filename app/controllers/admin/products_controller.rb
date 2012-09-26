@@ -72,11 +72,15 @@ class Admin::ProductsController < Admin::ApplicationController
     render nothing: true
   end
 
-  def copy
-    params[:product_ids].each do |id|
-      Product.find(id).copy(params[:destination_shop_id])
+  def edit_multiple
+    unless params[:copy_shop_id].blank?
+      params[:product_ids].each do |id|
+        Product.find(id).copy(params[:copy_shop_id])
+      end
+      redirect_to admin_shop_products_path(params[:copy_shop_id]), notice: 'Copied products.'
+    else
+      redirect_to admin_shop_products_path(@shop)
     end
-    redirect_to admin_shop_products_path(params[:destination_shop_id]), notice: 'Copied products.'
   end
 
 private

@@ -7,9 +7,9 @@
   <%= link_to 'New product', new_admin_shop_product_path(@shop) %>
 </div>
 
-<%= form_tag copy_admin_shop_products_path(@shop), class: :copy_products do %>
+<%= form_tag edit_multiple_admin_shop_products_path(@shop), class: :copy_products do %>
   <fieldset>
-    <%= select_tag :destination_shop_id, options_from_collection_for_select(Shop.all, :id, :name), prompt: 'Copy to shop...' %>
+    <%= select_tag :copy_shop_id, options_from_collection_for_select(Shop.all, :id, :name), prompt: 'Copy to shop...' %>
   </fieldset>
 
 <table id="products">

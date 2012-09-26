@@ -11,7 +11,7 @@ Bazeshop::Application.routes.draw do
       resources :products do
         collection do
           post 'sort'
-          post 'copy'
+          post 'edit_multiple'
         end
         resources :images do
           collection do
