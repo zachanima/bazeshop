@@ -58,5 +58,10 @@ class Product < ActiveRecord::Base
         gross_price: variant.gross_price
       )
     end
+
+    # Copy images into new product.
+    self.images.each do |image|
+      product.images.create(image: image.image)
+    end
   end
 end

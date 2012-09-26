@@ -9,11 +9,10 @@
 
 <%= form_tag copy_admin_shop_products_path(@shop), class: :copy_products do %>
   <fieldset>
-    <%= label_tag :destination_shop_id, 'Copy selected to ...' %>
-    <%= select_tag :destination_shop_id, options_from_collection_for_select(Shop.all, :id, :name), include_blank: true %>
+    <%= select_tag :destination_shop_id, options_from_collection_for_select(Shop.all, :id, :name), prompt: 'Copy to shop...' %>
   </fieldset>
 
-<%= content_tag :table, id: 'products' do %>
+<table id="products">
   <tbody data-update-url=<%= sort_admin_shop_products_path(@shop) %>>
     <% @products.each do |product| %>
       <%= content_tag_for :tr, product do %>
@@ -55,8 +54,8 @@
       <% end %>
     <% end %>
   </tbody>
-<% end unless @products.empty? %>
+</table>
 
 <br>
 
-<% end %>
+<% end unless @products.empty? %>
