@@ -6,5 +6,5 @@ class Option < ActiveRecord::Base
 
   validates :name, presence: true
 
-  default_scope order(:position)
+  default_scope order(:position).order(:id)
 end
