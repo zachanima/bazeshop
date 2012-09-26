@@ -14,7 +14,7 @@ class Admin::ProductsController < Admin::ApplicationController
   def create
     @product = Product.new params[:product]
     if @product.save
-      redirect_to admin_shop_products_path(@shop), notice: 'Created product.'
+      redirect_to edit_admin_shop_product_path(@shop, @product), notice: 'Created product.'
     else
       @categories = @shop.categories.top.nested
       flash[:error] = 'Error while creating product.'
@@ -31,6 +31,13 @@ class Admin::ProductsController < Admin::ApplicationController
   def update
     @product = @shop.products.find params[:id]
 
+    # Remove variants if none are selected.
+    if params[:product][:option_ids].nil?
+      @product.variants.each do |variant|
+        variant.destroy
+      end
+    end
+
     # Add all variants of selected option set.
     unless params[:option_set_id].blank?
       OptionSet.find(params[:option_set_id]).option_groups.each do |option_group|
@@ -41,15 +48,8 @@ class Admin::ProductsController < Admin::ApplicationController
       end
     end
 
-    # Remove variants if none are selected.
-    if params[:product][:option_ids].nil?
-      @product.variants.each do |variant|
-        variant.destroy
-      end
-    end
-
     if @product.update_attributes params[:product]
-      redirect_to admin_shop_products_path(@shop), notice: 'Updated product.'
+      redirect_to edit_admin_shop_product_path(@shop, @product), notice: 'Updated product.'
     else
       @categories = @shop.categories.top.nested
       flash[:error] = 'Error while updating product.'
