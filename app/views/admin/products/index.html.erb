@@ -51,6 +51,9 @@
             <%= number_to_smart_currency product.gross_price, @shop.currency %>
           <% end unless product.gross_price.blank? %>
         </td>
+        <td>
+          <%= link_to 'X', admin_shop_product_path(@shop, product), class: 'delete', data: { confirm: 'Are you sure?' }, method: :delete %>
+        </td>
       <% end %>
     <% end %>
   </tbody>

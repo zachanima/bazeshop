@@ -1,8 +1,6 @@
 <%= content_tag_for :li, category do %>
   <%= content_tag :span do %>
-    <%= link_to admin_shop_category_path(@shop, category), class: 'delete', data: { confirm: 'Can only delete category without associations. Are you sure?' }, method: :delete do %>
-      X
-    <% end %>
+    <%= link_to 'X', admin_shop_category_path(@shop, category), class: 'delete', data: { confirm: 'Can only delete category without associations. Are you sure?' }, method: :delete %>
   <% end %>
   <%= link_to category.name, edit_admin_shop_category_path(@shop, category) %>
   <%= content_tag :ol do %>

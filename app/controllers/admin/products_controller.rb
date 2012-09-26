@@ -65,6 +65,17 @@ class Admin::ProductsController < Admin::ApplicationController
     end
   end
 
+  def destroy
+    @product = @shop.products.find params[:id]
+    if @product.can_destroy?
+      @product.destroy
+      flash[:notice] = 'Deleted product.'
+    else
+      flash[:error] = 'Error while deleting product.'
+    end
+    redirect_to admin_shop_products_path(@shop)
+  end
+
   def sort
     params[:product].each_with_index do |id, index|
       Product.update_all({position: index+1}, {id: id})
