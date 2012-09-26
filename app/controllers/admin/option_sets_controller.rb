@@ -33,12 +33,18 @@ class Admin::OptionSetsController < Admin::ApplicationController
   def update
     @option_set = OptionSet.find params[:id]
 
-    # Reject empty option groups and options.
-    params[:option_set][:option_groups_attributes].reject! do |option_group_id, option_group|
-      option_group[:options_attributes].reject! do |option_id, option|
-        option[:name].blank?
+    # Reject and destroy empty option groups and options.
+    params[:option_set][:option_groups_attributes].reject! do |id, option_group|
+      option_group[:options_attributes].reject! do |id, option|
+        if option[:name].blank?
+          Option.destroy(option[:id]) if option[:id].to_i != 0
+          true
+        end
       end if option_group[:options_attributes]
-      option_group[:name].blank?
+      if option_group[:name].blank?
+        OptionGroup.destroy(option_group[:id]) if option_group[:id].to_i != 0
+        true
+      end
     end
 
     if @option_set.update_attributes params[:option_set]
