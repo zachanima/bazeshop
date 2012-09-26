@@ -84,7 +84,7 @@
         <% option_set.option_groups.each do |option_group| %>
           <li>
             <%= label_tag :option_group_id, option_group.name %>
-              <ol>
+              <ol class="product_options">
                 <% option_group.options.each do |option| %>
                   <li>
                     <%= check_box_tag 'product[option_ids][]', option.id, @product.options.include?(option), id: dom_id(option) %>

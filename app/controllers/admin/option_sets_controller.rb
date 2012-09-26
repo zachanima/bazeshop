@@ -25,6 +25,7 @@ class Admin::OptionSetsController < Admin::ApplicationController
     @option_set.option_groups.build
   end
 
+  # TODO: Implement removal of option groups / options.
   def update
     @option_set = OptionSet.find params[:id]
 
