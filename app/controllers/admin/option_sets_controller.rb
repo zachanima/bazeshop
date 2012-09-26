@@ -21,7 +21,10 @@ class Admin::OptionSetsController < Admin::ApplicationController
   def edit
     @option_set = OptionSet.find params[:id]
     @option_set.option_groups.each do |option_group|
-      option_group.options.build
+      # Build 20 empty options.
+      20.times do
+        option_group.options.build
+      end
     end
     @option_set.option_groups.build
   end
