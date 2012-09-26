@@ -26,12 +26,21 @@ class Admin::ProductsController < Admin::ApplicationController
     @product = Product.find params[:id]
     @product.images.build
     @categories = @shop.categories.top.nested
+    @option_sets = OptionSet.exclude(@product.option_sets)
   end
 
   def update
     @product = @shop.products.find params[:id]
 
-    # Remove variants if none are selected.
+    # Set variant prices. FIXME: Implement using nested attributes.
+    params[:variants_attributes].each_pair do |id, fields|
+      variant = Variant.find id
+      variant.gross_price = fields[:gross_price]
+      variant.net_price = fields[:net_price]
+      variant.save
+    end
+
+    # Remove all variants if none are selected.
     if params[:product][:option_ids].nil?
       @product.variants.each do |variant|
         variant.destroy

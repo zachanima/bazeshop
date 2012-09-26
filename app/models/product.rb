@@ -2,10 +2,10 @@ class Product < ActiveRecord::Base
   belongs_to :category
   has_one :shop, through: :category
   has_many :images, dependent: :destroy
-  has_many :variants
+  has_many :variants, dependent: :destroy
   has_many :options, through: :variants
 
-  attr_accessible :name, :number, :supplier_number, :brand, :text, :gross_price, :net_price, :environment_fee, :parcel_size, :category_id, :images_attributes, :option_ids
+  attr_accessible :name, :number, :supplier_number, :brand, :text, :gross_price, :net_price, :environment_fee, :parcel_size, :category_id, :images_attributes, :option_ids, :variants_attributes
 
   validates :name, presence: true
   validates :category, presence: true

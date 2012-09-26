@@ -80,17 +80,27 @@
   <% @product.option_sets.each do |option_set| %>
     <fieldset>
       <legend><%= option_set.name %></legend>
+      <ol>
         <% option_set.option_groups.each do |option_group| %>
-          <%= label_tag :option_group_id, option_group.name %>
-            <ol>
-              <% option_group.options.each do |option| %>
-                <li>
-                  <%= check_box_tag 'product[option_ids][]', option.id, @product.options.include?(option) %>
-                  <%= label_tag :option_id, option.name %>
-                </li>
-              <% end %>
-            </ol>
+          <li>
+            <%= label_tag :option_group_id, option_group.name %>
+              <ol>
+                <% option_group.options.each do |option| %>
+                  <li>
+                    <%= check_box_tag 'product[option_ids][]', option.id, @product.options.include?(option), id: dom_id(option) %>
+                    <%= label_tag dom_id(option), option.name %>
+                    <% if @product.options.include?(option) %>
+                      <% variant = option.variants.where(product_id: @product.id).last %>
+                      <%= number_field_tag "variants_attributes[#{variant.id}][gross_price]", variant.gross_price, placeholder: 'Gross price' %>
+                      <%= number_field_tag "variants_attributes[#{variant.id}][net_price]", variant.net_price, placeholder: 'Net price' %>
+                    <% end %>
+                    <%# [variants_attributes][7][gross_price] %>
+                  </li>
+                <% end %>
+              </ol>
+          </li>
         <% end %>
+      </ol>
     </fieldset>
   <% end %>
 
