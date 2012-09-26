@@ -91,10 +91,9 @@
                     <%= label_tag dom_id(option), option.name %>
                     <% if @product.options.include?(option) %>
                       <% variant = option.variants.where(product_id: @product.id).last %>
-                      <%= number_field_tag "variants_attributes[#{variant.id}][gross_price]", variant.gross_price, placeholder: 'Gross price' %>
-                      <%= number_field_tag "variants_attributes[#{variant.id}][net_price]", variant.net_price, placeholder: 'Net price' %>
+                      <%= number_field_tag "variants_attributes[#{variant.id}][gross_price]", variant.gross_price, placeholder: option.gross_price %>
+                      <%= number_field_tag "variants_attributes[#{variant.id}][net_price]", variant.net_price, placeholder: option.net_price %>
                     <% end %>
-                    <%# [variants_attributes][7][gross_price] %>
                   </li>
                 <% end %>
               </ol>

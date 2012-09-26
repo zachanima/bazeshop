@@ -5,6 +5,10 @@ form
   padding: 16px 16px 0 16px
   display: inline-block
 
+  &.edit_option_set
+    ol ol input[type=text]
+      width: 170px
+
   input, textarea, select
     font-size: 11pt
 
@@ -88,7 +92,9 @@ form
 
             label
               display: inline-block
-              min-width: 64px
+              min-width: 144px
+
+            input
 
     a[href='#advanced']
       display: block

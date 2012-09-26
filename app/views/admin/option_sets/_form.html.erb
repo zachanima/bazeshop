@@ -26,6 +26,8 @@
               <li>
                 <%= fff.label :name, 'Option', class: 'required' %>
                 <%= fff.text_field :name %>
+                <%= fff.number_field :gross_price, placeholder: 'Gross price' %>
+                <%= fff.number_field :net_price, placeholder: 'Net price' %>
               </li>
             </ol>
           <% end %>
