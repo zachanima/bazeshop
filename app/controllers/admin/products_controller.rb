@@ -30,6 +30,24 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def update
     @product = @shop.products.find params[:id]
+
+    # Add all variants of selected option set.
+    unless params[:option_set_id].blank?
+      OptionSet.find(params[:option_set_id]).option_groups.each do |option_group|
+        option_group.options.each do |option|
+          @product.variants.build(option_id: option.id)
+          @product.save
+        end
+      end
+    end
+
+    # Remove variants if none are selected.
+    if params[:product][:option_ids].nil?
+      @product.variants.each do |variant|
+        variant.destroy
+      end
+    end
+
     if @product.update_attributes params[:product]
       redirect_to admin_shop_products_path(@shop), notice: 'Updated product.'
     else

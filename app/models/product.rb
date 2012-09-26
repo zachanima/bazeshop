@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
   has_many :variants
   has_many :options, through: :variants
 
-  attr_accessible :name, :number, :supplier_number, :brand, :text, :gross_price, :net_price, :environment_fee, :parcel_size, :category_id, :images_attributes
+  attr_accessible :name, :number, :supplier_number, :brand, :text, :gross_price, :net_price, :environment_fee, :parcel_size, :category_id, :images_attributes, :option_ids
 
   validates :name, presence: true
   validates :category, presence: true
@@ -20,5 +20,9 @@ class Product < ActiveRecord::Base
 
   def advanced?
     not (self.environment_fee.blank? and self.parcel_size.blank?)
+  end
+
+  def option_sets
+    self.options.collect(&:option_group).uniq.collect(&:option_set).uniq
   end
 end

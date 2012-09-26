@@ -14,4 +14,14 @@ class OptionSet < ActiveRecord::Base
       option_group.options
     end.flatten
   end
+
+  def name_with_text
+    "#{self.name} (#{self.text})"
+  end
+
+  def self.exclude option_sets
+    self.all.reject do |option_set|
+      option_sets.include? option_set
+    end
+  end
 end
