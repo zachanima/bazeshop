@@ -7,10 +7,19 @@
   <%= link_to 'New product', new_admin_shop_product_path(@shop) %>
 </div>
 
+<%= form_tag copy_admin_shop_products_path(@shop), class: :copy_products do %>
+  <fieldset>
+    <%= label_tag :destination_shop_id, 'Copy selected to ...' %>
+    <%= select_tag :destination_shop_id, options_from_collection_for_select(Shop.all, :id, :name), include_blank: true %>
+  </fieldset>
+
 <%= content_tag :table, id: 'products' do %>
   <tbody data-update-url=<%= sort_admin_shop_products_path(@shop) %>>
     <% @products.each do |product| %>
       <%= content_tag_for :tr, product do %>
+        <td>
+          <%= check_box_tag 'product_ids[]', product.id %>
+        </td>
         <td>
           <%= image_tag product.images.first.image_url(:tiny) if product.images.first %>
         </td>
@@ -47,3 +56,7 @@
     <% end %>
   </tbody>
 <% end unless @products.empty? %>
+
+<br>
+
+<% end %>

@@ -38,7 +38,7 @@ class Admin::ProductsController < Admin::ApplicationController
       variant.gross_price = fields[:gross_price]
       variant.net_price = fields[:net_price]
       variant.save
-    end
+    end if params[:variants_attributes]
 
     # Remove all variants if none are selected.
     if params[:product][:option_ids].nil?
@@ -71,6 +71,13 @@ class Admin::ProductsController < Admin::ApplicationController
       Product.update_all({position: index+1}, {id: id})
     end
     render nothing: true
+  end
+
+  def copy
+    params[:product_ids].each do |id|
+      Product.find(id).copy(params[:destination_shop_id])
+    end
+    redirect_to admin_shop_products_path(params[:destination_shop_id]), notice: 'Copied products.'
   end
 
 private

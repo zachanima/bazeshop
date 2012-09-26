@@ -9,6 +9,9 @@ jQuery ->
     update: ->
       $.post $(@).data('update-url'), $(@).sortable('serialize')
 
+  $('form.copy_products select').change ->
+    $(@).parents('form').submit() if $(@).val() != ''
+
   new_image = ->
     id = $(@).data('id') + 1
     $(@)
