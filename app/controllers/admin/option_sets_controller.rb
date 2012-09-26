@@ -10,6 +10,7 @@ class Admin::OptionSetsController < Admin::ApplicationController
   def create
     @option_set = OptionSet.new params[:option_set]
     if @option_set.save
+      @option_set.option_groups.create(name: @option_set.name)
       redirect_to edit_admin_option_set_path(@option_set), notice: 'Created option set.'
     else
       flash[:error] = 'Error while creating option set.'
