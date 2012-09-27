@@ -1,0 +1,40 @@
+<%= content_tag_for :tr, product do %>
+  <td>
+    <%= check_box_tag 'product_ids[]', product.id %>
+  </td>
+  <td>
+    <%= image_tag product.images.first.image_url(:tiny) if product.images.first %>
+  </td>
+  <td>
+    <%= link_to product.name, edit_admin_shop_product_path(@shop, product) %><br>
+
+    <%= content_tag :span, product.brand, class: 'brand' unless product.brand.empty? %><br>
+
+    <%= content_tag :span, class: 'number' do %>
+      <%= product.number %>
+    <% end unless product.number.blank? %>
+
+    <%= content_tag :span, class: 'supplier_number' do %>
+      <%= '/' unless product.number.blank? %>
+      <%= product.supplier_number %>
+    <% end unless product.supplier_number.blank? %>
+  </td>
+  <td>
+    <%= product.category.path %></br>
+
+    <br>
+
+    <%= content_tag :span, class: 'net_price' do %>
+      <%= number_to_smart_currency product.net_price %>
+      <%= '/' unless product.gross_price.blank? %>
+    <% end unless product.net_price.blank? %>
+
+
+    <%= content_tag :span, class: 'gross_price' do %>
+      <%= number_to_smart_currency product.gross_price, @shop.currency %>
+    <% end unless product.gross_price.blank? %>
+  </td>
+  <td>
+    <%= link_to 'X', admin_shop_product_path(@shop, product), class: 'delete', data: { confirm: 'Are you sure?' }, method: :delete %>
+  </td>
+<% end %>
