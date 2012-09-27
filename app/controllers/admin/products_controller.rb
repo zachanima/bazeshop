@@ -51,7 +51,7 @@ class Admin::ProductsController < Admin::ApplicationController
     unless params[:option_set_id].blank?
       OptionSet.find(params[:option_set_id]).option_groups.each do |option_group|
         option_group.options.each do |option|
-          @product.variants.create(option_id: option.id)
+          params[:product][:option_ids] << option.id
         end
       end
     end
