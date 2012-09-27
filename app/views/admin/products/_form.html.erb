@@ -68,14 +68,14 @@
     </ol>
   <% end %>
 
-  <fieldset>
+  <%= content_tag :fieldset do %>
     <ol>
       <li>
         <%= label_tag :option_set_id, 'Add option set' %>
         <%= select_tag :option_set_id, options_from_collection_for_select(OptionSet.exclude(@product.option_sets), :id, :name_with_text), include_blank: true %>
       </li>
     </ol>
-  </fieldset>
+  <% end unless @product.new_record? %>
 
   <% @product.option_sets.each do |option_set| %>
     <fieldset class="option_sets">
@@ -101,7 +101,7 @@
         <% end %>
       </ol>
     </fieldset>
-  <% end %>
+  <% end unless @product.new_record? %>
 
   <fieldset>
     <%= f.submit %>
