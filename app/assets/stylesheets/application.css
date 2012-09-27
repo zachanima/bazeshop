@@ -9,6 +9,12 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ * require_tree .
+ *= require admin/categories
+ *= require admin/flash
+ *= require admin/form
+ *= require admin/navigation
+ *= require admin/products
+ *= require admin/style
  *= require jquery.ui.all
  */

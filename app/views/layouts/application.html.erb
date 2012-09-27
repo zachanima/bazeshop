@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @shop.name %></title>
+    <%= stylesheet_link_tag 'style', media: :all %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+
+  <div id="header">
+    <div class="content">
+      <%= image_tag @shop.logo %>
+    </div>
+  </div>
+
+  <div id="nav">
+    <div class="content">
+      <ul>
+        <li><%= link_to 'Velkommen', @shop %></li>
+        <% @shop.categories.top.each do |category| %>
+          <li><%= link_to category.name, @shop %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div id="content">
+    <%= yield %>
+  </div>
+
+  <div id="footer">
+    <div class="content">
+      &copy; 2009-<%= Time.now.year %> Baze A/S
+    </div>
+  </div>
+
+  </body>
+</html>
