@@ -42,13 +42,22 @@ div#nav
 
   ul
     list-style: none
+
     margin: 0
     padding-left: 0
 
-    li
-      display: inline-block
+    ul
+      background-color: #fff
+      border: 1px solid #ddd
 
       a
+        font-size: 9pt
+
+  div.content > ul
+    > li
+      display: inline-block
+
+      > a
         color: #fff
         font-size: 13pt
         font-weight: bold
@@ -59,7 +68,30 @@ div#nav
         padding: 4px 16px 8px 16px
 
         &:hover
-          color: #333
+          color: #666
+
+        &.active
+          color: #666
+          background-color: #fff
+
+      ul
+        display: none
+        position: absolute
+        white-space: nowrap
+
+      > ul li:hover > ul
+        display: block
+        margin-top: -23px
+        margin-left: 100%
+
+      &:hover
+        > ul
+          display: block
+
+    ul a
+      display: block
+      padding: 4px 24px 4px 8px
+        
 
 
 

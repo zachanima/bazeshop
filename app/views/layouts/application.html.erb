@@ -17,9 +17,7 @@
     <div class="content">
       <ul>
         <li><%= link_to 'Velkommen', @shop %></li>
-        <% @shop.categories.top.each do |category| %>
-          <li><%= link_to category.name, @shop %></li>
-        <% end %>
+        <%= render @shop.categories.top %>
       </ul>
     </div>
   </div>

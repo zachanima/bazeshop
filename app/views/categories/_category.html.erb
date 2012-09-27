@@ -1,0 +1,6 @@
+<li>
+  <%= link_to category.name, @shop %>
+  <%= content_tag :ul do %>
+    <%= render category.categories %>
+  <% end if category.categories.count > 0 %>
+</li>
