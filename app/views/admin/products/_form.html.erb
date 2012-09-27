@@ -79,7 +79,7 @@
 
   <% @product.option_sets.each do |option_set| %>
     <fieldset class="option_sets">
-      <legend><%= option_set.name %></legend>
+      <legend><%= link_to option_set.name, '#toggle' %></legend>
       <ol>
         <% option_set.option_groups.each do |option_group| %>
           <li>

@@ -12,6 +12,11 @@ jQuery ->
   $('form.copy_products select').change ->
     $(@).parents('form').submit() if $(@).val() != ''
 
+  $('fieldset.option_sets legend a').click ->
+    $(@).parents('legend').siblings('ol').toggle()
+
+  $('fieldset.option_sets legend a').click()
+
   new_image = ->
     id = $(@).data('id') + 1
     $(@)
