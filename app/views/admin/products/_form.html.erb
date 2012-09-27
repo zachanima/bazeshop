@@ -83,7 +83,7 @@
       <ol>
         <% option_set.option_groups.each do |option_group| %>
           <li>
-            <%= label_tag :option_group_id, option_group.name %>
+            <%= label_tag :option_group_id, option_group.name unless option_group == option_set.option_groups.first %>
               <ol class="product_options">
                 <% option_group.options.each do |option| %>
                   <li>
