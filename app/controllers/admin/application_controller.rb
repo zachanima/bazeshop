@@ -1,4 +1,6 @@
-class Admin::ApplicationController < ApplicationController
+class Admin::ApplicationController < ActionController::Base
+  protect_from_forgery
+
   before_filter :authenticate!
   layout 'admin'
 
