@@ -11,12 +11,14 @@
   <thead>
     <tr>
       <th>Login</th>
+      <th>Password</th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.login, edit_admin_shop_user_path(@shop, user) %></td>
+        <td><%= user.plaintext_password %></td>
       </tr>
     <% end %>
   </tbody>
