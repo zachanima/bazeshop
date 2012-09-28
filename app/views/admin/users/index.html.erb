@@ -1,0 +1,23 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li>Users</li>
+</ul>
+
+<div id="actions">
+  <%= link_to 'New user', new_admin_shop_user_path(@shop) %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Login</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.login, edit_admin_shop_user_path(@shop, user) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

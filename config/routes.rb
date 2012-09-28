@@ -19,12 +19,16 @@ Bazeshop::Application.routes.draw do
           end
         end
       end
+      resources :users
     end
   end
 
   resources :shops do
     resources :categories
     resources :products
+    member do
+      devise_for :users, controllers: { sessions: 'user/sessions' }
+    end
   end
 
   root to: 'admin/shops#new'

@@ -1,0 +1,7 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li><%= link_to 'Users', admin_shop_users_path(@shop) %></li>
+  <li>New user</li>
+</ul>
+
+<%= render 'form' %>

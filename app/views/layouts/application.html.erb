@@ -13,14 +13,16 @@
     </div>
   </div>
 
-  <div id="nav">
-    <div class="content">
-      <ul>
-        <li><%= link_to 'Velkommen', @shop %></li>
-        <%= render @shop.categories.top %>
-      </ul>
+  <% if user_signed_in? %>
+    <div id="nav">
+      <div class="content">
+        <ul>
+          <li><%= link_to 'Velkommen', @shop %></li>
+          <%= render @shop.categories.top %>
+        </ul>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div id="content">
     <%= yield %>

@@ -1,0 +1,22 @@
+<%= form_for resource, as: resource_name, url: user_session_path(@shop) do |f| %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label :login, @shop.login_text %>
+        <%= f.text_field :login %>
+      </li>
+      <li>
+        <%= f.label :password, @shop.password_text %>
+        <%= f.password_field :password %>
+      </li>
+    </ol>
+
+    <% if devise_mapping.rememberable? -%>
+      <%= f.check_box :remember_me %><%= f.label :remember_me, 'Forbliv logget ind' %>
+    <% end -%>
+    <%= f.hidden_field :shop_id, value: @shop.id %>
+    <%= f.submit 'Log ind' %>
+  </fieldset>
+<% end %>
+
+<%= render :partial => "devise/shared/links" %>

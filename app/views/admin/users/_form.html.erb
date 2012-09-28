@@ -1,0 +1,23 @@
+<%= form_for ['admin', @shop, @user] do |f| %>
+  <%= @user.errors.inspect %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label :login %>
+        <%= f.text_field :login %>
+      </li>
+      <li>
+        <%= f.label :password %>
+        <%= f.text_field :password %>
+      </li>
+      <li>
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+      </li>
+    </ol>
+  </fieldset>
+
+  <fieldset>
+    <%= f.submit %>
+  </fieldset>
+<% end %>
