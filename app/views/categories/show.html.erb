@@ -3,7 +3,7 @@
     <% count = 1 %>
     <% @category.products.each do |product| %>
       <td class="product">
-        <%= link_to @shop do %>
+        <%= link_to shop_product_path(@shop, product) do %>
           <table class="image">
             <tr>
               <td>

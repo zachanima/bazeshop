@@ -1,0 +1,49 @@
+<div id="product">
+  <%= link_to @product.images.first.image.url, id: :image do %>
+    <%= image_tag @product.images.first.image.url(:thumb) if @product.images.first %>
+  <% end %>
+
+  <h1><%= @product.name %></h1>
+  <%= content_tag :h2, @product.number if @product.number %>
+
+  <div id="text">
+    <%= @product.text %>
+  </div>
+
+  <div id="price">
+    <%= number_to_smart_currency @product.gross_price, @shop.currency if @product.gross_price %>
+  </div>
+
+  <%= form_tag '' do |f| %>
+    <% @product.option_sets.each do |option_set| %>
+      <div class="options">
+        <label><%= option_set.name %></label>
+        <select>
+          <% if option_set.optional %>
+            <option></option>
+          <% end %>
+
+          <% option_set.option_groups.each do |option_group| %>
+            <% unless option_group == option_set.option_groups.first %>
+              <optgroup label="<%= option_group.name %>">
+            <% end %>
+
+            <% option_group.options.each do |option| %>
+              <% if @product.options.include? option %>
+                <% variant = @product.variants.where(option_id: option.id).last %>
+                <option value="<%= variant.id %>">
+                  <%= variant.option.name %>
+                  <%= "(+ #{number_to_smart_currency variant.derived_gross_price, @shop.currency})" if variant.derived_gross_price %>
+                </option>
+              <% end %>
+            <% end %>
+
+            <% unless option_group == option_set.option_groups.first %>
+              </optgroup>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
+    <% end %>
+  <% end %>
+</div>
