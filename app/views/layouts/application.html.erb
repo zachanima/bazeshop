@@ -12,7 +12,7 @@
       <%= image_tag @shop.logo %>
       <%= content_tag :span do %>
         <%= current_user.name %><br>
-        <%= link_to 'Log ud', destroy_user_session_path, method: :delete %>
+        <%= link_to 'Log ud', destroy_user_session_path %>
       <% end if user_signed_in? %>
     </div>
   </div>
