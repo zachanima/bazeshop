@@ -40,6 +40,12 @@
             <% end %>
 
             <%= content_tag :li do %>
+              <%= link_to shop_path(shop) do %>
+                Visit shop
+              <% end %>
+            <% end %>
+
+            <%= content_tag :li do %>
               <%= link_to admin_shop_path(shop), class: 'delete', data: { confirm: 'Can only delete shop without associations. Are you sure?' }, method: :delete do %>
                 Delete shop
               <% end %>
