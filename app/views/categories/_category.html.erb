@@ -1,5 +1,10 @@
 <li>
-  <%= link_to category.name, shop_category_path(@shop, category) %>
+  <% if category.products.count > 0 %>
+    <%= link_to category.name, shop_category_path(@shop, category) %>
+  <% else %>
+    <%= link_to category.name, '#' %>
+  <% end %>
+
   <%= content_tag :ul do %>
     <%= render category.categories %>
   <% end if category.categories.count > 0 %>
