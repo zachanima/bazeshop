@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928183621) do
+ActiveRecord::Schema.define(:version => 20120928185758) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -123,8 +123,6 @@ ActiveRecord::Schema.define(:version => 20120928183621) do
     t.boolean  "is_manager"
     t.integer  "manager_id"
   end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
   create_table "variants", :force => true do |t|
     t.decimal  "net_price",   :precision => 8, :scale => 2
