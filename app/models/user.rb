@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   belongs_to :shop
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-    :login, :plaintext_password, :department, :name
+    :login, :plaintext_password, :department, :name, :phone
 
   validates :login, presence: true
   validates :name, presence: true
