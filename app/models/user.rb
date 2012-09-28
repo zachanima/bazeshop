@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   validates :login, presence: true
   validates :name, presence: true
+  validates_uniqueness_of :login, scope: :shop_id
 
   default_scope order(:name)
   scope :managers, where(is_manager: true)
