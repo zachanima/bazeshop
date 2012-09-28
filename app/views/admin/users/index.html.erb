@@ -12,6 +12,7 @@
     <tr>
       <th>Login</th>
       <th>Password</th>
+      <th>Department</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,7 @@
       <tr>
         <td><%= link_to user.login, edit_admin_shop_user_path(@shop, user) %></td>
         <td><%= user.plaintext_password %></td>
+        <td><%= user.department %></td>
       </tr>
     <% end %>
   </tbody>
