@@ -1,0 +1,25 @@
+<table id="products">
+  <tr>
+    <% count = 1 %>
+    <% @category.products.each do |product| %>
+      <td class="product">
+        <%= link_to @shop do %>
+          <table class="image">
+            <tr>
+              <td>
+                <%= image_tag product.images.first.image.url(:thumb) if product.images.first %>
+              </td>
+            </tr>
+          </table>
+          <span class="name"><%= product.name %></span>
+          <span class="number"><%= product.number %></span>
+        <% end %>
+      </td>
+      <% if count % 3 == 0 %>
+        </tr>
+        <tr>
+      <% end %>
+      <% count += 1 %>
+    <% end %>
+  </tr>
+</table>

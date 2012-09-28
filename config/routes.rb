@@ -22,7 +22,9 @@ Bazeshop::Application.routes.draw do
     end
   end
 
-  resources :shops
+  resources :shops do
+    resources :categories
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
