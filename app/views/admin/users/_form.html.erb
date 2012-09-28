@@ -22,6 +22,10 @@
         <%= f.text_field :department %>
       </li>
       <li>
+        <%= f.label :manager_id %>
+        <%= f.collection_select :manager_id, @shop.users.managers, :id, :name, include_blank: true %>
+      </li>
+      <li>
         <%= f.label :phone %>
         <%= f.text_field :phone %>
       </li>
