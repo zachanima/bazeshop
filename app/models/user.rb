@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   validates :login, presence: true
   validates :name, presence: true
 
+  default_scope order(:name)
+
   def email_required?
     false
   end
