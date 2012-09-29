@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120929171402) do
+ActiveRecord::Schema.define(:version => 20120929202708) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -36,16 +36,16 @@ ActiveRecord::Schema.define(:version => 20120929171402) do
   create_table "line_items", :force => true do |t|
     t.string   "product_name"
     t.string   "product_number"
-    t.string   "supplier_number"
-    t.string   "brand"
-    t.decimal  "gross_price",     :precision => 8, :scale => 2
-    t.decimal  "net_price",       :precision => 8, :scale => 2
+    t.string   "product_supplier_number"
+    t.string   "product_brand"
+    t.decimal  "gross_price",             :precision => 8, :scale => 2
+    t.decimal  "net_price",               :precision => 8, :scale => 2
     t.integer  "quantity"
     t.integer  "order_id"
     t.integer  "user_id"
     t.integer  "product_id"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
   end
 
   create_table "option_groups", :force => true do |t|
