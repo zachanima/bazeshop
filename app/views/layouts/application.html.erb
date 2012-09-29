@@ -50,7 +50,7 @@
             <td></td>
             <td class="number"><%= line_item.quantity %></td>
             <td class="number">
-              <%= number_to_smart_currency line_item.gross_price, @shop.currency %>
+              <%= number_to_smart_currency line_item.gross_price, @shop.currency if line_item.gross_price %>
             </td>
           </tr>
         <% end %>
