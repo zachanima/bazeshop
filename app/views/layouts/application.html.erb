@@ -57,7 +57,7 @@
       </tbody>
     </table>
 
-    <%= submit_tag 'G&aring; til bestilling'.html_safe %>
+    <%= link_to 'G&aring; til bestilling'.html_safe, shop_line_items_path(@shop) %>
   <% end if current_user.line_items.current.count > 0 %>
 
   <div id="footer">

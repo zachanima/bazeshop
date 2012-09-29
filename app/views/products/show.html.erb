@@ -51,6 +51,8 @@
       <%= f.select :quantity, options_for_select((1..20).collect { |n| [n, n] }) %>
     </div>
 
-    <%= f.submit 'Tilf&oslash;j til kurv'.html_safe %>
+    <div id="add_to_cart">
+      <%= f.submit 'Tilf&oslash;j til kurv'.html_safe %>
+    </div>
   <% end %>
 </div>

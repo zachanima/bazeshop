@@ -26,6 +26,7 @@ Bazeshop::Application.routes.draw do
 
   resources :shops do
     resources :categories
+    resources :line_items
     resources :products do
       resources :line_items
     end
