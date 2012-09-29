@@ -1,6 +1,10 @@
 class LineItemsController < ApplicationController
   before_filter :authenticate_user!
 
+  def index
+    @shop = Shop.find params[:shop_id]
+  end
+
   def create
     @shop = Shop.find params[:shop_id]
     @product = @shop.products.find params[:product_id]
