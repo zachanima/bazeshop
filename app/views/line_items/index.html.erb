@@ -4,6 +4,7 @@
     <thead>
       <tr>
         <th>Produkt</th>
+        <th>Stykpris</th>
         <th>Varianter</th>
         <th class="number">Antal</th>
         <th class="number">Pris</th>
@@ -13,6 +14,7 @@
       <% current_user.line_items.current.each do |line_item| %>
         <tr>
           <td><%= line_item.product_name %></td>
+          <td><%= number_to_smart_currency line_item.product_gross_price, @shop.currency if line_item.product_gross_price %></td>
           <td>
             <% line_item.variations.each do |variation| %>
               <%= variation.option_set_name %>: <%= variation.option_name %>

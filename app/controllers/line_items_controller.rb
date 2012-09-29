@@ -23,6 +23,8 @@ class LineItemsController < ApplicationController
       @line_item.product_number = @product.number
       @line_item.product_supplier_number = @product.supplier_number
       @line_item.product_brand = @product.brand
+      @line_item.product_gross_price = @product.gross_price if @product.gross_price
+      @line_item.product_net_price = @product.net_price if @product.net_price
       @line_item.gross_price = @product.gross_price if @product.gross_price
       @line_item.net_price = @product.net_price if @product.net_price
       variants.each do |variant|
