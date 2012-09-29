@@ -20,7 +20,9 @@
         <label><%= option_set.name %></label>
         <select name="variants[]">
           <% if option_set.optional %>
-            <option></option>
+            <option value=""></option>
+          <% else %>
+            <option value="">V&aelig;lg <%= option_set.name %>...</option>
           <% end %>
 
           <% option_set.option_groups.each do |option_group| %>

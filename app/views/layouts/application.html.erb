@@ -29,6 +29,9 @@
   <% end %>
 
   <div id="content">
+    <%= content_tag :div, class: 'error' do %>
+      <%== flash[:error] %>
+    <% end if flash[:error] %>
     <%= yield %>
   </div>
 
