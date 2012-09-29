@@ -24,7 +24,7 @@
           <% end %>
 
           <% option_set.option_groups.each do |option_group| %>
-            <% unless option_group == option_set.option_groups.first %>
+            <% if option_set.option_groups.count > 1 %>
               <optgroup label="<%= option_group.name %>">
             <% end %>
 
@@ -38,7 +38,7 @@
               <% end %>
             <% end %>
 
-            <% unless option_group == option_set.option_groups.first %>
+            <% if option_set.option_groups.count > 1 %>
               </optgroup>
             <% end %>
           <% end %>
