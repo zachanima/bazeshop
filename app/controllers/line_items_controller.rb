@@ -14,6 +14,7 @@ class LineItemsController < ApplicationController
     variants = Variant.find(params[:variants])
     option_sets = variants.collect(&:option).collect(&:option_group).collect(&:option_set)
 
+    # Ensure all non-optional options have been selected.
     @product.option_sets.each do |option_set|
       unless option_set.optional or option_sets.include? option_set
         flash[:error] = 'Et kr&aelig;vet valg er ikke foretaget.'
