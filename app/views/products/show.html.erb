@@ -33,9 +33,11 @@
             <% option_group.options.each do |option| %>
               <% if @product.options.include? option %>
                 <% variant = @product.variants.where(option_id: option.id).last %>
-                <option value="<%= variant.id %>">
+                <% is_last_selected = current_user.line_items.where(product_id: @product.id).last.variations.collect(&:variant).collect(&:option).include? option %>>
+                <option value="<%= variant.id %>" <%= 'selected="selected"' if is_last_selected %>>
                   <%= variant.option.name %>
                   <%= "(+ #{number_to_smart_currency variant.derived_gross_price, @shop.currency})" if variant.derived_gross_price %>
+                  <%= " (Senest valgte)" if is_last_selected %>
                 </option>
               <% end %>
             <% end %>
