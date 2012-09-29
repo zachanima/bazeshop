@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120929211332) do
+ActiveRecord::Schema.define(:version => 20120929222656) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -160,5 +160,19 @@ ActiveRecord::Schema.define(:version => 20120929211332) do
 
   add_index "variants", ["option_id"], :name => "index_variants_on_option_id"
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
+
+  create_table "variations", :force => true do |t|
+    t.string   "option_set_name"
+    t.string   "option_name"
+    t.decimal  "gross_price",     :precision => 8, :scale => 2
+    t.decimal  "net_price",       :precision => 8, :scale => 2
+    t.integer  "variant_id"
+    t.integer  "line_item_id"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+  end
+
+  add_index "variations", ["line_item_id"], :name => "index_variations_on_line_item_id"
+  add_index "variations", ["variant_id"], :name => "index_variations_on_variant_id"
 
 end

@@ -5,6 +5,8 @@ class LineItem < ActiveRecord::Base
   belongs_to :user
   belongs_to :product
   belongs_to :order
+  has_many :variations
+  has_many :variants, through: :variations
 
   scope :current, where(order_id: nil)
 end
