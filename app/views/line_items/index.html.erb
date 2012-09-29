@@ -29,3 +29,9 @@
     </tbody>
   </table>
 </div>
+
+<%= form_for [@shop, @order] do |f| %>
+  <div class="submit">
+    <%= f.submit 'Afgiv bestilling' %>
+  </div>
+<% end %>

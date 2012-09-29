@@ -3,6 +3,7 @@ class LineItemsController < ApplicationController
 
   def index
     @shop = Shop.find params[:shop_id]
+    @order = current_user.orders.build
   end
 
   def create
