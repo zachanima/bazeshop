@@ -14,11 +14,11 @@
     <%= number_to_smart_currency @product.gross_price, @shop.currency if @product.gross_price %>
   </div>
 
-  <%= form_tag '' do |f| %>
+  <%= form_for [@shop, @product, @line_item] do |f| %>
     <% @product.option_sets.each do |option_set| %>
       <div class="options">
         <label><%= option_set.name %></label>
-        <select>
+        <select name="variants[]">
           <% if option_set.optional %>
             <option></option>
           <% end %>
@@ -45,5 +45,12 @@
         </select>
       </div>
     <% end %>
+
+    <div>
+      <%= f.label :quantity, 'Antal' %>
+      <%= f.select :quantity, options_for_select((1..20).collect { |n| [n, n] }) %>
+    </div>
+
+    <%= f.submit 'Tilf&oslash;j til kurv'.html_safe %>
   <% end %>
 </div>

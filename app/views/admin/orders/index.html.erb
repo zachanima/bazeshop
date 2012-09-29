@@ -1,0 +1,23 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li>Orders</li>
+</ul>
+
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Gross price</th>
+    <th>Net price</th>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td>#<%= order.id %></td>
+        <td><%= order.user_name %></td>
+        <td><%= number_to_smart_currency order.gross_price %></td>
+        <td><%= number_to_smart_currency order.net_price, @shop.currency %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

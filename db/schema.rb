@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928185758) do
+ActiveRecord::Schema.define(:version => 20120929171402) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -31,6 +31,21 @@ ActiveRecord::Schema.define(:version => 20120928185758) do
     t.integer  "product_id"
     t.string   "image"
     t.integer  "position"
+  end
+
+  create_table "line_items", :force => true do |t|
+    t.string   "product_name"
+    t.string   "product_number"
+    t.string   "supplier_number"
+    t.string   "brand"
+    t.decimal  "gross_price",     :precision => 8, :scale => 2
+    t.decimal  "net_price",       :precision => 8, :scale => 2
+    t.integer  "quantity"
+    t.integer  "order_id"
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   create_table "option_groups", :force => true do |t|
@@ -61,6 +76,15 @@ ActiveRecord::Schema.define(:version => 20120928185758) do
   end
 
   add_index "options", ["option_group_id"], :name => "index_options_on_option_group_id"
+
+  create_table "orders", :force => true do |t|
+    t.string   "user_name"
+    t.decimal  "gross_price", :precision => 8, :scale => 2
+    t.decimal  "net_price",   :precision => 8, :scale => 2
+    t.integer  "user_id"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
 
   create_table "products", :force => true do |t|
     t.string   "name"

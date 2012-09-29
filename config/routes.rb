@@ -20,12 +20,15 @@ Bazeshop::Application.routes.draw do
         end
       end
       resources :users
+      resources :orders
     end
   end
 
   resources :shops do
     resources :categories
-    resources :products
+    resources :products do
+      resources :line_items
+    end
     member do
       devise_for :users, controllers: { sessions: 'user/sessions' }
     end

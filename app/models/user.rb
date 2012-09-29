@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   belongs_to :shop
   belongs_to :manager, class_name: 'User'
   has_many :users, foreign_key: :manager_id, dependent: :restrict
+  has_many :orders
+  has_many :line_items
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :login, :plaintext_password, :department, :name, :phone, :address, :text,

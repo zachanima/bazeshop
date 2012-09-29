@@ -26,4 +26,8 @@ class Shop < ActiveRecord::Base
   def advanced?
     not (self.custom_style.blank? and self.receipt_text.blank? and self.correspondent.blank? and self.shipping_price.blank? and self.free_shipping_over.blank? and self.is_closed.blank?)
   end
+
+  def orders
+    Order.joins(:user).where('users.shop_id = ?', self.id)
+  end
 end

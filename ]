@@ -33,31 +33,28 @@
   </div>
 
   <%= content_tag :div, id: 'cart' do %>
-    <h1>Kurv</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Produkt</th>
-          <th>Varianter</th>
-          <th class="number">Antal</th>
-          <th class="number">Pris</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% current_user.line_items.current.each do |line_item| %>
+    <div class="content">
+      <table>
+        <thead>
           <tr>
-            <td><%= line_item.product_name %></td>
-            <td></td>
-            <td class="number"><%= line_item.quantity %></td>
-            <td class="number">
-              <%= number_to_smart_currency line_item.gross_price, @shop.currency %>
-            </td>
+            <th>Produkt</th>
+            <th>Varianter</th>
+            <th>Antal</th>
+            <th>Stykpris</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <%= submit_tag 'G&aring; til bestilling'.html_safe %>
+        </thead>
+        <tbody>
+          <% current_user.line_items.current.each do |line_item| %>
+            <tr>
+              <td><%= line_item.product_name %></td>
+              <td></td>
+              <td><%= line_item.quantity %></td>
+              <td><%= number_to_smart_currency line_item.gross_price, @shop.currency %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   <% end if current_user.line_items.current.count > 0 %>
 
   <div id="footer">
