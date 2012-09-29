@@ -15,8 +15,8 @@
       <tr>
         <td>#<%= order.id %></td>
         <td><%= order.user_name %></td>
-        <td><%= number_to_smart_currency order.gross_price %></td>
-        <td><%= number_to_smart_currency order.net_price, @shop.currency %></td>
+        <td><%= number_to_smart_currency order.gross_price, @shop.currency if order.gross_price %></td>
+        <td><%= number_to_smart_currency order.net_price if order.net_price %></td>
       </tr>
     <% end %>
   </tbody>
