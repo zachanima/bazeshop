@@ -1,7 +1,7 @@
 <div id="product">
   <%= link_to @product.images.first.image.url, id: :image do %>
-    <%= image_tag @product.images.first.image.url(:thumb) if @product.images.first %>
-  <% end %>
+    <%= image_tag @product.images.first.image.url(:thumb) %>
+  <% end if @product.images.first %>
 
   <h1><%= @product.name %></h1>
   <%= content_tag :h2, @product.number if @product.number %>
