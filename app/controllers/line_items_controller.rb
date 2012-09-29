@@ -10,9 +10,13 @@ class LineItemsController < ApplicationController
     @shop = Shop.find params[:shop_id]
     @product = @shop.products.find params[:product_id]
 
-    params[:variants].reject! { |variant_id| variant_id.blank? }
-    variants = Variant.find(params[:variants])
-    option_sets = variants.collect(&:option).collect(&:option_group).collect(&:option_set)
+    if params[:variants]
+      params[:variants].reject! { |variant_id| variant_id.blank? }
+      variants = Variant.find(params[:variants])
+      option_sets = variants.collect(&:option).collect(&:option_group).collect(&:option_set)
+    else
+      option_sets = Array.new
+    end
 
     # Ensure all non-optional options have been selected.
     @product.option_sets.each do |option_set|
@@ -21,7 +25,7 @@ class LineItemsController < ApplicationController
         redirect_to shop_product_path(@shop, @product)
         return
       end
-    end
+    end if @product.option_sets
 
     @line_item = current_user.line_items.build(params[:line_item])
     @line_item.product = @product
@@ -43,9 +47,9 @@ class LineItemsController < ApplicationController
       )
       @line_item.gross_price += variant.derived_gross_price if variant.derived_gross_price
       @line_item.net_price += variant.derived_net_price if variant.derived_net_price
-    end
-    @line_item.gross_price *= @line_item.quantity
-    @line_item.net_price *= @line_item.quantity
+    end if variants
+    @line_item.gross_price *= @line_item.quantity if @line_item.gross_price
+    @line_item.net_price *= @line_item.quantity if @line_item.net_price
     @line_item.save
 
     redirect_to shop_product_path(@shop, @product)
