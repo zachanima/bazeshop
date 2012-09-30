@@ -47,7 +47,6 @@
           <tr>
             <td><%= line_item.product_name %></td>
             <td><%= line_item.product_number %></td>
-            <td><%= number_to_smart_currency line_item.product_gross_price, @shop.currency if line_item.product_gross_price %></td>
             <td>
               <% line_item.variations.each do |variation| %>
                 <%= variation.option_set_name %>:
@@ -56,6 +55,7 @@
                 <br>
               <% end %>
             </td>
+            <td><%= number_to_smart_currency line_item.product_gross_price, @shop.currency if line_item.product_gross_price %></td>
             <td class="number"><%= line_item.quantity %> stk.</td>
             <td class="number">
               <%= number_to_smart_currency line_item.gross_price, @shop.currency if line_item.gross_price %>
