@@ -11,8 +11,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th><%= @shop.login_text || 'Login' %></th>
-      <th><%= @shop.password_text || 'Password' %></th>
+      <th><%= @shop.login_text.blank? ? 'Login' : @shop.login_text %></th>
+      <th><%= @shop.password_text.blank? ? 'Password' : @shop.password_text %></th>
       <th>Department</th>
       <th>Manager</th>
     </tr>

@@ -6,11 +6,11 @@
         <%= f.text_field :name %>
       </li>
       <li>
-        <%= f.label :login, (@shop.login_text || 'Login') %>
+        <%= f.label :login, (@shop.login_text.blank? ? 'Login' : @shop.login_text) %>
         <%= f.text_field :login %>
       </li>
       <li>
-        <%= f.label :password, (@shop.password_text || 'Password') %>
+        <%= f.label :password, (@shop.password_text.blank? ? 'Password' : @shop.password_text) %>
         <%= f.text_field :password, value: @user.plaintext_password %>
       </li>
       <li>
