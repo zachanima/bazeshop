@@ -29,7 +29,7 @@
             <% end %>
 
             <% option_set.option_groups.each do |option_group| %>
-              <% if option_set.option_groups.count > 1 %>
+              <% if options.collect(&:option_group_id).uniq.count > 1 and options.collect(&:option_group_id).uniq.include? option_group.id %>
                 <optgroup label="<%= option_group.name %>">
               <% end %>
 
@@ -46,7 +46,7 @@
                 <% end %>
               <% end %>
 
-              <% if option_set.option_groups.count > 1 %>
+              <% if options.collect(&:option_group_id).uniq.count > 1 %>
                 </optgroup>
               <% end %>
             <% end %>
