@@ -24,23 +24,6 @@
             <td style="padding-right: 16px;"><%= line_item.product_supplier_number %></td>
             <td style="padding-right: 16px;"><%= line_item.product_brand %></td>
             <td style="padding-right: 16px;">
-              <% if line_item.product_gross_price %>
-                <% if line_item.product_gross_price % 1 == 0 %>
-                  <%= "#{line_item.product_gross_price.to_i} #{@shop.currency}" %>
-                <% else %>
-                  <%= number_to_currency line_item.product_gross_price, unit: @shop.currency, format: '%n %u' %>
-                <% end %>
-              <% end %>
-              <% if line_item.product_net_price %>
-                /
-                <% if line_item.product_net_price % 1 == 0 %>
-                  <%= "#{line_item.product_net_price.to_i} kr." %>
-                <% else %>
-                  <%= number_to_currency line_item.product_net_price, unit: 'kr.', format: '%n %u' %>
-                <% end %>
-              <% end %>
-            </td>
-            <td style="padding-right: 16px;">
               <% line_item.variations.each do |variation| %>
                 <%= variation.option_set_name %>:
                 <%= variation.option_name %>
@@ -65,6 +48,23 @@
                 <% end %>
 
                 <br>
+              <% end %>
+            </td>
+            <td style="padding-right: 16px;">
+              <% if line_item.product_gross_price %>
+                <% if line_item.product_gross_price % 1 == 0 %>
+                  <%= "#{line_item.product_gross_price.to_i} #{@shop.currency}" %>
+                <% else %>
+                  <%= number_to_currency line_item.product_gross_price, unit: @shop.currency, format: '%n %u' %>
+                <% end %>
+              <% end %>
+              <% if line_item.product_net_price %>
+                /
+                <% if line_item.product_net_price % 1 == 0 %>
+                  <%= "#{line_item.product_net_price.to_i} kr." %>
+                <% else %>
+                  <%= number_to_currency line_item.product_net_price, unit: 'kr.', format: '%n %u' %>
+                <% end %>
               <% end %>
             </td>
             <td style="padding-right: 16px; text-align: right;"><%= line_item.quantity %> stk.</td>
