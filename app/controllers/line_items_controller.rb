@@ -45,8 +45,8 @@ class LineItemsController < ApplicationController
         gross_price: variant.derived_gross_price,
         net_price: variant.derived_net_price
       )
-      @line_item.gross_price += variant.derived_gross_price if variant.derived_gross_price
-      @line_item.net_price += variant.derived_net_price if variant.derived_net_price
+      @line_item.gross_price += variant.derived_gross_price if variant.derived_gross_price and @line_item.gross_price
+      @line_item.net_price += variant.derived_net_price if variant.derived_net_price and @line_item.net_price
     end if variants
     @line_item.gross_price *= @line_item.quantity if @line_item.gross_price
     @line_item.net_price *= @line_item.quantity if @line_item.net_price

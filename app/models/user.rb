@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :rememberable, :trackable, :validatable,
+  devise :database_authenticatable, :rememberable, :trackable,
     authentication_keys: [:login, :shop_id]
 
   belongs_to :shop

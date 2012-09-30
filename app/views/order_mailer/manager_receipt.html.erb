@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  </head>
+  <body>
+    <%= @shop.receipt_text %>
+
+    <br>
+    <br>
+
+    <table border="0" style="border-collapse: collapse;">
+      <thead>
+        <tr style="color: #fff; background-color: #999;">
+          <th colspan="5" style="text-align: left;">Ordre #<%= @order.id %></th>
+          <th style="text-align: right;"><%= (@order.created_at + 7200).to_s(:short) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.line_items.each do |line_item| %>
+          <tr style="background-color: #<%= cycle 'fff', 'eee' %>">
+            <td style="padding-right: 16px;"><%= line_item.product_name %></td>
+            <td style="padding-right: 16px;"><%= line_item.product_number %></td>
+            <td style="padding-right: 16px;">
+              <% if line_item.product_gross_price %>
+                <% if line_item.product_gross_price % 1 == 0 %>
+                  <%= "#{line_item.product_gross_price.to_i} #{@shop.currency}" %>
+                <% else %>
+                  <%= number_to_currency line_item.product_gross_price, unit: @shop.currency, format: '%n %u' %>
+                <% end %>
+              <% end %>
+              <% if line_item.product_net_price %>
+                /
+                <% if line_item.product_net_price % 1 == 0 %>
+                  <%= "#{line_item.product_net_price.to_i} kr." %>
+                <% else %>
+                  <%= number_to_currency line_item.product_net_price, unit: 'kr.', format: '%n %u' %>
+                <% end %>
+              <% end %>
+            </td>
+            <td style="padding-right: 16px;">
+              <% line_item.variations.each do |variation| %>
+                <%= variation.option_set_name %>:
+                <%= variation.option_name %>
+                <% if variation.gross_price or variation.net_price %>
+                  (+ 
+                  <% if variation.gross_price %>
+                    <% if variation.gross_price % 1 == 0%>
+                      <%= " #{variation.gross_price.to_i} #{@shop.currency}" %>
+                    <% else %>
+                      <%= " #{number_to_currency variation.gross_price, unit: @shop.currency, format: '%n %u'}" %>
+                    <% end %>
+                  <% end %>
+                  <% if variation.net_price %>
+                    /
+                    <% if variation.net_price % 1 == 0%>
+                      <%= " #{variation.net_price.to_i} kr." %>
+                    <% else %>
+                      <%= " #{number_to_currency variation.net_price, unit: 'kr.', format: '%n %u'}" %>
+                    <% end %>
+                  <% end %>
+                  )
+                <% end %>
+
+                <br>
+              <% end %>
+            </td>
+            <td style="padding-right: 16px; text-align: right;"><%= line_item.quantity %> stk.</td>
+            <td style="text-align: right;">
+              <% if line_item.gross_price %>
+                <% if line_item.gross_price % 1 == 0 %>
+                  <%= "#{line_item.gross_price.to_i} #{@shop.currency}" %>
+                <% else %>
+                  <%= number_to_currency line_item.gross_price, unit: @shop.currency, format: '%n %u' %>
+                <% end %>
+              <% end %>
+              <% if line_item.net_price %>
+                /
+                <% if line_item.net_price % 1 == 0 %>
+                  <%= "#{line_item.net_price.to_i} kr." %>
+                <% else %>
+                  <%= number_to_currency line_item.net_price, unit: 'kr.', format: '%n %u' %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        <tr style="color: #fff; background-color: #999;">
+          <th colspan="5" style="text-align: left;">Total</th>
+          <th style="text-align: right;">
+            <% if @order.gross_price %>
+              <% if @order.gross_price % 1 == 0 %>
+                <%= "#{@order.gross_price.to_i} #{@shop.currency}" %>
+              <% else %>
+                <%= number_to_currency @order.gross_price, unit: @shop.currency, format: '%n %u' %>
+              <% end %>
+            <% end %>
+            <% if @order.net_price %>
+              /
+              <% if @order.net_price % 1 == 0 %>
+                <%= "#{@order.net_price.to_i} kr." %>
+              <% else %>
+                <%= number_to_currency @order.net_price, unit: 'kr.', format: '%n %u' %>
+              <% end %>
+            <% end %>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+
+    <br>
+    <br>
+
+    <strong>Kundeoplysninger</strong>
+    <table>
+      <% {
+          'Firma' => @shop.name,
+          'Afdeling' => @user.department,
+          'Navn' => @user.name,
+          'Adresse' => @user.address,
+          'Telefon' => @user.phone,
+          'Email' => @user.email,
+          'Noter' => @user.text
+        }.each_pair do |key, value| %>
+        <% unless value.blank? %>
+        <tr>
+          <td style="font-weight: bold;"><%= key %>
+          <td><%= value %></td>
+        </tr>
+        <% end %>
+      <% end %>
+    </table>
+
+    <br>
+    <br>
+
+    <% unless @order.comment.blank? %>
+      <strong>Kommentar</strong><br>
+      <%= @order.comment %>
+    <% end %>
+  </body>
+</html>

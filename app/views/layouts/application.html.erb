@@ -36,37 +36,34 @@
   </div>
 
   <%= content_tag :div, id: 'cart', class: 'cart' do %>
-    <h1>Kurv</h1>
     <table>
       <thead>
         <tr>
-          <th>Produkt</th>
-          <th>Stykpris</th>
-          <th>Varianter</th>
-          <th class="number">Antal</th>
-          <th class="number">Pris</th>
+          <th colspan="6">Kurv</th>
         </tr>
       </thead>
       <tbody>
         <% current_user.line_items.current.each do |line_item| %>
           <tr>
             <td><%= line_item.product_name %></td>
+            <td><%= line_item.product_number %></td>
             <td><%= number_to_smart_currency line_item.product_gross_price, @shop.currency if line_item.product_gross_price %></td>
             <td>
               <% line_item.variations.each do |variation| %>
-                <%= variation.option_set_name %>: <%= variation.option_name %>
-                <%= "(+ #{number_to_smart_currency variation.gross_price, @shop.currency})" if variation.gross_price %>
+                <%= variation.option_set_name %>:
+                <%= variation.option_name %>
+                <%= " (+ #{number_to_smart_currency variation.gross_price, @shop.currency})" if variation.gross_price %>
                 <br>
               <% end %>
             </td>
-            <td class="number"><%= line_item.quantity %></td>
+            <td class="number"><%= line_item.quantity %> stk.</td>
             <td class="number">
               <%= number_to_smart_currency line_item.gross_price, @shop.currency if line_item.gross_price %>
             </td>
           </tr>
         <% end %>
         <tr>
-          <th colspan="4">Total</th>
+          <th colspan="5">Total</th>
           <th class="number">
             <%= number_to_smart_currency current_user.line_items.current.collect(&:gross_price).compact.inject(&:+), @shop.currency %>
           </th>
