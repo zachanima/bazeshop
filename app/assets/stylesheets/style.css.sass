@@ -226,6 +226,42 @@ div#content
       margin-top: 24px
       text-align: right
 
+  table.order
+    border-collapse: collapse
+
+    margin-bottom: 16px
+    width: 100%
+
+    &:not(:first-child)
+      margin-top: 16px
+
+    tr
+      &:nth-child(2n)
+        td
+          background-color: #eee
+
+      th
+        background-color: #999
+        color: #fff
+        text-align: left
+
+      td
+        padding-right: 16px
+        
+        &:last-child
+          padding-right: 0
+
+      th.number, td.number
+        text-align: right
+
+  hr
+    border: 1px solid #999
+    border-width: 1px 0 0 0
+        
+
+
+    
+
 
 
 div#cart

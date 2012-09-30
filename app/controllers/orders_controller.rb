@@ -1,6 +1,11 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
 
+  def index
+    @shop = Shop.find params[:shop_id]
+    @orders = current_user.orders
+  end
+
   def create
     @shop = Shop.find params[:shop_id]
     @order = current_user.orders.build(params[:order])

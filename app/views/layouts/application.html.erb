@@ -7,7 +7,7 @@
     <style type="text/css">
       <% unless @shop.link_style.blank? %>
         a { color: <%= @shop.link_style %>; }
-        div#nav, div.cart table th { background-color: <%= @shop.link_style %>; }
+        div#nav, div.cart table th, div#content table.order tr th { background-color: <%= @shop.link_style %>; }
         div#content, div#cart { border: 5px solid <%= @shop.link_style %>; border-width: 5px 0 1px 0; }
       <% end %>
       <% unless @shop.header_style.blank? %>
@@ -36,6 +36,7 @@
         <ul>
           <li><%= link_to 'Velkommen', @shop %></li>
           <%= render @shop.categories.top %>
+          <%= content_tag :li, link_to('Historik', shop_orders_path(@shop)) if current_user.orders.count > 0 %>
         </ul>
       </div>
     </div>

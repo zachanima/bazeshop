@@ -1,0 +1,40 @@
+<% @orders.each do |order| %>
+  <table class="order">
+    <thead>
+      <tr>
+        <th colspan="5">Ordre #<%= order.id %></th>
+        <th class="number"><%= (order.created_at + 7200).to_s(:short) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% order.line_items.each do |line_item| %>
+        <tr>
+          <td><%= line_item.product_name %></td>
+          <td><%= line_item.product_number %></td>
+          <td>
+            <% line_item.variations.each do |variation| %>
+              <%= variation.option_set_name %>:
+              <%= variation.option_name %>
+              <%= " (+ #{number_to_smart_currency variation.gross_price, @shop.currency})" if variation.gross_price %>
+              <br>
+            <% end %>
+          </td>
+          <td class="number">
+            <%= number_to_smart_currency line_item.product_gross_price, @shop.currency if line_item.product_gross_price %>
+          </td>
+          <td class="number"><%= line_item.quantity %> stk.</td>
+          <td class="number">
+            <%= number_to_smart_currency line_item.gross_price, @shop.currency if line_item.gross_price %>
+          </td>
+        </tr>
+      <% end %>
+      <tr>
+        <th colspan="5">Total</th>
+        <th class="number">
+          <%= number_to_smart_currency order.gross_price, @shop.currency if order.gross_price %>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+<% end %>
