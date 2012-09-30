@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120929224540) do
+ActiveRecord::Schema.define(:version => 20120930221154) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(:version => 20120929224540) do
     t.string   "password_text"
     t.text     "text"
     t.string   "currency"
-    t.string   "border_style"
+    t.string   "header_style"
     t.string   "link_style"
     t.string   "custom_style"
     t.text     "receipt_text"

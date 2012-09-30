@@ -4,6 +4,19 @@
     <title><%= @shop.name %></title>
     <%= stylesheet_link_tag 'style', media: :all %>
     <%= csrf_meta_tags %>
+    <style type="text/css">
+      <% unless @shop.link_style.blank? %>
+        a { color: <%= @shop.link_style %>; }
+        div#nav, div.cart table th { background-color: <%= @shop.link_style %>; }
+        div#content, div#cart { border: 5px solid <%= @shop.link_style %>; border-width: 5px 0 1px 0; }
+      <% end %>
+      <% unless @shop.header_style.blank? %>
+        div#header { background-color: <%= @shop.header_style %>; }
+      <% end %>
+      <% unless @shop.custom_style.blank? %>
+        <%= @shop.custom_style %>
+      <% end %>
+    </style>
   </head>
   <body>
 
