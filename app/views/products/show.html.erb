@@ -18,36 +18,45 @@
     <% @product.option_sets.each do |option_set| %>
       <div class="options">
         <label><%= option_set.name %></label>
-        <select name="variants[]">
-          <% if option_set.optional %>
-            <option value=""></option>
-          <% else %>
-            <option value="">V&aelig;lg <%= option_set.name %>...</option>
-          <% end %>
+        <% options = @product.options.joins(:option_group).where('option_set_id = ?', option_set.id) %>
+        <% if options.count > 1 %>
 
-          <% option_set.option_groups.each do |option_group| %>
-            <% if option_set.option_groups.count > 1 %>
-              <optgroup label="<%= option_group.name %>">
+          <select name="variants[]">
+            <% if option_set.optional %>
+              <option value=""></option>
+            <% else %>
+              <option value="">V&aelig;lg <%= option_set.name %>...</option>
             <% end %>
 
-            <% option_group.options.each do |option| %>
-              <% if @product.options.include? option %>
-                <% variant = @product.variants.where(option_id: option.id).last %>
-                <% last_line_item = current_user.line_items.where(product_id: @product.id).last %>
-                <% is_last_selected = last_line_item ? (last_line_item.variations.collect(&:variant).collect(&:option).include? option) : false %>>
-                <option value="<%= variant.id %>" <%= 'selected="selected"' if is_last_selected %>>
-                  <%= variant.option.name %>
-                  <%= "(+ #{number_to_smart_currency variant.derived_gross_price, @shop.currency})" if variant.derived_gross_price %>
-                  <%= " (Senest valgte)" if is_last_selected %>
-                </option>
+            <% option_set.option_groups.each do |option_group| %>
+              <% if option_set.option_groups.count > 1 %>
+                <optgroup label="<%= option_group.name %>">
+              <% end %>
+
+              <% option_group.options.each do |option| %>
+                <% if @product.options.include? option %>
+                  <% variant = @product.variants.where(option_id: option.id).last %>
+                  <% last_line_item = current_user.line_items.where(product_id: @product.id).last %>
+                  <% is_last_selected = last_line_item ? (last_line_item.variations.collect(&:variant).compact.collect(&:option).include? option) : false %>>
+                  <option value="<%= variant.id %>" <%= 'selected="selected"' if is_last_selected %>>
+                    <%= variant.option.name %>
+                    <%= "(+ #{number_to_smart_currency variant.derived_gross_price, @shop.currency})" if variant.derived_gross_price %>
+                    <%= " (Senest valgte)" if is_last_selected %>
+                  </option>
+                <% end %>
+              <% end %>
+
+              <% if option_set.option_groups.count > 1 %>
+                </optgroup>
               <% end %>
             <% end %>
+          </select>
 
-            <% if option_set.option_groups.count > 1 %>
-              </optgroup>
-            <% end %>
-          <% end %>
-        </select>
+        <% else %>
+          <% variant = @product.variants.where(option_id: options.first.id).first %>
+          <%= hidden_field_tag 'variants[]', variant.id %>
+          <span class="option"><%= variant.option.name %></span>
+        <% end %>
       </div>
     <% end %>
 
