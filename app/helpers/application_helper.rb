@@ -3,6 +3,11 @@ module ApplicationHelper
     params[:shop_id].to_i == shop.id or (controller.controller_name == 'shops' and params[:id].to_i == shop.id)
   end
 
+  def markdown text
+    renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, space_after_headers: true)
+    renderer.render text
+  end
+
   def number_to_smart_currency number, currency = 'kr.'
     if not number
       return

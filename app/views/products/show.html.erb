@@ -7,7 +7,7 @@
   <%= content_tag :h2, @product.number if @product.number %>
 
   <div id="text">
-    <%= @product.text %>
+    <%== markdown @product.text %>
   </div>
 
   <div id="price">
