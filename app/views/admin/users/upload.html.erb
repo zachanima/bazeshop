@@ -1,0 +1,69 @@
+<%= form_tag import_admin_shop_users_path(@shop), id: :import_users do %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= label_tag :password, @shop.password_text.blank? ? 'Password' : @shop.password_text %>
+        <%= text_field_tag :password %>
+      </li>
+      <li>
+        <%= label_tag :department %>
+        <%= text_field_tag :department %>
+      </li>
+      <li>
+        <%= label_tag :text %>
+        <%= text_area_tag :text %>
+      </li>
+    </ol>
+  </fieldset>
+
+  <table>
+    <thead>
+      <tr>
+        <th><%= check_box_tag nil %></th>
+        <% @csv.first.count.times do |n| %>
+          <td>
+            <select name="fields[<%= n %>]">
+              <option></option>
+              <%
+                {
+                  name: 'Name *',
+                  login: @shop.login_text.blank? ? 'Login *' : "#{@shop.login_text} *",
+                  password: @shop.password_text.blank? ? 'Password' : "#{@shop.password_text} *",
+                  email: 'Email',
+                  department: 'Department',
+                  phone: 'Phone',
+                  address: 'Address',
+                  text: 'Text'
+                }.each_pair do |key, value|
+              %>
+                <option value="<%= key %>"><%= value %></option>
+              <% end %>
+            </select>
+          </td>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% x = 0 %>
+      <% y = 0 %>
+      <% @csv.each do |row| %>
+        <tr>
+          <td><%= check_box_tag "attributes[#{y}][checked]", y, y != 0 %></td>
+          <% row.each do |column| %>
+            <td>
+              <%= column %>
+              <%= hidden_field_tag "attributes[#{y}][#{x}]", column %>
+            </td>
+            <% x += 1 %>
+          <% end %>
+        </tr>
+        <% x = 0 %>
+        <% y += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <fieldset>
+    <%= submit_tag 'Import users' %>
+  </fieldset>
+<% end %>

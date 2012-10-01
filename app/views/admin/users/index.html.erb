@@ -7,12 +7,17 @@
   <%= link_to 'New user', new_admin_shop_user_path(@shop) %>
 </div>
 
-<%= form_tag edit_multiple_admin_shop_users_path(@shop), id: 'edit_multiple_users' do %>
+<%= form_tag edit_multiple_admin_shop_users_path(@shop), id: 'edit_multiple_users', multipart: true do %>
   <fieldset>
-    <%= submit_tag 'Add budget to balance', data: { confirm: 'Are you sure you want to add the budget of each user to their balance?' } %>
-    <%= submit_tag 'Reset balance to budget', data: { confirm: 'Are you sure you want to reset the balance of each user to their budget?' } %><br>
-    <%= number_field_tag :budget, '', placeholder: 'Set budget' %>
-    <%= submit_tag 'Set budget', data: { confirm: 'Are you sure you want to set the budget for all selected users?' } %>
+    <p>Import CSV: <%= file_field_tag :upload %></p>
+    <p>
+      <%= submit_tag 'Add budget to balance', data: { confirm: 'Are you sure you want to add the budget of each user to their balance?' } %>
+      <%= submit_tag 'Reset balance to budget', data: { confirm: 'Are you sure you want to reset the balance of each user to their budget?' } %>
+    </p>
+    <p>
+      <%= number_field_tag :budget, '', placeholder: 'Set budget' %>
+      <%= submit_tag 'Set budget', data: { confirm: 'Are you sure you want to set the budget for all selected users?' } %>
+    </p>
   </fieldset>
 
   <table>

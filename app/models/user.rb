@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   belongs_to :shop
   belongs_to :manager, class_name: 'User'
   has_many :users, foreign_key: :manager_id, dependent: :restrict
-  has_many :orders
+  has_many :orders, dependent: :destroy
   has_many :line_items
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   validates :login, presence: true
   validates :name, presence: true
+  validates :password, presence: true
   validates_uniqueness_of :login, scope: :shop_id
 
   default_scope order(:name)

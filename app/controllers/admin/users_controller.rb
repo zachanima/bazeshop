@@ -1,3 +1,5 @@
+require 'csv'
+
 class Admin::UsersController < Admin::ApplicationController
   before_filter :find_shop
 
@@ -47,7 +49,71 @@ class Admin::UsersController < Admin::ApplicationController
         add_budget_to_balance
       when 'Reset balance to budget'
         reset_balance_to_budget
+      else
+        upload
+        return
     end
+    redirect_to admin_shop_users_path @shop
+  end
+
+  def import
+    params[:attributes].reject! do |key, value|
+      value['checked'].blank?
+    end
+
+    users = Array.new
+    params[:attributes].each do |index, values|
+      user = Hash.new
+      values.each do |key, value|
+        field = params[:fields][key]
+        if field
+          if user[field].blank?
+            user[field] = value
+          else
+            if field == 'address'
+              user[field] += "\n#{value}"
+            else
+              user[field] += " #{value}"
+            end
+          end
+        end
+      end
+      users << user
+    end
+
+    users.each do |user|
+      new_user = @shop.users.build
+      new_user.password = params[:password]
+      new_user.plaintext_password = params[:password]
+      new_user.department = params[:department]
+      new_user.text = params[:text]
+      user.each_pair do |key, value|
+        case key
+          when 'name'
+            new_user.name = value
+          when 'login'
+            new_user.login = value
+          when 'password'
+            new_user.password = value
+            new_user.plaintext_password = value
+          when 'email'
+            new_user.email = value
+          when 'department'
+            new_user.department = value
+          when 'phone'
+            new_user.phone = value
+          when 'address'
+            new_user.address = value
+          when 'text'
+            new_user.text = value
+        end
+      end
+      unless new_user.save
+        flash[:error] = 'Error while importing users, please check list.'
+      end
+    end
+    
+    flash[:notice] = 'Imported users.' if flash[:error].blank?
     redirect_to admin_shop_users_path @shop
   end
 
@@ -89,5 +155,10 @@ private
       user.save
     end
     flash[:notice] = "Reset balance to budget for #{users.count} users."
+  end
+
+  def upload
+    @csv = CSV.parse params[:upload].read
+    render :upload
   end
 end

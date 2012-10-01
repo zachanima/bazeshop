@@ -22,6 +22,7 @@ Bazeshop::Application.routes.draw do
       resources :users do
         collection do
           post 'edit_multiple'
+          post 'import'
         end
       end
       resources :orders
