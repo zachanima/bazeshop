@@ -7,29 +7,40 @@
   <%= link_to 'New user', new_admin_shop_user_path(@shop) %>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th><%= @shop.login_text.blank? ? 'Login' : @shop.login_text %></th>
-      <th><%= @shop.password_text.blank? ? 'Password' : @shop.password_text %></th>
-      <th>Department</th>
-      <th>Manager</th>
-      <th class="number">Budget</th>
-      <th class="number">Balance</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+<%= form_tag edit_multiple_admin_shop_users_path(@shop), id: 'edit_multiple_users' do %>
+  <fieldset>
+    <%= number_field_tag :budget, '', placeholder: 'Set budget' %>
+    <%= submit_tag 'Set budget', data: { confirm: 'Are you sure you want to set the budget for all selected users?' } %>
+    <%= submit_tag 'Add budget to balance', data: { confirm: 'Are you sure you want to add the budget of each user to their balance?' } %>
+    <%= submit_tag 'Reset balance to budget', data: { confirm: 'Are you sure you want to reset the balance of each user to their budget?' } %>
+  </fieldset>
+
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to user.name, edit_admin_shop_user_path(@shop, user) %></td>
-        <td><%= user.login %></td>
-        <td><%= user.plaintext_password %></td>
-        <td><%= user.department %></td>
-        <td><%= user.manager.name if user.manager %></td>
-        <td class="number"><%= number_to_smart_currency user.budget, @shop.currency %></td>
-        <td class="number"><%= number_to_smart_currency user.balance, @shop.currency %></td>
+        <th><%= check_box_tag nil %></th>
+        <th>Name</th>
+        <th><%= @shop.login_text.blank? ? 'Login' : @shop.login_text %></th>
+        <th><%= @shop.password_text.blank? ? 'Password' : @shop.password_text %></th>
+        <th>Department</th>
+        <th>Manager</th>
+        <th class="number">Budget</th>
+        <th class="number">Balance</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= check_box_tag 'user_ids[]', user.id %></td>
+          <td><%= link_to user.name, edit_admin_shop_user_path(@shop, user) %></td>
+          <td><%= user.login %></td>
+          <td><%= user.plaintext_password %></td>
+          <td><%= user.department %></td>
+          <td><%= user.manager.name if user.manager %></td>
+          <td class="number"><%= number_to_smart_currency user.budget, @shop.currency %></td>
+          <td class="number"><%= number_to_smart_currency user.balance, @shop.currency %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

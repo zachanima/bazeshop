@@ -19,7 +19,11 @@ Bazeshop::Application.routes.draw do
           end
         end
       end
-      resources :users
+      resources :users do
+        collection do
+          post 'edit_multiple'
+        end
+      end
       resources :orders
     end
   end
