@@ -25,6 +25,7 @@
       <%= image_tag @shop.logo %>
       <%= content_tag :span do %>
         <%= current_user.name %><br>
+        <%= number_to_smart_currency current_user.balance, @shop.currency %><br>
         <%= link_to 'Log ud', destroy_user_session_path(@shop) %>
       <% end if user_signed_in? %>
     </div>
