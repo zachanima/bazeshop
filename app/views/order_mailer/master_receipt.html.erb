@@ -4,7 +4,7 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   </head>
   <body>
-    <%= @shop.receipt_text %>
+    <%== markdown @shop.receipt_text %>
 
     <br>
     <br>
@@ -139,6 +139,10 @@
     <% unless @order.comment.blank? %>
       <strong>Kommentar</strong><br>
       <%= @order.comment %>
+    <% end %>
+
+    <% if @order.user.balance and @order.user.balance < 0 %>
+      <strong>NB: <%= @order.user.name %> har efter denne ordre en saldo p&aring; <%= @order.user.balance %>.</strong>
     <% end %>
   </body>
 </html>

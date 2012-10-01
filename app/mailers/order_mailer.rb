@@ -1,4 +1,6 @@
 class OrderMailer < ActionMailer::Base
+  add_template_helper ApplicationHelper
+
   default from: 'username@baze.dk'
 
   # Subject can be set in your I18n file at config/locales/en.yml
