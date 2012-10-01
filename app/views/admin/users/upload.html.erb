@@ -51,8 +51,8 @@
           <td><%= check_box_tag "attributes[#{y}][checked]", y, y != 0 %></td>
           <% row.each do |column| %>
             <td>
-              <%= column %>
-              <%= hidden_field_tag "attributes[#{y}][#{x}]", column %>
+              <%= column.force_encoding('UTF-8') unless column.nil? %>
+              <%= hidden_field_tag "attributes[#{y}][#{x}]", column.force_encoding('UTF-8') unless column.nil? %>
             </td>
             <% x += 1 %>
           <% end %>
