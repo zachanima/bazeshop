@@ -15,6 +15,8 @@
       <th><%= @shop.password_text.blank? ? 'Password' : @shop.password_text %></th>
       <th>Department</th>
       <th>Manager</th>
+      <th>Budget</th>
+      <th>Balance</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +27,8 @@
         <td><%= user.plaintext_password %></td>
         <td><%= user.department %></td>
         <td><%= user.manager.name if user.manager %></td>
+        <td><%= number_to_smart_currency user.budget, @shop.currency %></td>
+        <td><%= number_to_smart_currency user.balance, @shop.currency %></td>
       </tr>
     <% end %>
   </tbody>

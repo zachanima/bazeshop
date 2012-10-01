@@ -38,6 +38,14 @@
         <%= f.text_area :text %>
       </li>
       <li>
+        <%= f.label :budget %>
+        <%= f.number_field :budget %>
+      </li>
+      <li>
+        <%= f.label :balance %>
+        <%= f.number_field :balance %>
+      </li>
+      <li>
         <%= f.check_box :is_manager %>
         <%= f.label :is_manager, 'Manager' %>
       </li>
