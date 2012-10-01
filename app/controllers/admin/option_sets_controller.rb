@@ -54,4 +54,11 @@ class Admin::OptionSetsController < Admin::ApplicationController
       render :edit
     end
   end
+
+  def sort
+    params[:option_set].each_with_index do |id, index|
+      OptionSet.update_all({position: index+1}, {id: id})
+    end
+    render nothing: true
+  end
 end

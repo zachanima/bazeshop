@@ -1,7 +1,11 @@
 Bazeshop::Application.routes.draw do
   namespace :admin do
     root to: 'shops#new'
-    resources :option_sets
+    resources :option_sets do
+      collection do
+        post 'sort'
+      end
+    end
     resources :shops do
       resources :categories do
         collection do

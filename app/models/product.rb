@@ -26,7 +26,7 @@ class Product < ActiveRecord::Base
   end
 
   def option_sets
-    self.options.collect(&:option_group).uniq.collect(&:option_set).uniq
+    self.options.collect(&:option_group).uniq.collect(&:option_set).uniq.sort { |a,b| a.position <=> b.position }
   end
 
   def copy shop_id

@@ -15,14 +15,14 @@
       <th>Optional</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody data-update-url=<%= sort_admin_option_sets_path %>>
     <% @option_sets.each do |option_set| %>
-      <tr>
+      <%= content_tag_for :tr, option_set do %>
         <td><%= link_to option_set.name, edit_admin_option_set_path(option_set) %></td>
         <td><%= option_set.text %></td>
         <td><%= option_set.options.collect(&:name) * ', '  %></td>
         <td><%= 'Optional' if option_set.optional %></td>
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 <% end unless @option_sets.empty? %>
