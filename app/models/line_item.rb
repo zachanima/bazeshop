@@ -9,5 +9,6 @@ class LineItem < ActiveRecord::Base
   has_many :variations
   has_many :variants, through: :variations
 
+  default_scope order(:created_at)
   scope :current, where(order_id: nil)
 end
