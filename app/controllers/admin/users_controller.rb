@@ -41,6 +41,11 @@ class Admin::UsersController < Admin::ApplicationController
     end
   end
 
+  def destroy
+    @shop.users.find(params[:id]).destroy
+    redirect_to admin_shop_users_path(@shop)
+  end
+
   def edit_multiple
     case params[:commit]
       when 'Set budget'

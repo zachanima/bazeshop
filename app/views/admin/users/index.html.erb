@@ -31,6 +31,7 @@
         <th>Manager</th>
         <th class="number">Budget</th>
         <th class="number">Balance</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -44,6 +45,9 @@
           <td><%= user.manager.name if user.manager %></td>
           <td class="number"><%= number_to_smart_currency user.budget, @shop.currency %></td>
           <td class="number"><%= number_to_smart_currency user.balance, @shop.currency %></td>
+          <td>
+            <%= link_to 'X', admin_shop_user_path(@shop, user), class: 'delete', data: { confirm: 'This will delete the user and all associated orders. Are you sure?' }, method: :delete %>
+          </td>
         </tr>
       <% end %>
     </tbody>
