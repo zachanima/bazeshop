@@ -9,6 +9,10 @@ class OptionSet < ActiveRecord::Base
 
   accepts_nested_attributes_for :option_groups
 
+  def <=> other
+    self.position <=> other.position
+  end
+
   def options
     self.option_groups.collect do |option_group|
       option_group.options
