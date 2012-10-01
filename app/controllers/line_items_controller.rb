@@ -29,14 +29,6 @@ class LineItemsController < ApplicationController
 
     @line_item = current_user.line_items.build(params[:line_item])
     @line_item.product = @product
-    @line_item.product_name = @product.name
-    @line_item.product_number = @product.number
-    @line_item.product_supplier_number = @product.supplier_number
-    @line_item.product_brand = @product.brand
-    @line_item.product_gross_price = @product.gross_price if @product.gross_price
-    @line_item.product_net_price = @product.net_price if @product.net_price
-    @line_item.gross_price = @product.gross_price if @product.gross_price
-    @line_item.net_price = @product.net_price if @product.net_price
     variants.each do |variant|
       @line_item.variations.build(
         variant_id: variant.id,
@@ -45,12 +37,8 @@ class LineItemsController < ApplicationController
         gross_price: variant.derived_gross_price,
         net_price: variant.derived_net_price
       )
-      @line_item.gross_price += variant.derived_gross_price if variant.derived_gross_price and @line_item.gross_price
-      @line_item.net_price += variant.derived_net_price if variant.derived_net_price and @line_item.net_price
     end if variants
-    @line_item.gross_price *= @line_item.quantity if @line_item.gross_price
-    @line_item.net_price *= @line_item.quantity if @line_item.net_price
-    @line_item.save
+    @line_item.set_values
 
     redirect_to shop_product_path(@shop, @product)
   end
@@ -64,7 +52,7 @@ class LineItemsController < ApplicationController
   def increment
     line_item = current_user.line_items.find(params[:id])
     line_item.quantity += 1
-    line_item.save
+    line_item.set_values
 
     redirect_to request.referer
   end
@@ -76,7 +64,7 @@ class LineItemsController < ApplicationController
     if line_item.quantity <= 0
       line_item.destroy
     else
-      line_item.save
+      line_item.set_values
     end
 
     redirect_to request.referer

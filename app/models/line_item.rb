@@ -11,4 +11,22 @@ class LineItem < ActiveRecord::Base
 
   default_scope order(:created_at)
   scope :current, where(order_id: nil)
+
+  def set_values
+    self.product_name = self.product.name
+    self.product_number = self.product.number
+    self.product_supplier_number = self.product.supplier_number
+    self.product_brand = self.product.brand
+    self.product_gross_price = self.product.gross_price if self.product.gross_price
+    self.product_net_price = self.product.net_price if self.product.net_price
+    self.gross_price = self.product.gross_price if self.product.gross_price
+    self.net_price = self.product.net_price if self.product.net_price
+    self.variants.each do |variant|
+      self.gross_price += variant.derived_gross_price if variant.derived_gross_price and self.gross_price
+      self.net_price += variant.derived_net_price if variant.derived_net_price and self.net_price
+    end
+    self.gross_price *= self.quantity if self.gross_price
+    self.net_price *= self.quantity if self.net_price
+    self.save
+  end
 end
