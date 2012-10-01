@@ -10,7 +10,7 @@ class OptionSet < ActiveRecord::Base
   accepts_nested_attributes_for :option_groups
 
   def <=> other
-    self.position <=> other.position
+    self.position <=> other.position 
   end
 
   def options
