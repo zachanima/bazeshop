@@ -1,14 +1,15 @@
 class User::SessionsController < Devise::SessionsController
+  before_filter :find_shop
+
   def new
-    @shop = Shop.find params[:id]
   end
 
-  private
+private
   def after_sign_in_path_for resource
-    @shop = Shop.find params[:id]
+    @shop
   end
 
   def after_sign_out_path_for resource
-    @shop = Shop.find params[:id]
+    @shop
   end
 end

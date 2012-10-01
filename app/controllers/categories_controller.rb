@@ -1,8 +1,8 @@
 class CategoriesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :find_shop
 
   def show
-    @shop = Shop.find params[:shop_id]
     @category = @shop.categories.find params[:id]
   end
 end

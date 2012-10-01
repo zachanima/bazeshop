@@ -1,13 +1,12 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :find_shop
 
   def index
-    @shop = Shop.find params[:shop_id]
     @orders = current_user.orders
   end
 
   def create
-    @shop = Shop.find params[:shop_id]
     @order = current_user.orders.build(params[:order])
     @order.line_items << current_user.line_items.current
     @order.gross_price = @order.line_items.collect(&:gross_price).compact.inject(&:+)
@@ -26,7 +25,6 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @shop = Shop.find params[:shop_id]
     @order = current_user.orders.find params[:id]
   end
 end

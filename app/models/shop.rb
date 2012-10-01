@@ -30,4 +30,8 @@ class Shop < ActiveRecord::Base
   def orders
     Order.joins(:user).where('users.shop_id = ?', self.id)
   end
+
+  def to_param
+    self.link
+  end
 end

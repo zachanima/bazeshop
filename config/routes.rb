@@ -51,6 +51,9 @@ Bazeshop::Application.routes.draw do
   end
 
   root to: 'admin/shops#new'
+
+  match '/:id', to: 'shops#show'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
