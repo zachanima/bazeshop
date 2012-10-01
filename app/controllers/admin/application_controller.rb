@@ -9,4 +9,10 @@ class Admin::ApplicationController < ActionController::Base
       login == 'login' && password == 'password'
     end
   end
+
+private
+  def find_shop
+    id = params[:shop_id] || params[:id]
+    @shop = Shop.find_by_link(id) || Shop.find(id)
+  end
 end

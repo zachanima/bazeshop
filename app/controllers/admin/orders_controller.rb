@@ -9,9 +9,4 @@ class Admin::OrdersController < Admin::ApplicationController
     @shop.orders.find(params[:id]).destroy
     redirect_to admin_shop_orders_path(@shop)
   end
-
-private
-  def find_shop
-    @shop = Shop.find params[:shop_id]
-  end
 end

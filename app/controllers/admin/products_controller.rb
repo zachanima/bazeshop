@@ -94,9 +94,4 @@ class Admin::ProductsController < Admin::ApplicationController
       redirect_to admin_shop_products_path(@shop)
     end
   end
-
-private
-  def find_shop
-    @shop = Shop.find params[:shop_id]
-  end
 end

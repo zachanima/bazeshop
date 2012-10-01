@@ -35,9 +35,4 @@ class Admin::ShopsController < Admin::ApplicationController
       redirect_to request.referer || admin_root_path
     end
   end
-
-private
-  def find_shop
-    @shop = Shop.find params[:id]
-  end
 end

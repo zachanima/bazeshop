@@ -1,6 +1,9 @@
 module ApplicationHelper
   def current_shop? shop
-    params[:shop_id].to_i == shop.id or (controller.controller_name == 'shops' and params[:id].to_i == shop.id)
+    params[:shop_id].to_i == shop.id or
+      params[:shop_id] == shop.link or
+      (controller.controller_name == 'shops' and params[:id].to_i == shop.id) or
+      (controller.controller_name == 'shops' and params[:id] == shop.link)
   end
 
   def markdown text
