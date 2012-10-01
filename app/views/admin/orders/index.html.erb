@@ -7,16 +7,16 @@
   <thead>
     <th>ID</th>
     <th>Username</th>
-    <th>Gross price</th>
-    <th>Net price</th>
+    <th class="number">Gross price</th>
+    <th class="number">Net price</th>
   </thead>
   <tbody>
     <% @orders.each do |order| %>
       <tr>
         <td><%= link_to "##{order.id}", admin_shop_order_path(@shop, order) %></td>
         <td><%= order.user_name %></td>
-        <td><%= number_to_smart_currency order.gross_price, @shop.currency if order.gross_price %></td>
-        <td><%= number_to_smart_currency order.net_price if order.net_price %></td>
+        <td class="number"><%= number_to_smart_currency order.gross_price, @shop.currency if order.gross_price %></td>
+        <td class="number"><%= number_to_smart_currency order.net_price if order.net_price %></td>
       </tr>
     <% end %>
   </tbody>

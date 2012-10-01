@@ -1,0 +1,23 @@
+table
+  border-collapse: collapse
+  margin-top: 16px
+
+  thead
+    tr
+      th
+        text-align: left
+
+        &:not(:last-child)
+          padding-right: 16px
+
+  tbody
+    tr
+      &:nth-child(2n)
+        background-color: #eee
+      td
+        &:not(:last-child)
+          padding-right: 16px
+
+
+  th.number, td.number
+    text-align: right

@@ -16,5 +16,6 @@
  *= require admin/navigation
  *= require admin/products
  *= require admin/style
+ *= require admin/table
  *= require jquery.ui.all
  */
