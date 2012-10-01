@@ -18,9 +18,9 @@ class OrdersController < ApplicationController
     current_user.balance -= @order.gross_price if current_user.balance and @order.gross_price
     current_user.save
 
-    #OrderMailer.receipt(@order).deliver unless @order.user.email.blank?
-    #OrderMailer.manager_receipt(@order).deliver unless @order.user.manager.nil? or @order.user.manager.email.blank?
-    #OrderMailer.master_receipt(@order).deliver
+    OrderMailer.receipt(@order).deliver unless @order.user.email.blank?
+    OrderMailer.manager_receipt(@order).deliver unless @order.user.manager.nil? or @order.user.manager.email.blank?
+    OrderMailer.master_receipt(@order).deliver
 
     redirect_to shop_order_path(@shop, @order)
   end
