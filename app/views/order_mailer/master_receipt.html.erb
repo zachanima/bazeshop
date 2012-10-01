@@ -18,7 +18,7 @@
       </thead>
       <tbody>
         <% @order.line_items.each do |line_item| %>
-          <tr style="background-color: #<%= cycle 'fff', 'eee' %>">
+          <tr style="background-color: #<%= cycle 'fff', 'eee' %>; border-bottom: 1px solid #999;">
             <td style="padding-right: 16px;"><%= line_item.product_name %></td>
             <td style="padding-right: 16px;"><%= line_item.product_number %></td>
             <td style="padding-right: 16px;"><%= line_item.product_supplier_number %></td>
