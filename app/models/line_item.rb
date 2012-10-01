@@ -21,9 +21,9 @@ class LineItem < ActiveRecord::Base
     self.product_net_price = self.product.net_price if self.product.net_price
     self.gross_price = self.product.gross_price if self.product.gross_price
     self.net_price = self.product.net_price if self.product.net_price
-    self.variants.each do |variant|
-      self.gross_price += variant.derived_gross_price if variant.derived_gross_price and self.gross_price
-      self.net_price += variant.derived_net_price if variant.derived_net_price and self.net_price
+    self.variations.each do |variation|
+      self.gross_price += variation.variant.derived_gross_price if variation.variant.derived_gross_price and self.gross_price
+      self.net_price += variation.variant.derived_net_price if variation.variant.derived_net_price and self.net_price
     end
     self.gross_price *= self.quantity if self.gross_price
     self.net_price *= self.quantity if self.net_price
