@@ -142,7 +142,7 @@
     <% end %>
 
     <% if @order.user.balance and @order.user.balance < 0 %>
-      <strong>NB: <%= @order.user.name %> har efter denne ordre en saldo p&aring; <%= @order.user.balance %>.</strong>
+      <strong>NB: <%= @order.user.name %> har efter denne ordre en saldo p&aring; <%= number_to_smart_currency @order.user.balance, @shop.currency %>.</strong>
     <% end %>
   </body>
 </html>
