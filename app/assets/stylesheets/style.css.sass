@@ -309,9 +309,16 @@ div.cart
       text-align: right
 
     tbody
-      tr:nth-child(2n)
-        background-color: #eee
+      tr
+        &:nth-child(2n)
+          background-color: #eee
 
+        td.action
+          padding: 0
+
+          &:last-child
+            text-align: right
+          input[type=submit]
 
 
 form#new_order

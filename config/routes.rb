@@ -31,7 +31,12 @@ Bazeshop::Application.routes.draw do
 
   resources :shops do
     resources :categories
-    resources :line_items
+    resources :line_items do
+      member do
+        put :increment
+        put :decrement
+      end
+    end
     resources :orders
     resources :products do
       resources :line_items

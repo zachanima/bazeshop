@@ -1,8 +1,8 @@
-<div class="cart">
+<%= content_tag :div, class: :cart do %>
   <table>
     <thead>
       <tr>
-        <th colspan="6">Kurv</th>
+        <th colspan="9">Kurv</th>
     </thead>
     <tbody>
       <% current_user.line_items.current.each do |line_item| %>
@@ -17,21 +17,24 @@
             <% end %>
           </td>
           <td><%= number_to_smart_currency line_item.product_gross_price, @shop.currency if line_item.product_gross_price %></td>
+          <td class="action"><%= button_to '-', decrement_shop_line_item_path(@shop, line_item), method: :put %></td>
           <td class="number"><%= line_item.quantity %> stk.</td>
+          <td class="action"><%= button_to '+', increment_shop_line_item_path(@shop, line_item), method: :put %></td>
+          <td class="action"><%= button_to 'Slet', shop_line_item_path(@shop, line_item), method: :delete %></td>
           <td class="number">
             <%= number_to_smart_currency line_item.gross_price, @shop.currency if line_item.gross_price %>
           </td>
         </tr>
       <% end %>
       <tr>
-        <th colspan="5">Total</th>
+        <th colspan="8">Total</th>
         <th class="number">
           <%= number_to_smart_currency current_user.line_items.current.collect(&:gross_price).compact.inject(&:+), @shop.currency %>
         </th>
       </tr>
     </tbody>
   </table>
-</div>
+<% end unless current_user.line_items.current.count == 0 %>
 
 <%= form_for [@shop, @order] do |f| %>
   <div class="fields">
@@ -42,4 +45,8 @@
   <div class="submit">
     <%= f.submit 'Afgiv bestilling' %>
   </div>
-<% end %>
+<% end unless current_user.line_items.current.count == 0 %>
+
+<%= content_tag :div do %>
+  <p>Der er ingen varer i kurven.</p>
+<% end if current_user.line_items.current.count == 0 %>

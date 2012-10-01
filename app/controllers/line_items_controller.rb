@@ -54,4 +54,31 @@ class LineItemsController < ApplicationController
 
     redirect_to shop_product_path(@shop, @product)
   end
+
+  def destroy
+    current_user.line_items.find(params[:id]).destroy
+
+    redirect_to request.referer
+  end
+
+  def increment
+    line_item = current_user.line_items.find(params[:id])
+    line_item.quantity += 1
+    line_item.save
+
+    redirect_to request.referer
+  end
+
+  def decrement
+    line_item = current_user.line_items.find(params[:id])
+    line_item.quantity -= 1
+
+    if line_item.quantity <= 0
+      line_item.destroy
+    else
+      line_item.save
+    end
+
+    redirect_to request.referer
+  end
 end
