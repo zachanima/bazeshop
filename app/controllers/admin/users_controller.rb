@@ -32,6 +32,11 @@ class Admin::UsersController < Admin::ApplicationController
     params[:user][:password_confirmation] = params[:user][:password]
     params[:user][:plaintext_password] = params[:user][:password]
     @user = @shop.users.find params[:id]
+
+    # Remove all access groups if none are selected.
+    if params[:user][:access_group_ids].nil?
+      @user.access_groups.clear
+    end
     
     if @user.update_attributes params[:user]
       redirect_to admin_shop_users_path(@shop), notice: 'Updated user.'

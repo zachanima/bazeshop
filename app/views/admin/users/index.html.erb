@@ -29,6 +29,7 @@
         <th><%= @shop.password_text.blank? ? 'Password' : @shop.password_text %></th>
         <th>Department</th>
         <th>Manager</th>
+        <th>Access groups</th>
         <th class="number">Budget</th>
         <th class="number">Balance</th>
         <th></th>
@@ -43,6 +44,7 @@
           <td><%= user.plaintext_password %></td>
           <td><%= user.department %></td>
           <td><%= user.manager.name if user.manager %></td>
+          <td><%= user.access_groups.collect(&:name).join ', ' %></td>
           <td class="number"><%= number_to_smart_currency user.budget, @shop.currency %></td>
           <td class="number"><%= number_to_smart_currency user.balance, @shop.currency %></td>
           <td>

@@ -7,10 +7,11 @@ class User < ActiveRecord::Base
   has_many :users, foreign_key: :manager_id, dependent: :restrict
   has_many :orders, dependent: :destroy
   has_many :line_items
+  has_and_belongs_to_many :access_groups
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :login, :plaintext_password, :department, :name, :phone, :address, :text,
-    :is_manager, :manager_id, :budget, :balance, :is_demo
+    :is_manager, :manager_id, :budget, :balance, :is_demo, :access_group_ids
 
   validates :login, presence: true
   validates :name, presence: true
