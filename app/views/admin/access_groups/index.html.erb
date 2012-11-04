@@ -1,0 +1,24 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li>Access groups</li>
+</ul>
+
+<div id="actions">
+  <%= link_to 'New access group', new_admin_shop_access_group_path(@shop) %>
+</div>
+
+<table>
+  <thead>
+    <th>Name</th>
+  </thead>
+  <tbody>
+    <% @access_groups.each do |access_group| %>
+      <tr>
+        <td><%= link_to access_group.name, edit_admin_shop_access_group_path(@shop, access_group) %></td>
+        <td>
+          <%= link_to 'X', admin_shop_access_group_path(@shop, access_group), class: 'delete', data: { confirm: 'This will delete the access group. Are you sure?' }, method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -7,6 +7,7 @@ Bazeshop::Application.routes.draw do
       end
     end
     resources :shops do
+      resources :access_groups
       resources :categories do
         collection do
           post 'sort'

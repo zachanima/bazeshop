@@ -1,0 +1,7 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li><%= link_to 'Access groups', admin_shop_access_groups_path(@shop) %></li>
+  <li>Edit access group</li>
+</ul>
+
+<%= render 'form' %>
