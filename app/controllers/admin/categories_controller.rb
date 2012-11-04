@@ -29,6 +29,12 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   def update
     @category = @shop.categories.find params[:id]
+
+    # Remove all access groups if none are selected.
+    if params[:category][:access_group_ids].nil?
+      @category.access_groups.clear
+    end
+
     if @category.update_attributes params[:category]
       redirect_to admin_shop_categories_path(@shop), notice: 'Updated category.'
     else

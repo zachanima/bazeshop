@@ -3,8 +3,9 @@ class Category < ActiveRecord::Base
   belongs_to :parent, class_name: 'Category'
   has_many :categories, foreign_key: :parent_id
   has_many :products, dependent: :restrict
+  has_and_belongs_to_many :access_groups
 
-  attr_accessible :name, :shop_id, :parent_id
+  attr_accessible :name, :shop_id, :parent_id, :access_group_ids
 
   validates :name, presence: true
   validates :shop, presence: true
@@ -14,6 +15,7 @@ class Category < ActiveRecord::Base
   default_scope order(:position)
   scope :top, where(parent_id: nil)
 
+  after_save :assign_access_groups_to_parent
   before_destroy :assign_parent_to_categories
 
   def path
@@ -43,6 +45,15 @@ private
 
   def absence_of_self_referential_parent
     errors.add('parent') if self.id and self.parent_id == self.id
+  end
+
+  def assign_access_groups_to_parent
+    if self.parent
+      self.access_groups.each do |access_group|
+        self.parent.access_groups << access_group unless self.parent.access_groups.include? access_group
+      end
+      self.parent.save
+    end
   end
 
   def assign_parent_to_categories

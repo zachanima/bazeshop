@@ -22,7 +22,7 @@
   <td>
     <%= product.category.path %></br>
 
-    <br>
+    <%= product.category.access_groups.collect(&:name).join ', ' %><br>
 
     <%= content_tag :span, class: 'net_price' do %>
       <%= number_to_smart_currency product.net_price %>

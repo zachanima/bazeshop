@@ -9,6 +9,12 @@
         <%= f.label :parent_id, 'Parent' %>
         <%= f.collection_select :parent_id, @categories, :id, :indented_name_for_select, include_blank: true %>
       <% end unless @categories.empty? %>
+      <% @shop.access_groups.each do |access_group| %>
+        <li>
+          <%= check_box_tag 'category[access_group_ids][]', access_group.id, @category.access_groups.include?(access_group) %>
+          <%= f.label access_group.name %>
+        </li>
+      <% end %>
     </ol>
   </fieldset>
   <fieldset>

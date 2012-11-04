@@ -2,7 +2,10 @@
   <%= content_tag :span do %>
     <%= link_to 'X', admin_shop_category_path(@shop, category), class: 'delete', data: { confirm: 'Can only delete category without associations. Are you sure?' }, method: :delete %>
   <% end %>
-  <%= link_to category.name, edit_admin_shop_category_path(@shop, category) %>
+  <%= link_to edit_admin_shop_category_path(@shop, category) do %>
+    <strong><%= category.name %></strong>
+    <%= "(#{category.access_groups.collect(&:name).join(', ')})" unless category.access_groups.empty? %>
+  <% end %>
   <%= content_tag :ol do %>
     <% category.categories.each do |subcategory| %>
       <%= render subcategory %>
