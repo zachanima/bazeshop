@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::ApplicationController
-  before_filter :find_shop
+  before_filter :find_shop, except: [:all]
 
   def index
     @products = @shop.products
@@ -75,6 +75,10 @@ class Admin::ProductsController < Admin::ApplicationController
       flash[:error] = 'Error while deleting product.'
     end
     redirect_to admin_shop_products_path(@shop)
+  end
+
+  def all
+    @products = Product.all
   end
 
   def sort

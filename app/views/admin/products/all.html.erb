@@ -1,0 +1,27 @@
+<ul id="breadcrumbs">
+  <li>Products</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shop</th>
+      <th>Name</th>
+      <th>Brand</th>
+      <th>Number</th>
+      <th>Supplier number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+    <tr>
+      <td><%= link_to product.shop.name, admin_shop_products_path(product.shop) %></td>
+      <td><%= product.name %></td>
+      <td><%= product.brand %></td>
+      <td><%= product.number %></td>
+      <td><%= product.supplier_number %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

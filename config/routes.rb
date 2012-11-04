@@ -6,6 +6,11 @@ Bazeshop::Application.routes.draw do
         post 'sort'
       end
     end
+    resources :products do
+      collection do
+        get 'all'
+      end
+    end
     resources :shops do
       resources :access_groups
       resources :categories do
