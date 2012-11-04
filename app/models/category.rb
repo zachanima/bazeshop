@@ -38,6 +38,19 @@ class Category < ActiveRecord::Base
     end.flatten.compact
   end
 
+  def visible? user
+    if self.access_groups.empty? or user.access_groups.empty?
+      true
+    else
+      self.access_groups.each do |access_group|
+        if user.access_groups.include? access_group
+          return true
+        end
+      end
+      false
+    end
+  end
+
 private
   def existence_of_parent
     errors.add('parent') unless self.parent_id.blank? or Category.exists?(self.parent_id)
