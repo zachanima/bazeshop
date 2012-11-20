@@ -101,5 +101,9 @@
       <strong>Kommentar</strong><br>
       <%= @order.comment %>
     <% end %>
+
+    <% if @order.user.balance %>
+      <strong>NB: <%= @order.user.name %> har efter denne ordre en saldo p&aring; <%= number_to_smart_currency @order.user.balance, @shop.currency %>.</strong>
+    <% end %>
   </body>
 </html>
