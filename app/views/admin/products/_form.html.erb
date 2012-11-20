@@ -81,6 +81,7 @@
     <fieldset class="option_sets">
       <legend><%= link_to option_set.name, '#toggle' %></legend>
       <ol>
+        <li>Select <%= link_to 'All', '#all' %> / <%= link_to 'None', '#none' %></li>
         <% option_set.option_groups.each do |option_group| %>
           <li>
             <%= label_tag :option_group_id, option_group.name unless option_group == option_set.option_groups.first %>

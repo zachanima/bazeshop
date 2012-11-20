@@ -17,6 +17,12 @@ jQuery ->
 
   $('fieldset.option_sets legend a').click()
 
+  $('fieldset.option_sets a[href="#all"]').click ->
+    $(@).parents('fieldset').find('input[type="checkbox"]').prop('checked', true)
+
+  $('fieldset.option_sets a[href="#none"]').click ->
+    $(@).parents('fieldset').find('input[type="checkbox"]').prop('checked', false)
+
   new_image = ->
     id = $(@).data('id') + 1
     $(@)
