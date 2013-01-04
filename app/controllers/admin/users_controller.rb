@@ -97,6 +97,8 @@ class Admin::UsersController < Admin::ApplicationController
       new_user.plaintext_password = params[:password]
       new_user.department = params[:department]
       new_user.text = params[:text]
+      new_user.budget = params[:budget]
+      new_user.balance = params[:balance]
       user.each_pair do |key, value|
         case key
           when 'name'
@@ -116,6 +118,10 @@ class Admin::UsersController < Admin::ApplicationController
             new_user.address = value
           when 'text'
             new_user.text = value
+          when 'budget'
+            new_user.budget = value
+          when 'balance'
+            new_user.balance = value
         end
       end
       unless new_user.save

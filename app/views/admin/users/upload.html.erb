@@ -13,6 +13,14 @@
         <%= label_tag :text %>
         <%= text_area_tag :text %>
       </li>
+      <li>
+        <%= label_tag :budget %>
+        <%= text_field_tag :budget %>
+      </li>
+      <li>
+        <%= label_tag :balance %>
+        <%= text_field_tag :balance %>
+      </li>
     </ol>
   </fieldset>
 
@@ -33,7 +41,9 @@
                   department: 'Department',
                   phone: 'Phone',
                   address: 'Address',
-                  text: 'Text'
+                  text: 'Text',
+                  budget: 'Budget',
+                  balance: 'Balance'
                 }.each_pair do |key, value|
               %>
                 <option value="<%= key %>"><%= value %></option>
