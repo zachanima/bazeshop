@@ -36,7 +36,7 @@
   </table>
 <% end unless current_user.line_items.current.count == 0 %>
 
-<% if @shop.reject_order_on_exceeded_budget %>
+<% if @shop.reject_order_on_exceeded_budget and current_user.balance - current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) < 0 %>
   <strong>Denne ordre kan ikke afgives, da den vil overskride dit budget.</strong>
 
 <% else %>
