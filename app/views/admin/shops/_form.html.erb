@@ -69,6 +69,10 @@
         <%= f.check_box :is_closed %>
         <%= f.label :is_closed, 'Closed' %>
       </li>
+      <li>
+        <%= f.check_box :reject_order_on_exceeded_budget %>
+        <%= f.label :reject_order_on_exceeded_budget %>
+      </li>
     </ol>
   <% end %>
   <fieldset>
