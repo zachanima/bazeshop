@@ -329,6 +329,9 @@ form#new_order
     label
       display: inline-block
       width: 128px
+      &.required:after
+        color: #f00
+        content: ' *'
 
     textarea
       font: 11pt arial, sans-serif

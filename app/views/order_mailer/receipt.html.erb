@@ -102,6 +102,12 @@
       <%= @order.comment %>
     <% end %>
 
+    <% unless @order.fields.blank? %>
+      <% @order.fields.split("\n").each do |field| %>
+        <%= field %><br>
+      <% end %>
+    <% end %>
+
     <% if @order.user.balance %>
       <strong>NB: <%= @order.user.name %> har efter denne ordre en saldo p&aring; <%= number_to_smart_currency @order.user.balance, @shop.currency %>.</strong>
     <% end %>

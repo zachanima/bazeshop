@@ -13,15 +13,35 @@ class OrdersController < ApplicationController
     @order.net_price = @order.line_items.collect(&:net_price).compact.inject(&:+)
     @order.user_name = current_user.name
 
-    @order.save
-    current_user.balance -= @order.gross_price if current_user.balance and @order.gross_price
-    current_user.save
+    valid = true
 
-    OrderMailer.receipt(@order).deliver unless @order.user.email.blank?
-    OrderMailer.manager_receipt(@order).deliver unless @order.user.manager.nil? or @order.user.manager.email.blank?
-    OrderMailer.master_receipt(@order).deliver unless @order.user.is_demo
+    @order.fields = String.new
 
-    redirect_to shop_order_path(@shop, @order)
+    params[:fields].each do |field|
+      found_field = Field.find field[:id].to_i
+      if field[:text].blank?
+        if found_field.required
+          valid = false
+          break
+        end
+      else 
+        @order.fields << "#{found_field.text}: #{field[:text]}\n"
+      end
+    end
+
+    if valid
+      @order.save
+      current_user.balance -= @order.gross_price if current_user.balance and @order.gross_price
+      current_user.save
+
+      OrderMailer.receipt(@order).deliver unless @order.user.email.blank?
+      OrderMailer.manager_receipt(@order).deliver unless @order.user.manager.nil? or @order.user.manager.email.blank?
+      OrderMailer.master_receipt(@order).deliver unless @order.user.is_demo
+
+      redirect_to shop_order_path(@shop, @order)
+    else
+      redirect_to shop_line_items_path(@shop)
+    end
   end
 
   def show

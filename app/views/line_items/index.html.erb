@@ -41,6 +41,13 @@
 
 <% else %>
   <%= form_for [@shop, @order] do |f| %>
+    <% @shop.fields.each do |field| %>
+      <div class="fields">
+        <%= label_tag dom_id(field), field.text, class: field.required ? 'required' : nil %>
+        <%= text_field_tag 'fields[][text]', nil, id: dom_id(field) %>
+        <%= hidden_field_tag 'fields[][id]', field.id %>
+      </div>
+    <% end %>
     <div class="fields">
       <%= f.label :comment, 'Kommentar' %>
       <%= f.text_area :comment %>
