@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
     valid = true
 
     @order.fields = String.new
-
+    if params[:fields]
     params[:fields].each do |field|
       found_field = Field.find field[:id].to_i
       if field[:text].blank?
@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
         @order.fields << "#{found_field.text}: #{field[:text]}\n"
       end
     end
+  end
 
     if valid
       @order.save
