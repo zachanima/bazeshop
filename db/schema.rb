@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124062405) do
+ActiveRecord::Schema.define(:version => 20130829053604) do
 
   create_table "access_groups", :force => true do |t|
     t.string   "name"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(:version => 20130124062405) do
 
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
   add_index "categories", ["shop_id"], :name => "index_categories_on_shop_id"
+
+  create_table "fields", :force => true do |t|
+    t.string   "text"
+    t.boolean  "required"
+    t.integer  "shop_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "images", :force => true do |t|
     t.datetime "created_at", :null => false

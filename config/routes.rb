@@ -36,6 +36,7 @@ Bazeshop::Application.routes.draw do
         end
       end
       resources :orders
+      resources :fields
     end
   end
 

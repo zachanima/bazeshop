@@ -4,6 +4,7 @@ class Shop < ActiveRecord::Base
   has_many :products, through: :categories
   has_many :users, dependent: :restrict
   has_many :access_groups, dependent: :restrict
+  has_many :fields, dependent: :restrict
 
   attr_accessible :name, :link, :locale, :login_text, :password_text, :text, :currency, :header_style, :link_style, :receipt_text, :correspondent, :shipping_price, :free_shipping_over, :custom_style, :is_closed, :logo, :reject_order_on_exceeded_budget
 

@@ -1,0 +1,18 @@
+<%= form_for ['admin', @shop, @field] do |f| %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label :text %>
+        <%= f.text_field :text %>
+      </li>
+      <li>
+        <%= f.check_box :required %>
+        <%= f.label :required %>
+      </li>
+    </ol>
+  </fieldset>
+
+  <fieldset>
+    <%= f.submit %>
+  </fieldset>
+<% end %>

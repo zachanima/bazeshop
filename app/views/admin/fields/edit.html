@@ -1,0 +1,7 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li><%= link_to 'Fields', admin_shop_fields_path(@shop) %></li>
+  <li>Edit field</li>
+</ul>
+
+<%= render 'form' %>

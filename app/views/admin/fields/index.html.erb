@@ -1,0 +1,26 @@
+<ul id="breadcrumbs">
+  <li><%= @shop.name %></li>
+  <li>Fields</li>
+</ul>
+
+<div id="actions">
+  <%= link_to 'New field', new_admin_shop_field_path(@shop) %>
+</div>
+
+<table>
+  <thead>
+    <th>Text</th>
+    <th>Required</th>
+  </th>
+  <tbody>
+    <% @fields.each do |field| %>
+      <tr>
+        <td><%= link_to field.text, edit_admin_shop_field_path(@shop, field) %></td>
+        <td><%= field.required ? 'Required' : nil %></td>
+        <td>
+          <%= link_to 'X', admin_shop_field_path(@shop, field), class: 'delete', data: { confirm: 'This will delete the field. Are you sure?' }, method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
