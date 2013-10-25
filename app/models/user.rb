@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
     :login, :plaintext_password, :department, :name, :phone, :address, :text,
-    :is_manager, :manager_id, :budget, :balance, :is_demo, :access_group_ids
+    :is_manager, :manager_id, :budget, :balance, :is_demo, :access_group_ids,
+    :is_catalogue
 
   validates :login, presence: true
   validates :name, presence: true

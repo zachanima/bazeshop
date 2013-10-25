@@ -60,13 +60,14 @@
       </div>
     <% end %>
 
-    <div>
-      <%= f.label :quantity, 'Antal' %>
-      <%= f.select :quantity, options_for_select((1..20).collect { |n| [n, n] }) %>
-    </div>
-
-    <div id="add_to_cart">
-      <%= f.submit 'Tilf&oslash;j til kurv'.html_safe %>
-    </div>
+    <% unless current_user.is_catalogue %>
+      <div>
+        <%= f.label :quantity, 'Antal' %>
+        <%= f.select :quantity, options_for_select((1..20).collect { |n| [n, n] }) %>
+      </div>
+      <div id="add_to_cart">
+        <%= f.submit 'Tilf&oslash;j til kurv'.html_safe %>
+      </div>
+    <% end %>
   <% end %>
 </div>
