@@ -6,7 +6,7 @@ class Shop < ActiveRecord::Base
   has_many :access_groups, dependent: :restrict
   has_many :fields, dependent: :restrict
 
-  attr_accessible :name, :link, :locale, :login_text, :password_text, :text, :currency, :header_style, :link_style, :receipt_text, :correspondent, :shipping_price, :free_shipping_over, :custom_style, :is_closed, :logo, :reject_order_on_exceeded_budget
+  attr_accessible :name, :link, :locale, :login_text, :password_text, :text, :currency, :header_style, :link_style, :receipt_text, :correspondent, :shipping_price, :free_shipping_over, :custom_style, :is_closed, :logo, :reject_order_on_exceeded_budget, :allow_payment
 
   validates :name, presence: true
   validates :link, presence: true, uniqueness: true

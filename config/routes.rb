@@ -55,6 +55,9 @@ Bazeshop::Application.routes.draw do
     member do
       devise_for :users, controllers: { sessions: 'user/sessions' }
     end
+    member do
+      get :pay
+    end
   end
 
   root to: 'admin/shops#new'

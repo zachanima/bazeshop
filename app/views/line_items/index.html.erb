@@ -39,6 +39,18 @@
 <% if @shop.reject_order_on_exceeded_budget and current_user.balance - current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) < 0 %>
   <strong>Denne ordre kan ikke afgives, da den vil overskride dit budget.</strong>
 
+  <% if @shop.allow_payment %>
+    <p>Alternativt kan du betale med kreditkort:</p>
+    <form action="https://pay.dandomain.dk/proxy.aspx" method="GET">
+      <input type="hidden" name="MerchantNumber" value="46422759">
+      <input type="hidden" name="TunnelURL" value="<%= pay_shop_url @shop %>">
+      <input type="hidden" name="Amount" value="<%= current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) %>">
+      <input type="hidden" name="OrderID" value="<%= [current_user.id, Time.now.strftime('%y%m%d%H%M%S')].join %>">
+      <input type="hidden" name="CurrencyID" value="208">
+      <input type="submit" value="G&aring; til betaling...">
+    </form>
+  <% end %>
+
 <% else %>
   <%= form_for [@shop, @order] do |f| %>
     <% @shop.fields.each do |field| %>

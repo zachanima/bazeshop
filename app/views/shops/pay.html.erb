@@ -1,0 +1,57 @@
+<form id="payment" method="post" action="https://pay.dandomain.dk/securecapture.asp" name="Form" autocomplete="off">
+  <input type="hidden" name="OKURL" value="http://shop.baze.dk/<%= @shop.link %>/payment_ok/%%OrderID%%">
+  <input type="hidden" name="FAILURL" value="http://shop.baze.dk/<%= @shop.link %>/payment_fail/%%OrderID%%">
+  <input type="hidden" name="OrderID" value="%%OrderID%%">
+  <input type="hidden" name="CurrencyID" value="208">
+  <input type="hidden" name="Amount" value="%%Amount%%">
+  <input type="hidden" name="MerchantNumber" value="46422759">
+  <input type="hidden" name="TestMode" value="1">
+
+  <fieldset>
+    <ol>
+      <li>
+        <label for="card_number">Kortnummer</label>
+        <input type="text" id="card_number" name="CardNumber">
+      </li>
+      <li>
+        <label for="card_cvc">CVC / Kontrolcifre</label>
+        <input type="text" id="card_cvc" name="CardCVC" style="width: 48px;">
+      </li>
+      <li>
+        <label for="expire_month">Udl&oslash;bsdato (m&aring;ned / &aring;r)</label>
+        <select id="expire_month" name="ExpireMonth">
+          <option>01</option>
+          <option>02</option>
+          <option>03</option>
+          <option>04</option>
+          <option>05</option>
+          <option>06</option>
+          <option>07</option>
+          <option>08</option>
+          <option>09</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+        </select>
+        <select id="expire_year" name="ExpireYear">
+          <option>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
+          <option>21</option>
+          <option>22</option>
+          <option>23</option>
+          <option>24</option>
+          <option>25</option>
+        </select>
+      </li>
+      <li>
+        <label>&nbsp;</label>
+        <input type="submit" value="Gennemf&oslash;r betaling">
+      </li>
+    </ol>
+  </fieldset>
+</form>
