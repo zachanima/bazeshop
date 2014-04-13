@@ -3,6 +3,7 @@
   <head>
     <title><%= @shop.name %></title>
     <%= stylesheet_link_tag 'style', media: :all %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <style type="text/css">
       <% unless @shop.link_style.blank? %>

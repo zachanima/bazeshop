@@ -40,14 +40,32 @@
   <strong>Denne ordre kan ikke afgives, da den vil overskride dit budget.</strong>
 
   <% if @shop.allow_payment %>
-    <p>Alternativt kan du betale med kreditkort:</p>
-    <form action="https://pay.dandomain.dk/proxy.aspx" method="GET">
+    <p>Alternativt kan du betale differencen p&aring; <strong><%= number_to_smart_currency(current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance) %></strong> med kreditkort:</p>
+    <script>
+jQuery(function() {
+  $('#accept_terms').click(function() {
+    $('#go_to_payment').attr('disabled', !$(this).val());
+  });
+});
+    </script>
+    <form action="https://pay.dandomain.dk/proxy.aspx" method="POST" id="payment">
       <input type="hidden" name="MerchantNumber" value="4642759">
-      <input type="hidden" name="TunnelURL" value="<%= pay_shop_url @shop %>">
-      <input type="hidden" name="Amount" value="<%= current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) %>">
+      <input type="hidden" name="TunnelURL" value="http://amcor.bazeshop.dk/<%#= pay_shop_url @shop %>">
+      <input type="hidden" name="Amount" value="<%= current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance %>">
       <input type="hidden" name="OrderID" value="<%= [current_user.id, Time.now.strftime('%y%m%d%H%M%S')].join %>">
       <input type="hidden" name="CurrencyID" value="208">
-      <input type="submit" value="G&aring; til betaling...">
+      <fieldset>
+        <ol>
+          <li>
+            <input type="checkbox" name="accept_terms" id="accept_terms">
+            <label for="accept_terms">Accept&eacute;r handelsbetingelser</label> (<a href="#terms">&aring;bn i nyt vindue</a>)
+          </li>
+          <li>
+            <input id="go_to_payment" type="submit" value="G&aring; til betaling..." disabled="disabled">&nbsp;
+            <%= image_tag 'payments.png', style: 'vertical-align: middle' %>
+          </li>
+        </ol>
+      </fieldset>
     </form>
   <% end %>
 
