@@ -3,6 +3,9 @@ class LineItemsController < ApplicationController
   before_filter :find_shop
 
   def index
+    if current_user.line_items.current.count == 0
+      redirect_to shop_path(@shop)
+    end
     @order = current_user.orders.build
   end
 
