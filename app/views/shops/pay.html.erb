@@ -3,12 +3,12 @@
   <input type="hidden" name="FAILURL" value="http://shop.baze.dk/shops/<%= @shop.link %>/payment_fail">
   <input type="hidden" name="OrderID" value="<%= params['baze_order_id'] %>">
   <input type="hidden" name="CurrencyID" value="208">
-  <input type="hidden" name="Amount" value="<%= params['baze_amount'] %>">
+  <input type="hidden" name="Amount" value="<%= params['baze_amount'] %>,00">
   <input type="hidden" name="MerchantNumber" value="46422759">
   <input type="hidden" name="TestMode" value="0">
   <input type="hidden" name="CardTypeID" value="1,2,3,4">
 
-  <p>Der h&aelig;ves <strong><%= params['baze_amount'] %> DKK</strong> p&aring; nedenst&aring;ende kort.</p>
+  <p>Der h&aelig;ves <strong><%= params['baze_amount'] %>,00 DKK</strong> p&aring; nedenst&aring;ende kort.</p>
 
   <fieldset>
     <ol>

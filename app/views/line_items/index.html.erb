@@ -53,7 +53,7 @@ jQuery(function() {
     <form action="https://pay.dandomain.dk/proxy.aspx" method="POST" id="payment">
       <input type="hidden" name="MerchantNumber" value="4642759">
       <input type="hidden" name="TunnelURL" value="http://shop.baze.dk/shops/<%= @shop.link %>/pay">
-      <input type="hidden" name="Amount" value="<%= amount %>">
+      <input type="hidden" name="Amount" value="<%= amount %>,00">
       <input type="hidden" name="OrderID" value="<%= order_id %>">
       <input type="hidden" name="CurrencyID" value="208">
       <input type="hidden" name="AddFormPostVars" value="1">
