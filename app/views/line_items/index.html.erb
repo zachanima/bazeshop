@@ -50,7 +50,7 @@ jQuery(function() {
     </script>
     <form action="https://pay.dandomain.dk/proxy.aspx" method="POST" id="payment">
       <input type="hidden" name="MerchantNumber" value="4642759">
-      <input type="hidden" name="TunnelURL" value="http://amcor.bazeshop.dk/<%#= pay_shop_url @shop %>">
+      <input type="hidden" name="TunnelURL" value="http://shop.baze.dk/shops/<%= @shop.link %>/pay">
       <input type="hidden" name="Amount" value="<%= current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance %>">
       <input type="hidden" name="OrderID" value="<%= [current_user.id, Time.now.strftime('%y%m%d%H%M%S')].join %>">
       <input type="hidden" name="CurrencyID" value="208">
