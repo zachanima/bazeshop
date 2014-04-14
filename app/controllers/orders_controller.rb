@@ -17,18 +17,18 @@ class OrdersController < ApplicationController
 
     @order.fields = String.new
     if params[:fields]
-    params[:fields].each do |field|
-      found_field = Field.find field[:id].to_i
-      if field[:text].blank?
-        if found_field.required
-          valid = false
-          break
+      params[:fields].each do |field|
+        found_field = Field.find field[:id].to_i
+        if field[:text].blank?
+          if found_field.required
+            valid = false
+            break
+          end
+        else 
+          @order.fields << "#{found_field.text}: #{field[:text]}\n"
         end
-      else 
-        @order.fields << "#{found_field.text}: #{field[:text]}\n"
       end
     end
-  end
 
     if valid
       @order.save

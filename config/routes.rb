@@ -57,6 +57,8 @@ Bazeshop::Application.routes.draw do
     end
     member do
       get :pay
+      get :payment_ok
+      get :payment_fail
     end
   end
 
