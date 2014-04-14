@@ -75,6 +75,8 @@ jQuery(function() {
   <% end %>
 
 <% else %>
+  <%# validate form and submit asynchronously %>
+  <p> Stjernemarkerede felter <em>skal</em> udfyldes.</p>
   <%= form_for [@shop, @order] do |f| %>
     <% @shop.fields.each do |field| %>
       <div class="fields">

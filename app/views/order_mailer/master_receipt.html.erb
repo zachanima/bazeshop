@@ -12,7 +12,7 @@
     <table border="0" style="border-collapse: collapse;">
       <thead>
         <tr style="color: #fff; background-color: #999;">
-          <th colspan="7" style="text-align: left;">Ordre #<%= @order.id %></th>
+          <th colspan="7" style="text-align: left;">Ordre #<%= @order.id %><%= " (#{@order.transaction_id})" if @order.transaction_id %></th>
           <th style="text-align: right;"><%= (@order.created_at + 7200).to_s(:short) %></th>
         </tr>
       </thead>
