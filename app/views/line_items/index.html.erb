@@ -1,3 +1,5 @@
+<%# Sanity. %>
+<% @shop.free_shipping_over = 1000000 if not @shop.free_shipping_over %>
 <%= content_tag :div, class: :cart do %>
   <table>
     <thead>
@@ -26,26 +28,26 @@
           </td>
         </tr>
       <% end %>
-      <% if @shop.shipping_price %>
         <tr>
           <th colspan="8">Pris</th>
           <th class="number">
             <%= number_to_smart_currency current_user.line_items.current.collect(&:gross_price).compact.inject(&:+), @shop.currency %>
           </th>
         </tr>
+      <% if @shop.shipping_price and current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) < @shop.free_shipping_over %>
         <tr>
           <th colspan="8">Fragt</th>
           <th class="number">
             <%= number_to_smart_currency @shop.shipping_price, @shop.currency %>
           </th>
         </tr>
-      <% end %>
       <tr>
         <th colspan="8">Total</th>
         <th class="number">
           <%= number_to_smart_currency ((@shop.shipping_price ? @shop.shipping_price : 0) + current_user.line_items.current.collect(&:gross_price).compact.inject(&:+)), @shop.currency %>
         </th>
       </tr>
+      <% end %>
     </tbody>
   </table>
 <% end unless current_user.line_items.current.count == 0 %>
@@ -55,6 +57,9 @@
 
   <% if @shop.allow_payment %>
     <% amount = (current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance).to_i + (@shop.shipping_price ? @shop.shipping_price : 0) %>
+    <% if amount - (@shop.shipping_price ? @shop.shipping_price : 0) >= @shop.free_shipping_over %>
+        <% amount -= @shop.shipping_price %>
+    <% end %>
     <% vat = @shop.add_vat ? 0.25 * amount : 0 %>
     <% order_id = [current_user.id, Time.now.strftime('%y%m%d%H%M%S')].join %>
     <p>Alternativt kan du betale differencen p&aring; <strong><%= number_to_smart_currency(amount + vat, '').gsub('.', ',') %> kr.</strong><%== " (heraf moms kr. <strong>#{number_to_smart_currency(vat, '').gsub('.', ',')} kr.</strong>)" if @shop.add_vat %> med kreditkort:</p>
