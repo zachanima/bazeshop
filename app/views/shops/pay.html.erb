@@ -5,7 +5,7 @@
   <input type="hidden" name="CurrencyID" value="208">
   <input type="hidden" name="Amount" value="<%= params['baze_amount'] %>">
   <input type="hidden" name="MerchantNumber" value="4642759">
-  <input type="hidden" name="TestMode" value="1">
+  <input type="hidden" name="TestMode" value="0">
   <input type="hidden" name="CardTypeID" value="1,2,3,4">
 
   <p>Der h&aelig;ves <strong><%= number_to_smart_currency(params['baze_amount'].gsub(',', '.').to_f, '').gsub('.', ',') %> DKK</strong> p&aring; nedenst&aring;ende kort.</p>
