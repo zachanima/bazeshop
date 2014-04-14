@@ -1,11 +1,29 @@
+valid = () ->
+  requireds = $('.required').siblings('input[type=text]')
+  for i in [0...requireds.length]
+    if requireds[i].value.length == 0
+      return false
+
+  if $('#accept_terms').prop('checked')
+    return true
+  else
+    return false
+
+
 jQuery ->
   if $('#accept_terms').prop('checked')
     $('#go_to_payment').removeAttr('disabled')
   else
     $('#go_to_payment').attr('disabled', 'disabled')
 
-  $('#accept_terms').change ->
-    if $(@).prop('checked')
+  $('input[type=checkbox]').change ->
+    if valid()
+      $('#go_to_payment').removeAttr('disabled')
+    else
+      $('#go_to_payment').attr('disabled', 'disabled')
+
+  $('input[type=text]').keyup ->
+    if valid()
       $('#go_to_payment').removeAttr('disabled')
     else
       $('#go_to_payment').attr('disabled', 'disabled')
@@ -19,3 +37,4 @@ jQuery ->
 
     $.post ('/shops/' + $('[name=baze_shop]').val() + '/save_fields'),
       fields: fields
+
