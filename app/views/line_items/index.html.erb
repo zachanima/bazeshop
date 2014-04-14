@@ -43,13 +43,6 @@
     <% amount = (current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance).to_i %>
     <% order_id = [current_user.id, Time.now.strftime('%y%m%d%H%M%S')].join %>
     <p>Alternativt kan du betale differencen p&aring; <strong><%= number_to_smart_currency(amount) %></strong> med kreditkort:</p>
-    <script>
-jQuery(function() {
-  $('#accept_terms').click(function() {
-    $('#go_to_payment').attr('disabled', !$(this).val());
-  });
-});
-    </script>
     <form action="https://pay.dandomain.dk/proxy.aspx" method="POST" id="payment">
       <input type="hidden" name="MerchantNumber" value="4642759">
       <input type="hidden" name="TunnelURL" value="http://shop.baze.dk/shops/<%= @shop.link %>/pay">
