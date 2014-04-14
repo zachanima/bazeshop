@@ -17,6 +17,8 @@ class ShopsController < ApplicationController
     @order.net_price = @order.line_items.collect(&:net_price).compact.inject(&:+)
     @order.user_name = current_user.name
     @order.transaction_id = params['OrderID']
+    @order.payment = @order.gross_price - current_user.balance
+    # TODO: VAT
 
     valid = true
 
