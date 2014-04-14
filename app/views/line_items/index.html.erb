@@ -26,10 +26,24 @@
           </td>
         </tr>
       <% end %>
+      <% if @shop.shipping_price %>
+        <tr>
+          <th colspan="8">Pris</th>
+          <th class="number">
+            <%= number_to_smart_currency current_user.line_items.current.collect(&:gross_price).compact.inject(&:+), @shop.currency %>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="8">Fragt</th>
+          <th class="number">
+            <%= number_to_smart_currency @shop.shipping_price, @shop.currency %>
+          </th>
+        </tr>
+      <% end %>
       <tr>
         <th colspan="8">Total</th>
         <th class="number">
-          <%= number_to_smart_currency current_user.line_items.current.collect(&:gross_price).compact.inject(&:+), @shop.currency %>
+          <%= number_to_smart_currency ((@shop.shipping_price ? @shop.shipping_price : 0) + current_user.line_items.current.collect(&:gross_price).compact.inject(&:+)), @shop.currency %>
         </th>
       </tr>
     </tbody>
@@ -40,17 +54,18 @@
   <strong>Denne ordre kan ikke afgives, da den vil overskride dit budget.</strong>
 
   <% if @shop.allow_payment %>
-    <% amount = (current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance).to_i %>
+    <% amount = (current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance).to_i + (@shop.shipping_price ? @shop.shipping_price : 0) %>
+    <% vat = @shop.add_vat ? 0.25 * amount : 0 %>
     <% order_id = [current_user.id, Time.now.strftime('%y%m%d%H%M%S')].join %>
-    <p>Alternativt kan du betale differencen p&aring; <strong><%= number_to_smart_currency(amount) %></strong> med kreditkort:</p>
+    <p>Alternativt kan du betale differencen p&aring; <strong><%= number_to_smart_currency(amount + vat, '').gsub('.', ',') %> kr.</strong><%== " (heraf moms kr. <strong>#{number_to_smart_currency(vat, '').gsub('.', ',')} kr.</strong>)" if @shop.add_vat %> med kreditkort:</p>
     <form action="https://pay.dandomain.dk/proxy.aspx" method="POST" id="payment">
       <input type="hidden" name="MerchantNumber" value="4642759">
       <input type="hidden" name="TunnelURL" value="http://shop.baze.dk/shops/<%= @shop.link %>/pay">
-      <input type="hidden" name="Amount" value="<%= amount %>,00">
+      <input type="hidden" name="Amount" value="<%= (amount + vat).to_s.gsub('.', ',') %>">
       <input type="hidden" name="OrderID" value="<%= order_id %>">
       <input type="hidden" name="CurrencyID" value="208">
       <input type="hidden" name="AddFormPostVars" value="1">
-      <input type="hidden" name="baze_amount" value="<%= amount %>">
+      <input type="hidden" name="baze_amount" value="<%= (amount + vat).to_s.gsub('.', ',') %>">
       <input type="hidden" name="baze_order_id" value="<%= order_id %>">
       <fieldset>
         <ol>

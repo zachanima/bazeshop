@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140414142032) do
+ActiveRecord::Schema.define(:version => 20140414204553) do
 
   create_table "access_groups", :force => true do |t|
     t.string   "name"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(:version => 20140414142032) do
     t.boolean  "reject_order_on_exceeded_budget"
     t.boolean  "allow_payment"
     t.text     "terms"
+    t.boolean  "add_vat"
   end
 
   create_table "users", :force => true do |t|
