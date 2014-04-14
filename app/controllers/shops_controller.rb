@@ -2,6 +2,11 @@ class ShopsController < ApplicationController
   before_filter :authenticate_user!, except: [:pay]
   before_filter :find_shop
 
+  def save_fields
+    current_user.fields = params['fields']
+    current_user.save
+  end
+
   def pay
     render :pay
   end
@@ -18,11 +23,12 @@ class ShopsController < ApplicationController
     @order.user_name = current_user.name
     @order.transaction_id = params['OrderID']
     @order.payment = @order.gross_price - current_user.balance
+    @order.fields = current_user.fields
     # TODO: VAT
 
     valid = true
 
-    @order.fields = String.new
+    @order.fields = String.new if not @order.fields
 
     if valid
       @order.save

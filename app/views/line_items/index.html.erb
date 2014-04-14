@@ -63,6 +63,9 @@
     <% vat = @shop.add_vat ? 0.25 * amount : 0 %>
     <% order_id = [current_user.id, Time.now.strftime('%y%m%d%H%M%S')].join %>
     <p>Alternativt kan du betale differencen p&aring; <strong><%= number_to_smart_currency(amount + vat, '').gsub('.', ',') %> kr.</strong><%== " (heraf moms kr. <strong>#{number_to_smart_currency(vat, '').gsub('.', ',')} kr.</strong>)" if @shop.add_vat %> med kreditkort:</p>
+    <%# validate form and submit asynchronously %>
+    <p> Stjernemarkerede felter <em>skal</em> udfyldes.</p>
+
     <form action="https://pay.dandomain.dk/proxy.aspx" method="POST" id="payment">
       <input type="hidden" name="MerchantNumber" value="4642759">
       <input type="hidden" name="TunnelURL" value="http://shop.baze.dk/shops/<%= @shop.link %>/pay">
@@ -72,6 +75,18 @@
       <input type="hidden" name="AddFormPostVars" value="1">
       <input type="hidden" name="baze_amount" value="<%= (amount + vat).to_s.gsub('.', ',') %>">
       <input type="hidden" name="baze_order_id" value="<%= order_id %>">
+      <input type="hidden" name="baze_shop" value="<%= @shop.link %>">
+      <% @shop.fields.each do |field| %>
+        <div class="fields">
+          <%= label_tag dom_id(field), field.text, class: field.required ? 'required' : nil %>
+          <%= text_field_tag 'fields[][text]', nil, id: dom_id(field) %>
+          <%= hidden_field_tag 'fields[][id]', field.id %>
+        </div>
+      <% end %>
+      <div class="fields">
+        <%= label_tag :baze_comment, 'Kommentar' %>
+        <%= text_area_tag :baze_comment %>
+      </div>
       <fieldset>
         <ol>
           <li>

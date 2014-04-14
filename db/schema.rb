@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140414204553) do
+ActiveRecord::Schema.define(:version => 20140414220619) do
 
   create_table "access_groups", :force => true do |t|
     t.string   "name"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20140414204553) do
     t.decimal  "balance",             :precision => 8, :scale => 2
     t.boolean  "is_demo"
     t.boolean  "is_catalogue"
+    t.text     "fields"
   end
 
   create_table "variants", :force => true do |t|

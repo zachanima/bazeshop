@@ -60,6 +60,7 @@ Bazeshop::Application.routes.draw do
       get :payment_ok
       get :payment_fail
       get :terms
+      post :save_fields
     end
   end
 
