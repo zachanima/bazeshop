@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411131541) do
+ActiveRecord::Schema.define(:version => 20140414090717) do
 
   create_table "access_groups", :force => true do |t|
     t.string   "name"
@@ -106,13 +106,14 @@ ActiveRecord::Schema.define(:version => 20140411131541) do
 
   create_table "orders", :force => true do |t|
     t.string   "user_name"
-    t.decimal  "gross_price", :precision => 8, :scale => 2
-    t.decimal  "net_price",   :precision => 8, :scale => 2
+    t.decimal  "gross_price",    :precision => 8, :scale => 2
+    t.decimal  "net_price",      :precision => 8, :scale => 2
     t.integer  "user_id"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.text     "comment"
     t.text     "fields"
+    t.integer  "transaction_id"
   end
 
   create_table "products", :force => true do |t|

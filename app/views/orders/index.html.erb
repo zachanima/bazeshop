@@ -2,7 +2,12 @@
   <table class="order">
     <thead>
       <tr>
-        <th colspan="5">Ordre #<%= order.id %></th>
+        <th colspan="5">
+          Ordre #<%= order.id %>
+          <% if order.transaction_id %>
+            (Transaktionsnr. <%= order.transaction_id %>)
+          <% end %>
+          </th>
         <th class="number"><%= (order.created_at + 7200).to_s(:short) %></th>
       </tr>
     </thead>

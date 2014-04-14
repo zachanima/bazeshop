@@ -9,6 +9,7 @@
     <th>Username</th>
     <th class="number">Gross price</th>
     <th class="number">Net price</th>
+    <th class="number">Transaction ID</th>
     <th></th>
   </thead>
   <tbody>
@@ -18,6 +19,7 @@
         <td><%= order.user_name %></td>
         <td class="number"><%= number_to_smart_currency order.gross_price, @shop.currency if order.gross_price %></td>
         <td class="number"><%= number_to_smart_currency order.net_price if order.net_price %></td>
+        <td class="number"><%= order.transaction_id %></td>
         <td>
           <%= link_to 'X', admin_shop_order_path(@shop, order), class: 'delete', data: { confirm: 'Are you sure?' }, method: :delete %>
         </td>

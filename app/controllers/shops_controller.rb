@@ -16,7 +16,7 @@ class ShopsController < ApplicationController
     @order.gross_price = @order.line_items.collect(&:gross_price).compact.inject(&:+)
     @order.net_price = @order.line_items.collect(&:net_price).compact.inject(&:+)
     @order.user_name = current_user.name
-    # TODO: Add transaction ID
+    @order.transaction_id = params['OrderID']
 
     valid = true
 
@@ -24,7 +24,7 @@ class ShopsController < ApplicationController
 
     if valid
       @order.save
-      current_user.balance = 0 if current_user.balance and current_user.balance > 0 # Assume balance dropped below 0
+      current_user.balance = 0 if current_user.balance and current_user.balance > 0 # Assume balance dropped to 0
       current_user.save
 
       OrderMailer.receipt(@order).deliver unless @order.user.email.blank?
