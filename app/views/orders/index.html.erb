@@ -7,6 +7,7 @@
           <% if order.transaction_id %>
             (Transaktionsnr. <%= order.transaction_id %>)
           <% end %>
+          <%= " | #{order.payment} DKK inkl. moms" if order.payment %>
           </th>
         <th class="number"><%= (order.created_at + 7200).to_s(:short) %></th>
       </tr>

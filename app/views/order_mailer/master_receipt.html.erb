@@ -135,7 +135,7 @@
     <% if @order.payment %>
       <table>
         <tr>
-          <th>Budget/fakturering</th>
+          <th style="text-align: left;">Budget/fakturering</th>
           <% if @shop.shipping_price and @order.gross_price < @shop.free_shipping_over %>
             <td><strong>-<%= (@order.gross_price + @shop.shipping_price) - (@order.payment * (@shop.add_vat ? 0.8 : 1.0)) %> DKK</strong></td>
           <% else %>
@@ -143,17 +143,17 @@
           <% end %>
         </tr>
         <tr>
-          <th>Egenbetaling</th>
+          <td style="text-align: left;">Egenbetaling</td>
           <td><%= @order.payment * (@shop.add_vat ? 0.8 : 1.0) %> DKK</td>
         </tr>
         <% if @shop.add_vat %>
         <tr>
-          <th>+ Moms 25%</th>
+          <td style="text-align: left;">+ Moms 25%</td>
           <td><%= @order.payment * 0.2 %> DKK</td>
         </tr>
         <% end %>
         <tr>
-          <th>Betalt</th>
+          <td style="text-align: left;">Betalt</td>
           <td><%= @order.payment %> DKK</td>
         </tr>
       </table>
