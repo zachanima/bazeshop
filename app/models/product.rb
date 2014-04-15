@@ -43,6 +43,7 @@ class Product < ActiveRecord::Base
     product = category.products.create(
       name: self.name,
       number: self.number,
+      supplier_number: self.supplier_number,
       brand: self.brand,
       text: self.text,
       gross_price: self.gross_price,
