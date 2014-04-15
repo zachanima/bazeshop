@@ -12,7 +12,11 @@
     <table border="0" style="border-collapse: collapse;">
       <thead>
         <tr style="color: #fff; background-color: #999;">
-          <th colspan="5" style="text-align: left;">Ordre #<%= @order.id %></th>
+          <th colspan="5" style="text-align: left;">
+            Ordre #<%= @order.id %>
+            <%= " (#{@order.transaction_id})" if @order.transaction_id %>
+            <%= " | #{@order.payment} DKK inkl. moms" if @order.payment %>
+          </th>
           <th style="text-align: right;"><%= (@order.created_at + 7200).to_s(:short) %></th>
         </tr>
       </thead>
@@ -57,7 +61,7 @@
           </tr>
         <% end %>
         <tr style="color: #fff; background-color: #999;">
-          <th colspan="5" style="text-align: left;">Total</th>
+          <th colspan="5" style="text-align: left;">Pris</th>
           <th style="text-align: right;">
             <% if @order.gross_price %>
               <% if @order.gross_price % 1 == 0 %>
@@ -68,6 +72,20 @@
             <% end %>
           </th>
         </tr>
+        <% if @shop.shipping_price and @order.gross_price and @order.gross_price < @shop.free_shipping_over %>
+          <tr style="color: #fff; background-color: #999;">
+            <th colspan="7" style="text-align: left;">Fragt</th>
+            <th style="text-align: right;">
+              <%= number_to_currency @shop.shipping_price, unit: 'kr.', format: '%n %u' %>
+            </th>
+          </tr>
+          <tr style="color: #fff; background-color: #999;">
+            <th colspan="7" style="text-align: left;">Total</th>
+            <th style="text-align: right;">
+              <%= number_to_currency(@order.gross_price + @shop.shipping_price, unit: @shop.currency, format: '%n %u') %>
+            </th>
+          </tr>
+        <% end %>
       </tbody>
     </table>
 
