@@ -122,7 +122,7 @@
           <tr style="color: #fff; background-color: #999;">
             <th colspan="7" style="text-align: left;">Total</th>
             <th style="text-align: right;">
-              <%= number_to_currency(@order.gross_price + @shop.shipping_price), unit: @shop.currency, format: '%n %u') %>
+              <%= number_to_currency(@order.gross_price + @shop.shipping_price, unit: @shop.currency, format: '%n %u') %>
             </th>
           </tr>
         <% end %>
