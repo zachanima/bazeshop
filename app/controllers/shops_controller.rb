@@ -16,13 +16,19 @@ class ShopsController < ApplicationController
   end
 
   def payment_ok
+    @shop.free_shipping_over = 1000000 if not @shop.free_shipping_over
     @order = current_user.orders.build
     @order.line_items << current_user.line_items.current
     @order.gross_price = @order.line_items.collect(&:gross_price).compact.inject(&:+)
     @order.net_price = @order.line_items.collect(&:net_price).compact.inject(&:+)
     @order.user_name = current_user.name
     @order.transaction_id = params['OrderID']
-    @order.payment = @order.gross_price - current_user.balance
+    if @shop.shipping_price and @order.gross_price and @order.gross_price < @shop.free_shipping_over
+      @order.payment = (@order.gross_price + @shop.shipping_price - current_user.balance)
+    else
+      @order.payment = @order.gross_price - current_user.balance
+    end
+    @order.payment *= 1.25 if @shop.add_vat
     @order.fields = current_user.fields
     # TODO: VAT
 

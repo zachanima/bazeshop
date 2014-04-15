@@ -1,3 +1,4 @@
+<% @shop.free_shipping_over = 1000000 if not @shop.free_shipping_over %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -91,26 +92,40 @@
             </td>
           </tr>
         <% end %>
-        <tr style="color: #fff; background-color: #999;">
-          <th colspan="7" style="text-align: left;">Total</th>
-          <th style="text-align: right;">
-            <% if @order.gross_price %>
-              <% if @order.gross_price % 1 == 0 %>
-                <%= "#{@order.gross_price.to_i} #{@shop.currency}" %>
-              <% else %>
-                <%= number_to_currency @order.gross_price, unit: @shop.currency, format: '%n %u' %>
+          <tr style="color: #fff; background-color: #999;">
+            <th colspan="7" style="text-align: left;">Pris</th>
+            <th style="text-align: right;">
+              <% if @order.gross_price %>
+                <% if @order.gross_price % 1 == 0 %>
+                  <%= "#{@order.gross_price.to_i} #{@shop.currency}" %>
+                <% else %>
+                  <%= number_to_currency @order.gross_price, unit: @shop.currency, format: '%n %u' %>
+                <% end %>
               <% end %>
-            <% end %>
-            <% if @order.net_price %>
-              /
-              <% if @order.net_price % 1 == 0 %>
-                <%= "#{@order.net_price.to_i} kr." %>
-              <% else %>
-                <%= number_to_currency @order.net_price, unit: 'kr.', format: '%n %u' %>
+              <% if @order.net_price %>
+                /
+                <% if @order.net_price % 1 == 0 %>
+                  <%= "#{@order.net_price.to_i} kr." %>
+                <% else %>
+                  <%= number_to_currency @order.net_price, unit: 'kr.', format: '%n %u' %>
+                <% end %>
               <% end %>
-            <% end %>
-          </th>
-        </tr>
+            </th>
+          </tr>
+        <% if @shop.shipping_price and @order.gross_price and @order.gross_price < @shop.free_shipping_over %>
+          <tr style="color: #fff; background-color: #999;">
+            <th colspan="7" style="text-align: left;">Fragt</th>
+            <th style="text-align: right;">
+              <%= number_to_currency @shop.shipping_price, unit: 'kr.', format: '%n %u' %>
+            </th>
+          </tr>
+          <tr style="color: #fff; background-color: #999;">
+            <th colspan="7" style="text-align: left;">Total</th>
+            <th style="text-align: right;">
+              <%= number_to_currency(@order.gross_price + @shop.shipping_price), unit: @shop.currency, format: '%n %u') %>
+            </th>
+          </tr>
+        <% end %>
       </tbody>
     </table>
 
