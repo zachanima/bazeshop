@@ -132,6 +132,36 @@
     <br>
     <br>
 
+    <% if @order.payment %>
+      <table>
+        <tr>
+          <th>Budget/fakturering</th>
+          <% if @shop.shipping_price and @order.gross_price < @shop.free_shipping_over %>
+            <td><strong>-<%= (@order.gross_price + @shop.shipping_price) - (@order.payment * (@shop.add_vat ? 0.8 : 1.0)) %> DKK</strong></td>
+          <% else %>
+            <td><strong>-<%= @order.gross_price - (@order.payment * (@shop.add_vat ? 0.8 : 1.0)) %> DKK</strong></td>
+          <% end %>
+        </tr>
+        <tr>
+          <th>Egenbetaling</th>
+          <td><%= @order.payment * (@shop.add_vat ? 0.8 : 1.0) %> DKK</td>
+        </tr>
+        <% if @shop.add_vat %>
+        <tr>
+          <th>+ Moms 25%</th>
+          <td><%= @order.payment * 0.2 %> DKK</td>
+        </tr>
+        <% end %>
+        <tr>
+          <th>Betalt</th>
+          <td><%= @order.payment %> DKK</td>
+        </tr>
+      </table>
+    <% end %>
+
+    <br>
+    <br>
+
     <strong>Kundeoplysninger</strong>
     <table>
       <% {

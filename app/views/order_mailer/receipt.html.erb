@@ -74,13 +74,13 @@
         </tr>
         <% if @shop.shipping_price and @order.gross_price and @order.gross_price < @shop.free_shipping_over %>
           <tr style="color: #fff; background-color: #999;">
-            <th colspan="7" style="text-align: left;">Fragt</th>
+            <th colspan="5" style="text-align: left;">Fragt</th>
             <th style="text-align: right;">
               <%= number_to_currency @shop.shipping_price, unit: 'kr.', format: '%n %u' %>
             </th>
           </tr>
           <tr style="color: #fff; background-color: #999;">
-            <th colspan="7" style="text-align: left;">Total</th>
+            <th colspan="5" style="text-align: left;">Total</th>
             <th style="text-align: right;">
               <%= number_to_currency(@order.gross_price + @shop.shipping_price, unit: @shop.currency, format: '%n %u') %>
             </th>
