@@ -40,6 +40,12 @@
           <%= number_to_smart_currency order.gross_price, @shop.currency if order.gross_price %>
         </th>
       </tr>
+      <% unless order.comment.blank? %>
+        <tr>
+          <td colspan="6">
+            <%= order.comment %>
+          </td>
+      <% end %>
     </tbody>
   </table>
   <hr>
