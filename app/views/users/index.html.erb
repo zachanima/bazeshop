@@ -1,0 +1,91 @@
+<h1>Administration</h1>
+
+<p>Her kan der st&aring; en lille tekst.</p>
+
+<h2>Ny bruger</h2>
+<%= form_for [@shop, @user] do |f| %>
+  <fieldset>
+    <ol>
+      <li class="required">
+        <%= f.label :name, 'Navn' %>
+        <%= f.text_field :name %>
+      </li>
+      <li class="required">
+        <%= f.label :login, (@shop.login_text.blank? ? 'Login' : @shop.login_text) %>
+        <%= f.text_field :login %>
+      </li>
+      <li class="required">
+        <%= f.label :password, (@shop.password_text.blank? ? 'Adgangskode' : @shop.password_text) %>
+        <%= f.text_field :password, value: @user.plaintext_password %>
+      </li>
+      <li>
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+      </li>
+      <li>
+        <%= f.label :department, 'Afdeling' %>
+        <%= f.text_field :department %>
+      </li>
+      <% if @shop.users.managers.count > 0 %>
+        <li>
+          <%= f.label :manager_id %>
+          <%= f.collection_select :manager_id, @shop.users.managers, :id, :name, include_blank: true %>
+        </li>
+      <% end %>
+      <li>
+        <%= f.label :phone, 'Telefon' %>
+        <%= f.text_field :phone %>
+      </li>
+      <li>
+        <%= f.label :address, 'Adresse' %>
+        <%= f.text_area :address %>
+      </li>
+      <li>
+        <%= f.label :text, 'Yderligere information' %>
+        <%= f.text_area :text %>
+      </li>
+      <li>
+        <%= f.label :budget, 'Budget' %>
+        <%= f.text_field :phone %>&nbsp;<strong><%= @shop.currency %></strong>
+      </li>
+    </ol>
+  </fieldset>
+  <% if @shop.access_groups.count > 0 %>
+    <fieldset>
+      <ol>
+        <% @shop.access_groups.each do |access_group| %>
+          <li>
+            <%= check_box_tag 'user[access_group_ids][]', access_group.id, @user.access_groups.include?(access_group) %>
+            <%= f.label access_group.name %>
+          </li>
+        <% end %>
+      </ol>
+    </fieldset>
+  <% end %>
+  <fieldset>
+    <ol>
+      <li><%= f.submit 'Opret bruger' %></li>
+    </ol>
+  </fieldset>
+<% end %>
+
+
+
+<h2>Aktive brugere</h2>
+
+<ol>
+  <% @users.each do |user| %>
+    <% unless user.new_record? %>
+      <li>
+        <%= check_box_tag :name %>
+        <%= label_tag user.name %>
+      </li>
+    <% end %>
+  <% end %>
+  <%= submit_tag 'Gem &aelig;ndringer'.html_safe %>
+</ol>
+
+
+
+<h2>Deaktiverede brugere</h2>
+<%= submit_tag 'Gem &aelig;ndringer'.html_safe %>

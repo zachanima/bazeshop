@@ -39,6 +39,7 @@
           <li><%= link_to 'Velkommen', @shop %></li>
           <%= render @shop.categories.top %>
           <%= content_tag :li, link_to('Historik', shop_orders_path(@shop)) if current_user.orders.count > 0 %>
+          <%= content_tag :li, link_to('Administration'.html_safe, shop_users_path(@shop)) if current_user.superuser and current_user.shop == @shop %>
         </ul>
       </div>
     </div>
