@@ -5,6 +5,7 @@
 
 <div id="actions">
   <%= link_to 'New product', new_admin_shop_product_path(@shop) %>
+  <%= link_to ['Edit ', @shop.products.order(:id).last.name].join, edit_admin_shop_product_path(@shop, @shop.products.order(:id).last) %>
 </div>
 
 <%= form_tag edit_multiple_admin_shop_products_path(@shop), class: :copy_products do %>
