@@ -42,7 +42,6 @@ Bazeshop::Application.routes.draw do
 
   resources :shops do
     resources :categories
-    resources :users
     resources :line_items do
       member do
         put :increment
@@ -56,6 +55,7 @@ Bazeshop::Application.routes.draw do
     member do
       devise_for :users, controllers: { sessions: 'user/sessions' }
     end
+    resources :users
     member do
       get :pay
       get :payment_ok
