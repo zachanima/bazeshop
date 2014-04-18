@@ -39,7 +39,7 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= check_box_tag 'user_ids[]', user.id %></td>
-          <td><%= link_to user.name, edit_admin_shop_user_path(@shop, user) %></td>
+          <td><%= link_to user.name, edit_admin_shop_user_path(@shop, user) %><%= ' (superuser)' if user.superuser %></td>
           <td><%= user.login %></td>
           <td><%= user.plaintext_password %></td>
           <td><%= user.department %></td>
