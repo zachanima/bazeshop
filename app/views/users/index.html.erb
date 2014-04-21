@@ -1,5 +1,8 @@
 <h1>Administration</h1>
 
+<p>Ny bruger kr&aelig;ver udfyldt navn, <%= @shop.login_text.blank? ? 'login' : @shop.login_text %> og <%= @shop.password_text.blank? ? 'adgangskode' : @shop.password_text %>.</p>
+<p>Derudover skal <%= @shop.login_text.blank? ? 'login' : @shop.login_text %> v&aelig;re unikt i systemet.</p>
+
 <h2>Ny bruger</h2>
 <%= form_for [@shop, @user] do |f| %>
   <fieldset>
@@ -44,7 +47,7 @@
       </li>
       <li>
         <%= f.label :budget, 'Budget' %>
-        <%= f.text_field :phone %>&nbsp;<strong><%= @shop.currency %></strong>
+        <%= f.text_field :budget %>&nbsp;<strong><%= @shop.currency %></strong>
       </li>
     </ol>
   </fieldset>
@@ -66,24 +69,3 @@
     </ol>
   </fieldset>
 <% end %>
-
-
-
-<h2>Aktive brugere</h2>
-
-<ol>
-  <% @users.each do |user| %>
-    <% unless user.new_record? %>
-      <li>
-        <%= check_box_tag :name %>
-        <%= label_tag user.name %>
-      </li>
-    <% end %>
-  <% end %>
-  <%= submit_tag 'Deaktiv&eacute;r valgte brugere'.html_safe %>
-</ol>
-
-
-
-<h2>Deaktiverede brugere</h2>
-<%= submit_tag 'Aktiv&eacute;r valgte brugere'.html_safe %>

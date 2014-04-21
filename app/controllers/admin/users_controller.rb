@@ -37,7 +37,7 @@ class Admin::UsersController < Admin::ApplicationController
     if params[:user][:access_group_ids].nil?
       @user.access_groups.clear
     end
-    
+
     if @user.update_attributes params[:user]
       redirect_to admin_shop_users_path(@shop), notice: 'Updated user.'
     else
