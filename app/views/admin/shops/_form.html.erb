@@ -82,6 +82,10 @@
         <%= f.label :add_vat, 'Add VAT' %>
       </li>
       <li>
+        <%= f.check_box :allow_proxy_orders %>
+        <%= f.label :allow_proxy_orders, 'Manager can order for other users' %>
+      </li>
+      <li>
         <%= f.label :terms %>
         <%= f.text_area :terms %>
       </li>

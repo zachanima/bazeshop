@@ -11,6 +11,13 @@ class ShopsController < ApplicationController
     render :pay
   end
 
+  def switch
+    if @shop.allow_proxy_orders and current_user.is_manager
+      sign_in(:user, User.where(login: params[:user][:login]).where(shop_id: @shop.id).first)
+      redirect_to @shop
+    end
+  end
+
   def payment_fail
 
   end

@@ -25,7 +25,23 @@
     <div class="content">
       <%= image_tag @shop.logo %>
       <%= content_tag :span do %>
-        <%= current_user.name %><br>
+        <% if @shop.allow_proxy_orders and current_user.is_manager %>
+          <% users = @shop.users.where('manager_id = ?', current_user.id) %>
+          <% if users.count > 0 %>
+            <%= form_tag switch_shop_path(@shop) %>
+            <!--<form action="<%= switch_shop_path(@shop) %>" method="post" data-shop="<%= shop_path(@shop) %>">-->
+              Bestil som&nbsp;
+              <select id="user_switch" name="user[login]">
+                <option value="<%= current_user.login %>" data-value="<%= current_user.plaintext_password %>"><%= current_user.name %></option>
+                <% users.each do |user| %>
+                  <option value="<%= user.login %>" data-value="<%= user.plaintext_password %>"><%= user.name %></option>
+                <% end %>
+              </select>
+            </form>
+          <% end %>
+        <% else %>
+          <%= current_user.name %><br>
+        <% end %>
         <%= number_to_smart_currency current_user.balance, @shop.currency %><br>
         <%= link_to 'Log ud', destroy_user_session_path(@shop) %>
       <% end if user_signed_in? %>

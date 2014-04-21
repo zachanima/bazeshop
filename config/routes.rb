@@ -55,12 +55,12 @@ Bazeshop::Application.routes.draw do
     member do
       devise_for :users, controllers: { sessions: 'user/sessions' }
     end
-    resources :users
     member do
       get :pay
       get :payment_ok
       get :payment_fail
       get :terms
+      post :switch
       post :save_fields
     end
   end
