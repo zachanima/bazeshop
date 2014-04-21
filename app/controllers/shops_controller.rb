@@ -2,6 +2,9 @@ class ShopsController < ApplicationController
   before_filter :authenticate_user!, except: [:pay]
   before_filter :find_shop
 
+  def show
+  end
+
   def save_fields
     current_user.fields = params['fields']
     current_user.save
