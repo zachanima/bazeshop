@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140418082418) do
+ActiveRecord::Schema.define(:version => 20140421074328) do
 
   create_table "access_groups", :force => true do |t|
     t.string   "name"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(:version => 20140418082418) do
     t.boolean  "is_catalogue"
     t.text     "fields"
     t.boolean  "superuser"
+    t.boolean  "is_active"
   end
 
   create_table "variants", :force => true do |t|

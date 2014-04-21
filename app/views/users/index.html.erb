@@ -69,3 +69,47 @@
     </ol>
   </fieldset>
 <% end %>
+
+
+
+<h2>Aktive brugere</h2>
+
+<%= form_tag deactivate_shop_users_path(@shop) do %>
+<ol>
+  <% @users.where(is_active: true).each do |user| %>
+    <% unless user.new_record? or user.is_demo %>
+      <li>
+        <%= check_box_tag 'user_ids[]', user.id %>
+        <%= label_tag "#{user.name} (#{user.login} | #{user.plaintext_password})" %>
+      </li>
+    <% end %>
+  <% end %>
+  <%= submit_tag 'Deaktiv&eacute;r valgte brugere'.html_safe %>
+</ol>
+<% end %>
+
+
+
+<h2>Deaktiverede brugere</h2>
+
+<%= form_tag activate_shop_users_path(@shop) do %>
+<ol>
+  <% @users.where(is_active: nil).each do |user| %>
+    <% unless user.new_record? or user.is_demo %>
+      <li>
+        <%= check_box_tag 'user_ids[]', user.id %>
+        <%= label_tag "#{user.name} (#{user.login} | #{user.plaintext_password})" %>
+      </li>
+    <% end %>
+  <% end %>
+  <% @users.where(is_active: false).each do |user| %>
+    <% unless user.new_record? or user.is_demo %>
+      <li>
+        <%= check_box_tag 'user_ids[]', user.id %>
+        <%= label_tag "#{user.name} (#{user.login} | #{user.plaintext_password})" %>
+      </li>
+    <% end %>
+  <% end %>
+  <%= submit_tag 'Aktiv&eacute;r valgte brugere'.html_safe %>
+</ol>
+<% end %>

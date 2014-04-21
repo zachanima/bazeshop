@@ -15,6 +15,7 @@ class Admin::UsersController < Admin::ApplicationController
     params[:user][:password_confirmation] = params[:user][:password]
     params[:user][:plaintext_password] = params[:user][:password]
     @user = @shop.users.build params[:user]
+    @user.is_active = true
 
     if @user.save
       redirect_to admin_shop_users_path(@shop), notice: 'Created user.'
