@@ -58,7 +58,7 @@
 
   <% if @shop.allow_payment %>
     <% amount = (current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance).to_i + (@shop.shipping_price ? @shop.shipping_price : 0) %>
-    <% if amount - (@shop.shipping_price ? @shop.shipping_price : 0) >= @shop.free_shipping_over %>
+    <% if current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) >= @shop.free_shipping_over %>
         <% amount -= @shop.shipping_price %>
     <% end %>
     <% vat = @shop.add_vat ? 0.25 * amount : 0 %>
