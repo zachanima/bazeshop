@@ -54,6 +54,10 @@ class ShopsController < ApplicationController
       OrderMailer.receipt(@order).deliver unless @order.user.email.blank?
       OrderMailer.manager_receipt(@order).deliver unless @order.user.manager.nil? or @order.user.manager.email.blank?
       OrderMailer.master_receipt(@order).deliver unless @order.user.is_demo
+
+      @order.fields.split(',').collect { |f| /^[0-9A-Za-z]+@[0-9A-Za-z]+\.[0-9A-Za-z]+$/.match f }.compact.collect(&:to_s).each do |email|
+        OrderMailer.user_receipt(@order, email).deliver unless email.blank?
+      end
     end
   end
 end

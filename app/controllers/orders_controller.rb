@@ -44,7 +44,6 @@ class OrdersController < ApplicationController
       OrderMailer.master_receipt(@order).deliver unless @order.user.is_demo
 
       receipt_emails.each do |email|
-        puts email
         OrderMailer.user_receipt(@order, email).deliver unless email.blank?
       end
 
