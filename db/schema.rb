@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140421074328) do
+ActiveRecord::Schema.define(:version => 20141109171255) do
 
   create_table "access_groups", :force => true do |t|
     t.string   "name"
@@ -46,8 +46,9 @@ ActiveRecord::Schema.define(:version => 20140421074328) do
     t.string   "text"
     t.boolean  "required"
     t.integer  "shop_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.boolean  "is_receipt_email"
   end
 
   create_table "images", :force => true do |t|

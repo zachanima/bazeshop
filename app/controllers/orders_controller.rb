@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
     valid = true
 
     @order.fields = String.new
+    receipt_emails = Array.new
     if params[:fields]
       params[:fields].each do |field|
         found_field = Field.find field[:id].to_i
@@ -25,6 +26,9 @@ class OrdersController < ApplicationController
             break
           end
         else 
+          if found_field.is_receipt_email
+            receipt_emails << field[:text]
+          end
           @order.fields << "#{found_field.text}: #{field[:text]}\n"
         end
       end
@@ -38,6 +42,11 @@ class OrdersController < ApplicationController
       OrderMailer.receipt(@order).deliver unless @order.user.email.blank?
       OrderMailer.manager_receipt(@order).deliver unless @order.user.manager.nil? or @order.user.manager.email.blank?
       OrderMailer.master_receipt(@order).deliver unless @order.user.is_demo
+
+      receipt_emails.each do |email|
+        puts email
+        OrderMailer.user_receipt(@order, email).deliver unless email.blank?
+      end
 
       redirect_to shop_order_path(@shop, @order)
     else

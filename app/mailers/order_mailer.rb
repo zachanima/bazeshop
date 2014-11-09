@@ -32,4 +32,12 @@ class OrderMailer < ActionMailer::Base
 
     mail to: 'shop@baze.dk', subject: "#{@shop.name}, Ordre ##{order.id}"
   end
+
+  def user_receipt(order, email)
+    @order = order
+    @user = @order.user
+    @shop = @user.shop
+
+    mail to: email, subject: "#{@shop.name}, Ordre ##{order.id}"
+  end
 end
