@@ -1,8 +1,20 @@
 <div id="product">
-  <%= link_to @product.images.first.image.url, id: :image do %>
-    <%= image_tag @product.images.first.image.url(:thumb) %><br>
-    &larr; 1 af <%= @product.images.count %> &rarr;
-  <% end if @product.images.first %>
+  <div id="product_image">
+    <% @product.images.order(:position).each do |image| %>
+      <%= link_to image.image.url, class: :image do %>
+        <%= image_tag image.image.url(:thumb) %>
+      <% end unless image.nil? %>
+    <% end %>
+    <% if @product.images.count > 1 %>
+      <div id="image_nav">
+        <%= link_to '&larr;'.html_safe, '#', class: 'prev_image' %>
+        <span id="current_image">1</span>
+        /
+        <span id="total_images"><%= @product.images.count %></span>
+        <%= link_to '&rarr;'.html_safe, '#', class: 'next_image' %>
+      </div>
+    <% end %>
+  </div>
 
   <h1><%= @product.name %></h1>
   <%= content_tag :h2, @product.number if @product.number %>

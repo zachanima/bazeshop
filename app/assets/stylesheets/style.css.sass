@@ -184,9 +184,19 @@ div#content
   div#product
     margin-left: 224px
 
-    a#image
+    div#product_image
       float: left
       margin-left: -224px
+
+      > a.image
+        display: none
+
+        &:first-child
+          display: inline
+
+    div#image_nav
+      text-align: center
+      width: 100%
 
     div#text
       border-top: 1px solid #ddd
