@@ -42,7 +42,7 @@
         <% else %>
           <%= current_user.name %><br>
         <% end %>
-        <%= number_to_smart_currency current_user.balance, @shop.currency %><br>
+        <%= number_to_smart_currency current_user.balance, @shop.currency if not current_user.balance.nil? and current_user.balance != 0 %><br>
         <%= link_to 'Log ud', destroy_user_session_path(@shop) %>
       <% end if user_signed_in? %>
     </div>
