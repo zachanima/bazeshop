@@ -14,10 +14,10 @@ module ApplicationHelper
   def number_to_smart_currency number, currency = 'kr.'
     if not number
       return
-    elsif number % 1 == 0
-      "#{number.to_i} #{currency}"
+    #elsif number % 1 == 0
+      #"#{number.to_i} #{currency}"
     else
-      number_to_currency number, unit: currency, format: '%n %u'
+      number_to_currency number, unit: currency, format: '%n %u', separator: ','
     end
   end
 end
