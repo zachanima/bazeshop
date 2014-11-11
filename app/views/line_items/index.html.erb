@@ -36,7 +36,8 @@
         </tr>
       <% gross_price = current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) %>
       <% gross_price = gross_price.nil? ? 0 : gross_price %>
-      <% if @shop.shipping_price and gross_price < @shop.free_shipping_over %>
+      <% all_products_are_reorder_limited = current_user.line_items.current.collect(&:product).collect(&:category).collect(&:reorder_period).collect { |rp| rp ? nil : true }.compact.size == 0 %>
+      <% if @shop.shipping_price and gross_price < @shop.free_shipping_over and not all_products_are_reorder_limited %>
         <tr>
           <th colspan="8">Fragt</th>
           <th class="number">
