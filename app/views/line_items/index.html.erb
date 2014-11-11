@@ -34,7 +34,9 @@
             <%= number_to_smart_currency current_user.line_items.current.collect(&:gross_price).compact.inject(&:+), @shop.currency %>
           </th>
         </tr>
-      <% if @shop.shipping_price and current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) < @shop.free_shipping_over %>
+      <% gross_price = current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) %>
+      <% gross_price = gross_price.nil? ? 0 : gross_price %>
+      <% if @shop.shipping_price and gross_price < @shop.free_shipping_over %>
         <tr>
           <th colspan="8">Fragt</th>
           <th class="number">
@@ -44,7 +46,7 @@
       <tr>
         <th colspan="8">Total</th>
         <th class="number">
-          <%= number_to_smart_currency ((@shop.shipping_price ? @shop.shipping_price : 0) + current_user.line_items.current.collect(&:gross_price).compact.inject(&:+)), @shop.currency %>
+          <%= number_to_smart_currency ((@shop.shipping_price ? @shop.shipping_price : 0) + gross_price), @shop.currency %>
         </th>
       </tr>
       <% end %>

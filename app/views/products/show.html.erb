@@ -86,7 +86,7 @@
         <%= f.submit 'Tilf&oslash;j til kurv'.html_safe %>
       </div>
     <% end %>
-  <% end if @product.category.reorderable? current_user and not current_user.product_in_cart? @product %>
+  <% end if @product.category.reorderable? current_user and not (@product.category.reorder_period and current_user.product_in_cart? @product) %>
 
   <% unless @product.category.reorderable? current_user %>
     <div id="reorder_info">
