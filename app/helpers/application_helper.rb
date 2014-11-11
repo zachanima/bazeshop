@@ -17,7 +17,7 @@ module ApplicationHelper
     #elsif number % 1 == 0
       #"#{number.to_i} #{currency}"
     else
-      number_to_currency number, unit: currency, format: '%n %u', separator: ','
+      number_to_currency number, unit: currency, format: '%n %u', separator: ',', delimiter: '.'
     end
   end
 end
