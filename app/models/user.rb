@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :users, foreign_key: :manager_id, dependent: :restrict
   has_many :orders, dependent: :destroy
   has_many :line_items
+  has_many :category_user_order_dates, dependent: :destroy
+  has_many :categories, through: :category_user_order_dates
   has_and_belongs_to_many :access_groups
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
@@ -24,5 +26,9 @@ class User < ActiveRecord::Base
 
   def email_required?
     false
+  end
+
+  def product_in_cart? product
+    self.line_items.current.where(product_id: product.id).exists?
   end
 end

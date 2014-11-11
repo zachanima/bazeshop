@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141109171255) do
+ActiveRecord::Schema.define(:version => 20141111035545) do
 
   create_table "access_groups", :force => true do |t|
     t.string   "name"
@@ -33,14 +33,26 @@ ActiveRecord::Schema.define(:version => 20141109171255) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "shop_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "parent_id"
     t.integer  "position"
+    t.integer  "reorder_period"
   end
 
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
   add_index "categories", ["shop_id"], :name => "index_categories_on_shop_id"
+
+  create_table "category_user_order_dates", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "user_id"
+    t.date     "order_date"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "category_user_order_dates", ["category_id"], :name => "index_category_user_order_dates_on_category_id"
+  add_index "category_user_order_dates", ["user_id"], :name => "index_category_user_order_dates_on_user_id"
 
   create_table "fields", :force => true do |t|
     t.string   "text"

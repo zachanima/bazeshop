@@ -3,9 +3,11 @@ class Category < ActiveRecord::Base
   belongs_to :parent, class_name: 'Category'
   has_many :categories, foreign_key: :parent_id
   has_many :products, dependent: :restrict
+  has_many :category_user_order_dates, dependent: :destroy
+  has_many :users, through: :category_user_order_dates
   has_and_belongs_to_many :access_groups
 
-  attr_accessible :name, :shop_id, :parent_id, :access_group_ids
+  attr_accessible :name, :shop_id, :parent_id, :access_group_ids, :reorder_period
 
   validates :name, presence: true
   validates :shop, presence: true
@@ -48,6 +50,35 @@ class Category < ActiveRecord::Base
         end
       end
       false
+    end
+  end
+
+  def reorderable? user
+    if not self.category_user_order_dates.exists? or not user.category_user_order_dates.exists? or self.reorder_period.blank?
+      true
+    elsif self.reorderable(user) <= Date.today
+      true
+    else
+      false
+    end
+  end
+
+  def last_order_date user
+    if self.category_user_order_dates.exists? and user.category_user_order_dates.exists?
+      user_order_date = self.category_user_order_dates.where(user_id: user.id).last
+      if user_order_date
+        user_order_date.order_date
+      else
+        nil
+      end
+    end
+  end
+
+  def reorderable user
+    if self.category_user_order_dates.exists? or user.category_user_order_dates.empty or not self.reorder_peroid.empty?
+      self.last_order_date(user) + self.reorder_period
+    else
+      Date.today
     end
   end
 

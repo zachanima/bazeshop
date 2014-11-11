@@ -19,9 +19,9 @@
             <% end %>
           </td>
           <td><%= number_to_smart_currency line_item.product_gross_price, @shop.currency if line_item.product_gross_price %></td>
-          <td class="action"><%= button_to '-', decrement_shop_line_item_path(@shop, line_item), method: :put %></td>
+          <td class="action"><%= button_to '-', decrement_shop_line_item_path(@shop, line_item), method: :put unless line_item.product.category.reorder_period %></td>
           <td class="number"><%= line_item.quantity %> stk.</td>
-          <td class="action"><%= button_to '+', increment_shop_line_item_path(@shop, line_item), method: :put %></td>
+          <td class="action"><%= button_to '+', increment_shop_line_item_path(@shop, line_item), method: :put unless line_item.product.category.reorder_period %></td>
           <td class="action"><%= button_to 'Slet', shop_line_item_path(@shop, line_item), method: :delete %></td>
           <td class="number">
             <%= number_to_smart_currency line_item.gross_price, @shop.currency if line_item.gross_price %>
@@ -57,7 +57,7 @@
   <strong>Denne ordre kan ikke afgives, da den vil overskride dit budget.</strong>
 
   <% if @shop.allow_payment %>
-    <% amount = (current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - current_user.balance).to_i + (@shop.shipping_price ? @shop.shipping_price : 0) %>
+    <% amount = (current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) - (current_user.balance.nil? ? 0 : current_user.balance)).to_i + (@shop.shipping_price ? @shop.shipping_price : 0) %>
     <% if current_user.line_items.current.collect(&:gross_price).compact.inject(&:+) >= @shop.free_shipping_over %>
         <% amount -= @shop.shipping_price %>
     <% end %>

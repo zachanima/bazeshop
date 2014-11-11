@@ -89,9 +89,9 @@
               <% end %>
             </td>
             <td><%= number_to_smart_currency line_item.product_gross_price, @shop.currency if line_item.product_gross_price %></td>
-            <td class="action"><%= button_to '-', decrement_shop_line_item_path(@shop, line_item), method: :put %></td>
+            <td class="action"><%= button_to '-', decrement_shop_line_item_path(@shop, line_item), method: :put unless line_item.product.category.reorder_period %></td>
             <td class="number"><%= line_item.quantity %> stk.</td>
-            <td class="action"><%= button_to '+', increment_shop_line_item_path(@shop, line_item), method: :put %></td>
+            <td class="action"><%= button_to '+', increment_shop_line_item_path(@shop, line_item), method: :put unless line_item.product.category.reorder_period %></td>
             <td class="action"><%= button_to 'Slet', shop_line_item_path(@shop, line_item), method: :delete %></td>
             <td class="number">
               <%= number_to_smart_currency line_item.gross_price, @shop.currency if line_item.gross_price %>

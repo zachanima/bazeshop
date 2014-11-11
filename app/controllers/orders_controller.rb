@@ -39,6 +39,11 @@ class OrdersController < ApplicationController
       current_user.balance -= @order.gross_price if current_user.balance and @order.gross_price
       current_user.save
 
+      # Insert category user order date
+      @order.line_items.collect(&:product).each do |product|
+        current_user.category_user_order_dates.create(category_id: product.category.id, order_date: Date.today)
+      end
+
       OrderMailer.receipt(@order).deliver unless @order.user.email.blank?
       OrderMailer.manager_receipt(@order).deliver unless @order.user.manager.nil? or @order.user.manager.email.blank?
       OrderMailer.master_receipt(@order).deliver unless @order.user.is_demo

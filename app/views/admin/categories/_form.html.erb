@@ -5,6 +5,10 @@
         <%= f.label :name, class: 'required' %>
         <%= f.text_field :name %>
       </li>
+      <li>
+        <%= f.label :reorder_period, 'Reorder period in days' %>
+        <%= f.number_field :reorder_period %>
+      </li>
       <%= content_tag :li do %>
         <%= f.label :parent_id, 'Parent' %>
         <%= f.collection_select :parent_id, @categories, :id, :indented_name_for_select, include_blank: true %>

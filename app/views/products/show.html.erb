@@ -75,12 +75,23 @@
 
     <% unless current_user.is_catalogue %>
       <div>
+      <% if @product.category.reorder_period.nil? %>
         <%= f.label :quantity, 'Antal' %>
         <%= f.select :quantity, options_for_select((1..20).collect { |n| [n, n] }) %>
+      <% else %>
+        <%= f.hidden_field :quantity, value: 1 %>
+      <% end %>
       </div>
       <div id="add_to_cart">
         <%= f.submit 'Tilf&oslash;j til kurv'.html_safe %>
       </div>
     <% end %>
+  <% end if @product.category.reorderable? current_user and not current_user.product_in_cart? @product %>
+
+  <% unless @product.category.reorderable? current_user %>
+    <div id="reorder_info">
+      <p>Du kan igen bestille et produkt fra kategorien <em><%= @product.category.name %></em> den <strong><%= @product.category.reorderable(current_user).to_s(:short) %> <%= @product.category.reorderable(current_user).year %></strong></p>
+      <p>Din forrige bestilling fra denne kategori blev afgivet den <strong><%= @product.category.last_order_date(current_user).to_s(:short) %> <%= @product.category.last_order_date(current_user).year %></strong>
+    </div>
   <% end %>
 </div>
