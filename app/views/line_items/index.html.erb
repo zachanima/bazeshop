@@ -82,7 +82,12 @@
       <input type="hidden" name="baze_shop" value="<%= @shop.link %>">
       <% @shop.fields.each do |field| %>
         <div class="fields">
-          <%= label_tag dom_id(field), field.text, class: field.required ? 'required' : nil %>
+          <%= label_tag dom_id(field), class: field.required ? 'required' : nil do %>
+            <%= field.text %>
+            <% if field.required %>
+              <span class="required_indicator">*</span>
+            <% end %>
+          <% end %>
           <%= text_field_tag 'fields[][text]', nil, id: dom_id(field) %>
           <%= hidden_field_tag 'fields[][id]', field.id %>
         </div>
@@ -112,7 +117,12 @@
   <%= form_for [@shop, @order] do |f| %>
     <% @shop.fields.each do |field| %>
       <div class="fields">
-        <%= label_tag dom_id(field), field.text, class: field.required ? 'required' : nil %>
+        <%= label_tag dom_id(field), class: field.required ? 'required' : nil do %>
+          <%= field.text %>
+          <% if field.required %>
+            <span class="required_indicator">*</span>
+          <% end %>
+        <% end %>
         <%= text_field_tag 'fields[][text]', nil, id: dom_id(field) %>
         <%= hidden_field_tag 'fields[][id]', field.id %>
       </div>
