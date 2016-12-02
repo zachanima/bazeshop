@@ -9,7 +9,8 @@
       <% unless @shop.link_style.blank? %>
         a { color: <%== @shop.link_style %>; }
         div#nav, div.cart table th, div#content table.order tr th { background-color: <%== @shop.link_style %>; }
-        div#content, div#cart { border: 5px solid <%== @shop.link_style %>; border-width: 5px 0 1px 0; }
+        div#content, div#cart { border: 5px solid <%== @shop.link_style %>; }
+        div#content, div#cart { border-width: 5px 0 1px 0; }
       <% end %>
       <% unless @shop.header_style.blank? %>
         div#header { background-color: <%== @shop.header_style %>; }
