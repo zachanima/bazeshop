@@ -15,7 +15,6 @@ private
   end
 
   def after_sign_out_path_for resource
-    id = params[:shop_id] || params[:id]
-    @shop || Shop.find_by_link(id) || Shop.find(id)
+    resource.shop
   end
 end
