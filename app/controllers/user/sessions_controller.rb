@@ -15,6 +15,6 @@ private
   end
 
   def after_sign_out_path_for resource
-    resource.shop
+    @shop
   end
 end
