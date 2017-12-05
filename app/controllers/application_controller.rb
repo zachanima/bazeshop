@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
   
   def sign_out_on_wrong_shop
-    if current_user and current_user.shop != @shop
+    if current_user and @shop and current_user.shop != @shop
       sign_out_and_redirect(current_user)
     end
   end
