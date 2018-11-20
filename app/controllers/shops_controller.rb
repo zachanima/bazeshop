@@ -32,11 +32,15 @@ class ShopsController < ApplicationController
     @order.gross_price = @order.line_items.collect(&:gross_price).compact.inject(&:+)
     @order.net_price = @order.line_items.collect(&:net_price).compact.inject(&:+)
     @order.user_name = current_user.name
-    @order.transaction_id = params['OrderID']
-    if @shop.shipping_price and @order.gross_price and @order.gross_price < @shop.free_shipping_over
-      @order.payment = (@order.gross_price + @shop.shipping_price - current_user.balance)
+    @order.transaction_id = params['onpay_number']
+    if @shop.shipping_price and @order.gross_price and @order.gross_price < (@shop.free_shipping_over.nil? ? 0 : @shop.free_shipping_over)
+      @order.payment = (
+        (@order.gross_price.nil? ? 0 : @order.gross_price)
+        + (@shop.shipping_price.nil? ? 0 : @shop.shipping_price)
+        - (current_user.balance.nil? ? 0 : current_user.balance)
+      )
     else
-      @order.payment = @order.gross_price - current_user.balance
+      @order.payment = (@order.gross_price.nil? ? 0 : @order.gross_price) - (current_user.balance.nil? ? 0 : current_user.balance)
     end
     @order.payment *= 1.25 if @shop.add_vat
     @order.fields = current_user.fields

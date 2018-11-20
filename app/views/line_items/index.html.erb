@@ -70,7 +70,48 @@
     <%# validate form and submit asynchronously %>
     <p> Stjernemarkerede felter <em>skal</em> udfyldes.</p>
 
-    <form action="https://pay.dandomain.dk/proxy.aspx" method="POST" id="payment">
+    <form method="post" action="https://onpay.io/window/v3/" id="payment">
+      <input type="hidden" name="onpay_accepturl" value="http://213.168.249.160/shops/<%= @shop.link %>/payment_ok">
+      <input type="hidden" name="onpay_amount" value="<%= ((amount + vat) * 100).to_i %>">
+      <input type="hidden" name="onpay_currency" value="DKK">
+      <input type="hidden" name="onpay_declineurl" value="http://213.168.249.160/shops/<%= @shop.link %>/payment_fail">
+      <input type="hidden" name="onpay_gatewayid" value="4642759">
+      <input type="hidden" name="onpay_reference" value="<%= order_id %>">
+      <input type="hidden" name="onpay_hmac_sha1" value="<%= onpay_hash('4642759', 'DKK', ((amount + vat) * 100).to_i, order_id,
+	"http://213.168.249.160/shops/" + @shop.link + "/payment_ok",
+	"http://213.168.249.160/shops/" + @shop.link + "/payment_fail"
+      ) %>">
+      <% @shop.fields.each do |field| %>
+        <div class="fields">
+          <%= label_tag dom_id(field), class: field.required ? 'required' : nil do %>
+            <%= field.text %>
+            <% if field.required %>
+              <span class="required_indicator">*</span>
+            <% end %>
+          <% end %>
+          <%= text_field_tag 'fields[][text]', nil, id: dom_id(field) %>
+          <%= hidden_field_tag 'fields[][id]', field.id %>
+        </div>
+      <% end %>
+      <div class="fields">
+        <%= label_tag :baze_comment, 'Kommentar' %>
+        <%= text_area_tag :baze_comment %>
+      </div>
+      <fieldset>
+        <ol>
+          <li>
+            <input type="checkbox" name="accept_terms" id="accept_terms">
+            <label for="accept_terms">Accept&eacute;r handelsbetingelser</label> (<a href="/shops/<%= @shop.link %>/terms" target="_blank">&aring;bn i nyt vindue</a>)
+          </li>
+          <li>
+            <input id="go_to_payment" type="submit" value="G&aring; til betaling..." disabled="disabled">&nbsp;
+            <%= image_tag 'payments.png', style: 'vertical-align: middle' %>
+          </li>
+        </ol>
+      </fieldset>
+    </form>
+
+    <!--<form action="https://pay.dandomain.dk/proxy.aspx" method="POST" id="payment">
       <input type="hidden" name="MerchantNumber" value="4642759">
       <input type="hidden" name="TunnelURL" value="http://shop.baze.dk/shops/<%= @shop.link %>/pay">
       <input type="hidden" name="Amount" value="<%= (amount + vat).to_s.gsub('.', ',') %>">
@@ -108,7 +149,7 @@
           </li>
         </ol>
       </fieldset>
-    </form>
+    </form>-->
   <% end %>
 
 <% else %>
