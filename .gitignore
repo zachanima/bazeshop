@@ -18,8 +18,3 @@
 /config/database.yml
 /public/uploads/**/*
 /public/assets/*
-
-# Ignore configs
-/app/controllers/admin/application_controller.rb
-/app/mailers/order_mailer.rb
-/config/environments/production.rb
