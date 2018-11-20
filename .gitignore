@@ -18,3 +18,7 @@
 /config/database.yml
 /public/uploads/**/*
 /public/assets/*
+
+# Ignore local scripts
+/*.sh
+/*.rb
