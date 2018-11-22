@@ -71,15 +71,16 @@
     <p> Stjernemarkerede felter <em>skal</em> udfyldes.</p>
 
     <form method="post" action="https://onpay.io/window/v3/" id="payment">
-      <input type="hidden" name="onpay_accepturl" value="http://213.168.249.160/shops/<%= @shop.link %>/payment_ok">
+      <input type="hidden" name="baze_shop" value="<%= @shop.link %>">
+      <input type="hidden" name="onpay_accepturl" value="http://shop.baze.dk/shops/<%= @shop.link %>/payment_ok">
       <input type="hidden" name="onpay_amount" value="<%= ((amount + vat) * 100).to_i %>">
       <input type="hidden" name="onpay_currency" value="DKK">
-      <input type="hidden" name="onpay_declineurl" value="http://213.168.249.160/shops/<%= @shop.link %>/payment_fail">
+      <input type="hidden" name="onpay_declineurl" value="http://shop.baze.dk/shops/<%= @shop.link %>/payment_fail">
       <input type="hidden" name="onpay_gatewayid" value="4642759">
       <input type="hidden" name="onpay_reference" value="<%= order_id %>">
       <input type="hidden" name="onpay_hmac_sha1" value="<%= onpay_hash('4642759', 'DKK', ((amount + vat) * 100).to_i, order_id,
-	"http://213.168.249.160/shops/" + @shop.link + "/payment_ok",
-	"http://213.168.249.160/shops/" + @shop.link + "/payment_fail"
+	"http://shop.baze.dk/shops/" + @shop.link + "/payment_ok",
+	"http://shop.baze.dk/shops/" + @shop.link + "/payment_fail"
       ) %>">
       <% @shop.fields.each do |field| %>
         <div class="fields">
