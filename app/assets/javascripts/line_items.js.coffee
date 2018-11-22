@@ -28,7 +28,7 @@ jQuery ->
     else
       $('#go_to_payment').attr('disabled', 'disabled')
 
-  $('form#payment[action="https://pay.dandomain.dk/proxy.aspx"]').submit ->
+  $('form#payment[action="https://onpay.io/window/v3/"]').submit ->
     inputs = $('div.fields input[type=text]');
     fields = ''
 
