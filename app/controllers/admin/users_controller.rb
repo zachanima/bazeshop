@@ -125,6 +125,7 @@ class Admin::UsersController < Admin::ApplicationController
             new_user.balance = value
         end
       end
+      new_user.is_active = true
       unless new_user.save
         flash[:error] = 'Error while importing users, please check list.'
       end
